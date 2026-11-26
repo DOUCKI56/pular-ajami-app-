@@ -21,7 +21,12 @@ agréé à la conférence JCMWA/MICCAO de Ngaoundéré (1998) : 33 lettres, dont
 
 ## Installation / utilisation
 
-Aucune compilation, aucune dépendance, aucun serveur obligatoire :
+**En ligne (recommandé)** : l'application est publiée automatiquement sur
+GitHub Pages à chaque push (workflow `.github/workflows/pages.yml`) :
+
+> https://doucki56.github.io/pular-ajami-app-/
+
+**En local**, aucune compilation, aucune dépendance, aucun serveur obligatoire :
 
 1. Ouvrez `index.html` dans un navigateur, **ou** servez le dossier :
    `python3 -m http.server 8080`
