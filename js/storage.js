@@ -2,6 +2,7 @@
 const Store = (() => {
   const PREFIX = "pular-ajami.";
 
+
   function get(key, fallback) {
     try {
       const raw = localStorage.getItem(PREFIX + key);
@@ -24,7 +25,7 @@ const Store = (() => {
   }
 
   function reset() {
-    ["profile", "progress", "quizStats", "questions", "homeworks", "trainerMode"].forEach(remove);
+    ["profile", "progress", "quizStats", "questions", "homeworks", "trainerMode", "content"].forEach(remove);
   }
 
   /* Profil */
@@ -63,7 +64,18 @@ const Store = (() => {
   function trainerMode() { return get("trainerMode", false); }
   function setTrainerMode(v) { set("trainerMode", v); }
 
+  /* Contenus ajoutés par l'administrateur : {vocabulary: [], sessions: [],
+     homeworks: [], corrections: {}, deletedVocab: [], deletedSessions: [],
+     deletedHomeworks: []} */
+  function content() {
+    return get("content", {
+      vocabulary: [], sessions: [], homeworks: [], corrections: {},
+      deletedVocab: [], deletedSessions: [], deletedHomeworks: []
+    });
+  }
+  function saveContent(c) { set("content", c); }
+
   return { get, set, remove, reset, profile, progress, setProgress, quizStats,
            addQuizResult, questions, saveQuestions, homeworks, saveHomeworks,
-           trainerMode, setTrainerMode };
+           trainerMode, setTrainerMode, content, saveContent };
 })();

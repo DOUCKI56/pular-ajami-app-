@@ -11,8 +11,31 @@
   const today = () => new Date().toISOString().slice(0, 10);
   const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 
+  /* ---------- Données fusionnées (base + contenus de l'administrateur) ---------- */
+  let D = {};
+
+  function buildData() {
+    const c = Store.content();
+    const applyCorrection = (h) => (c.corrections[h.id] ? Object.assign({}, h, { correction: c.corrections[h.id] }) : h);
+    D = {
+      alphabet: DATA.alphabet,
+      vowels: DATA.vowels,
+      digraphs: DATA.digraphs,
+      numbers: DATA.numbers,
+      docs: DATA.docs,
+      trainers: DATA.trainers,
+      vocabulary: DATA.vocabulary.filter((w) => !c.deletedVocab.includes(w.latin)).concat(c.vocabulary),
+      sessions: DATA.sessions.filter((s) => !c.deletedSessions.includes(s.id)).concat(c.sessions),
+      homeworks: DATA.homeworks.filter((h) => !c.deletedHomeworks.includes(h.id))
+        .map(applyCorrection)
+        .concat(c.homeworks.map(applyCorrection))
+    };
+  }
+  buildData();
+
   /* ---------- Navigation ---------- */
   const routes = {};
+  const binders = {};
 
   function nav() {
     const hash = location.hash.replace(/^#\/?/, "") || "accueil";
@@ -167,19 +190,19 @@
     vocabulaire: {
       title: "Quiz — Vocabulaire",
       make() {
-        return DATA.vocabulary.map((w) => {
+        return D.vocabulary.map((w) => {
           if (Math.random() < 0.5) {
             return {
               q: "Que signifie ce mot ?",
               display: esc(w.aj), isAjami: true, answer: w.fr + " (" + w.latin + ")",
-              opts: shuffle(DATA.vocabulary).filter((o) => o.fr !== w.fr).slice(0, 3).map((o) => o.fr + " (" + o.latin + ")").concat([w.fr + " (" + w.latin + ")"]),
+              opts: shuffle(D.vocabulary).filter((o) => o.fr !== w.fr).slice(0, 3).map((o) => o.fr + " (" + o.latin + ")").concat([w.fr + " (" + w.latin + ")"]),
               explain: esc(w.aj) + " = " + w.fr + " (" + w.latin + ")"
             };
           }
           return {
             q: "Comment écrit-on « " + w.fr + " » (" + w.latin + ") en ajami ?",
             display: esc(w.latin) + " — " + esc(w.fr), isAjami: false, answer: w.aj,
-            opts: shuffle(DATA.vocabulary).filter((o) => o.aj !== w.aj).slice(0, 3).map((o) => o.aj).concat([w.aj]),
+            opts: shuffle(D.vocabulary).filter((o) => o.aj !== w.aj).slice(0, 3).map((o) => o.aj).concat([w.aj]),
             explain: w.latin + " = " + esc(w.aj)
           };
         });
@@ -266,7 +289,7 @@
       '<h1>Iskaaka na, ' + esc(p.name || "apprenant") + ' !</h1>' +
       '<p class="lead">Bienvenue dans votre application d\'apprentissage du <strong>pular</strong> écrit en <strong>ajami harmonisé</strong> (norme JCMWA 1998).</p>' +
       '<div class="stats">' +
-      '<div class="stat"><div class="num">' + done + " / " + DATA.sessions.length + '</div><div class="lbl">séances terminées</div></div>' +
+      '<div class="stat"><div class="num">' + done + " / " + D.sessions.length + '</div><div class="lbl">séances terminées</div></div>' +
       '<div class="stat"><div class="num">' + DATA.alphabet.length + '</div><div class="lbl">lettres harmonisées</div></div>' +
       '<div class="stat"><div class="num">' + quizzes + '</div><div class="lbl">quiz tentés</div></div>' +
       '<div class="stat"><div class="num">' + nbH + '</div><div class="lbl">devoirs déposés</div></div>' +
@@ -276,7 +299,7 @@
       '<div class="card"><h3>✍️ Écrire</h3><p class="muted">Atelier d\'écriture : entraînez-vous à tracer les lettres et les mots.</p><a class="btn small" href="#/ecrire">Ouvrir</a></div>' +
       '<div class="card"><h3>🗣️ Parler</h3><p class="muted">Écoutez la prononciation et enregistrez-vous.</p><a class="btn small" href="#/parler">Ouvrir</a></div>' +
       '<div class="card"><h3>🎯 Réviser</h3><p class="muted">Quiz de révision : alphabet, voyelles, vocabulaire.</p><a class="btn small" href="#/reviser">Se tester</a></div>' +
-      '<div class="card"><h3>🏫 Salle de cours</h3><p class="muted">' + DATA.sessions.length + ' séances guidées, du débutant à l\'avancé.</p><a class="btn small" href="#/cours">Entrer</a></div>' +
+      '<div class="card"><h3>🏫 Salle de cours</h3><p class="muted">' + D.sessions.length + ' séances guidées, du débutant à l\'avancé.</p><a class="btn small" href="#/cours">Entrer</a></div>' +
       '<div class="card"><h3>💬 Formateurs</h3><p class="muted">' + (nbQ ? nbQ + " question(s) posée(s)." : "Posez vos questions aux formateurs.") + '</p><a class="btn small" href="#/formateurs">Poser une question</a></div>' +
       '<div class="card"><h3>📤 Devoirs</h3><p class="muted">Déposez vos devoirs et consultez les corrections.</p><a class="btn small" href="#/devoirs">Ouvrir</a></div>' +
       '<div class="card"><h3>📥 Documents</h3><p class="muted">PDF et fichiers légers à télécharger.</p><a class="btn small" href="#/documents">Télécharger</a></div>' +
@@ -342,7 +365,7 @@
   routes.ecrire = function () {
     const options = DATA.alphabet.map((L) =>
       '<option value="' + esc(L.aj) + '">' + esc(L.name) + " (" + esc(L.latin) + ")</option>").join("");
-    const words = DATA.vocabulary.map((w) =>
+    const words = D.vocabulary.map((w) =>
       '<option value="' + esc(w.aj) + '">' + esc(w.latin) + " — " + esc(w.fr) + "</option>").join("");
     return (
       '<h1>✍️ Écrire — atelier</h1>' +
@@ -375,7 +398,7 @@
   };
 
   routes.parler = function () {
-    const phrases = DATA.vocabulary.filter((w) => w.cat === "Salutations").concat(DATA.vocabulary.slice(4)).map((w, i) =>
+    const phrases = D.vocabulary.filter((w) => w.cat === "Salutations").concat(D.vocabulary.slice(4)).map((w, i) =>
       '<div class="card list-item"><h3>' + aj(w.aj) + '</h3>' +
       '<p><strong>' + esc(w.latin) + '</strong> — ' + esc(w.fr) + '</p>' +
       '<button class="btn small gold" data-speak="' + esc(w.latin) + '">🔊 Écouter</button></div>').join("");
@@ -420,7 +443,7 @@
     const prog = Store.progress();
     const levels = ["Débutant", "Intermédiaire", "Avancé"];
     const sessions = levels.map((lv) => {
-      const list = DATA.sessions.filter((s) => s.level === lv);
+      const list = D.sessions.filter((s) => s.level === lv);
       if (!list.length) return "";
       return "<h2>" + esc(lv) + "</h2>" + list.map((s) => {
         const st = prog[s.id];
@@ -434,17 +457,17 @@
     }).join("");
     return (
       '<h1>🏫 Salle de cours</h1>' +
-      '<p class="lead">Votre programme complet : ' + DATA.sessions.length + ' séances guidées, chacune avec objectifs, leçon, quiz et devoir associé.</p>' + sessions
+      '<p class="lead">Votre programme complet : ' + D.sessions.length + ' séances guidées, chacune avec objectifs, leçon, quiz et devoir associé.</p>' + sessions
     );
   };
 
   routes["seance"] = function (id) {
-    const s = DATA.sessions.find((x) => x.id === id);
+    const s = D.sessions.find((x) => x.id === id);
     if (!s) return routes.cours();
     const prog = Store.progress();
-    const hw = DATA.homeworks.find((h) => h.session === s.id);
+    const hw = D.homeworks.find((h) => h.session === s.id);
     const st = prog[s.id];
-    const next = DATA.sessions[DATA.sessions.indexOf(s) + 1];
+    const next = D.sessions[D.sessions.indexOf(s) + 1];
     return (
       '<a href="#/cours" class="muted">← Salle de cours</a>' +
       '<h1>' + esc(s.title) + "</h1>" +
@@ -497,7 +520,7 @@
       '<div class="card">' +
       '<label for="qName">Votre nom</label><input type="text" id="qName" value="' + esc(Store.profile().name) + '" placeholder="Ex : Mariama D.">' +
       '<label for="qLesson">Séance concernée (facultatif)</label><select id="qLesson"><option value="">— aucune —</option>' +
-      DATA.sessions.map((s) => '<option value="' + esc(s.title) + '">' + esc(s.title) + "</option>").join("") + "</select>" +
+      D.sessions.map((s) => '<option value="' + esc(s.title) + '">' + esc(s.title) + "</option>").join("") + "</select>" +
       '<label for="qText">Votre question</label><textarea id="qText" placeholder="Ex : Pourquoi le mot « a jaraama » commence-t-il par ع et non par ا ?"></textarea>' +
       '<p style="margin-top:10px"><button class="btn" id="qSend">Envoyer la question</button></p></div>' +
       '<h2>Questions et réponses (' + qs.length + ")</h2>" + list
@@ -531,7 +554,7 @@
   routes.devoirs = function () {
     const tMode = Store.trainerMode();
     const subs = Store.homeworks();
-    const cards = DATA.homeworks.map((h) => {
+    const cards = D.homeworks.map((h) => {
       const mine = subs.filter((s) => s.homeworkId === h.id);
       const corr = h.correction;
       const corrHtml = (corr && corr.published) || tMode
@@ -628,6 +651,202 @@
         Store.reset();
         nav();
       }
+    });
+  };
+
+  /* ---------- Administration ---------- */
+
+  function persistContent(c) {
+    Store.saveContent(c);
+    buildData();
+    nav();
+  }
+
+  function removeContentItem(kind, key) {
+    const c = Store.content();
+    if (kind === "vocabulary") {
+      if (c.vocabulary.some((w) => (w.id || w.latin) === key)) {
+        c.vocabulary = c.vocabulary.filter((w) => (w.id || w.latin) !== key);
+      } else {
+        const w = D.vocabulary.find((x) => (x.id || x.latin) === key);
+        if (w && !c.deletedVocab.includes(w.latin)) c.deletedVocab.push(w.latin);
+      }
+    } else if (kind === "sessions") {
+      if (c.sessions.some((s) => s.id === key)) {
+        c.sessions = c.sessions.filter((s) => s.id !== key);
+      } else if (!c.deletedSessions.includes(key)) {
+        c.deletedSessions.push(key);
+      }
+    } else if (kind === "homeworks") {
+      if (c.homeworks.some((h) => h.id === key)) {
+        c.homeworks = c.homeworks.filter((h) => h.id !== key);
+      } else if (!c.deletedHomeworks.includes(key)) {
+        c.deletedHomeworks.push(key);
+      }
+    }
+    persistContent(c);
+  }
+
+  routes.admin = function () {
+    const c = Store.content();
+    if (!Store.trainerMode()) {
+      return '<h1>🔐 Administration</h1>' +
+        '<div class="notice">🛡️ Le mode formateur est désactivé. Activez-le pour administrer les contenus (vocabulaire, séances, devoirs, corrections).</div>' +
+        '<button class="btn" id="adminEnable">Activer le mode formateur</button>';
+    }
+    const vocabList = D.vocabulary.map((w) =>
+      '<div class="card list-item"><strong>' + aj(w.aj) + '</strong> — ' + esc(w.latin) +
+      ' <span class="muted">(' + esc(w.fr) + ' · ' + esc(w.cat) + ')</span>' +
+      '<button class="btn small danger" data-del-vocab="' + esc(w.id || w.latin) + '" style="float:right">🗑️</button></div>').join("") ||
+      '<p class="muted">Aucun mot.</p>';
+    const sessionList = D.sessions.map((s) =>
+      '<div class="card list-item"><strong>' + esc(s.title) + '</strong> <span class="badge">' + esc(s.level) + '</span>' +
+      '<span class="meta"> ⏱ ' + esc(s.duration) + (c.sessions.some((x) => x.id === s.id) ? ' · <span class="badge gold">ajoutée par vous</span>' : '') + '</span>' +
+      '<button class="btn small danger" data-del-session="' + esc(s.id) + '" style="float:right">🗑️</button></div>').join("");
+    const homeworkList = D.homeworks.map((h) => {
+      const pub = h.correction && h.correction.published;
+      return '<div class="card list-item"><strong>' + esc(h.title) + '</strong>' +
+        (pub ? ' <span class="badge ok">correction publiée</span>' : ' <span class="badge warn">sans correction</span>') +
+        '<span class="meta"> ' + esc(h.due) + '</span>' +
+        '<div style="margin-top:6px"><button class="btn small gold" data-corr="' + esc(h.id) + '">📝 Corriger / publier la correction</button> ' +
+        '<button class="btn small danger" data-del-hw="' + esc(h.id) + '">🗑️ Supprimer</button></div></div>';
+    }).join("");
+    const sessionOptions = D.sessions.map((s) =>
+      '<option value="' + esc(s.id) + '">' + esc(s.title) + '</option>').join("");
+    const quizOptions = Object.keys(QUIZ_BANKS).map((id) =>
+      '<option value="' + id + '">' + esc(QUIZ_BANKS[id].title) + '</option>').join("");
+    const levels = ["Débutant", "Intermédiaire", "Avancé"].map((lv) =>
+      '<option value="' + lv + '">' + lv + '</option>').join("");
+    const cats = ["Salutations", "Famille", "Nature", "Actions", "Base", "Vie quotidienne", "Autre"].map((cat) =>
+      '<option value="' + cat + '">' + cat + '</option>').join("");
+    return (
+      '<h1>🔐 Administration</h1>' +
+      '<p class="lead">Ajoutez et gérez les contenus de l\'application : vocabulaire, séances de la salle de cours, devoirs et corrections. <span class="muted">Les contenus sont enregistrés sur cet appareil ; exportez-les pour les sauvegarder ou les partager.</span></p>' +
+
+      '<h2>➕ Vocabulaire (' + D.vocabulary.length + ')</h2>' +
+      '<div class="card"><label for="vAj">Mot en ajami (écrit de droite à gauche)</label>' +
+      '<input type="text" id="vAj" lang="ar" dir="rtl" placeholder="جَمْ" style="text-align:right;font-size:1.4rem">' +
+      '<label for="vLatin">Transcription latine</label><input type="text" id="vLatin" placeholder="jam">' +
+      '<label for="vFr">Traduction française</label><input type="text" id="vFr" placeholder="la paix / ça va">' +
+      '<label for="vCat">Catégorie</label><select id="vCat">' + cats + '</select>' +
+      '<p style="margin-top:10px"><button class="btn" id="addVocab">Ajouter au vocabulaire</button></p></div>' +
+      vocabList +
+
+      '<h2>🏫 Séances de la salle de cours (' + D.sessions.length + ')</h2>' +
+      '<div class="card"><label for="sTitle">Titre de la séance</label><input type="text" id="sTitle" placeholder="Lecture de phrases courtes">' +
+      '<label for="sLevel">Niveau</label><select id="sLevel">' + levels + '</select>' +
+      '<label for="sDuration">Durée</label><input type="text" id="sDuration" placeholder="45 min">' +
+      '<label for="sObjectives">Objectifs (un par ligne)</label><textarea id="sObjectives" placeholder="Lire des phrases simples\nReconnaître les voyelles longues"></textarea>' +
+      '<label for="sContent">Contenu de la leçon</label><textarea id="sContent" placeholder="Texte de la leçon…"></textarea>' +
+      '<label for="sQuiz">Quiz associé</label><select id="sQuiz">' + quizOptions + '</select>' +
+      '<p style="margin-top:10px"><button class="btn" id="addSession">Ajouter la séance</button></p></div>' +
+      sessionList +
+
+      '<h2>📤 Devoirs (' + D.homeworks.length + ')</h2>' +
+      '<div class="card"><label for="hTitle">Titre du devoir</label><input type="text" id="hTitle" placeholder="Dictée de 10 mots">' +
+      '<label for="hSession">Séance associée</label><select id="hSession">' + sessionOptions + '</select>' +
+      '<label for="hDue">Échéance</label><input type="text" id="hDue" placeholder="Pour la séance 9">' +
+      '<label for="hInstructions">Consignes</label><textarea id="hInstructions" placeholder="Ce que les apprenants doivent faire…"></textarea>' +
+      '<label for="hCorrection">Correction (facultative — publiez-la plus tard via le bouton « Corriger »)</label>' +
+      '<textarea id="hCorrection" placeholder="Réponse attendue, points de vigilance…"></textarea>' +
+      '<p style="margin-top:10px"><button class="btn" id="addHomework">Ajouter le devoir</button></p></div>' +
+      homeworkList +
+
+      '<h2>💾 Sauvegarde des contenus</h2>' +
+      '<div class="card"><p class="muted">Exportez vos contenus personnalisés en JSON (sauvegarde ou transfert vers un autre appareil), ou importez un fichier exporté.</p>' +
+      '<p style="margin-top:8px"><button class="btn small" id="exportContent">⬇️ Exporter les contenus (JSON)</button> ' +
+      '<button class="btn small ghost" id="clearContentBtn">🧹 Effacer les contenus ajoutés</button></p>' +
+      '<label for="importArea">Import : collez ici le contenu JSON exporté</label>' +
+      '<textarea id="importArea" placeholder="{ \"vocabulary\": … }"></textarea>' +
+      '<p style="margin-top:8px"><button class="btn small gold" id="importContent">⬆️ Importer</button></p></div>'
+    );
+  };
+
+  binders.admin = function () {
+    const enable = $("#adminEnable");
+    if (enable) {
+      enable.addEventListener("click", () => {
+        Store.setTrainerMode(true);
+        nav();
+      });
+      return;
+    }
+    $("#addVocab").addEventListener("click", () => {
+      const w = { id: uid(), aj: $("#vAj").value.trim(), latin: $("#vLatin").value.trim(),
+                  fr: $("#vFr").value.trim(), cat: $("#vCat").value };
+      if (!w.aj || !w.latin || !w.fr) { alert("Renseignez au moins l\'ajami, la transcription et la traduction."); return; }
+      const c = Store.content();
+      c.vocabulary.push(w);
+      persistContent(c);
+    });
+    $("#addSession").addEventListener("click", () => {
+      const title = $("#sTitle").value.trim();
+      const contentText = $("#sContent").value.trim();
+      if (!title || !contentText) { alert("Renseignez au moins le titre et le contenu de la leçon."); return; }
+      const s = {
+        id: uid(), title,
+        level: $("#sLevel").value,
+        duration: $("#sDuration").value.trim() || "45 min",
+        objectives: $("#sObjectives").value.split("\n").map((x) => x.trim()).filter(Boolean),
+        content: contentText,
+        quiz: $("#sQuiz").value
+      };
+      const c = Store.content();
+      c.sessions.push(s);
+      persistContent(c);
+    });
+    $("#addHomework").addEventListener("click", () => {
+      const title = $("#hTitle").value.trim();
+      if (!title) { alert("Renseignez le titre du devoir."); return; }
+      const h = {
+        id: uid(), session: $("#hSession").value, title,
+        due: $("#hDue").value.trim() || "Dès que possible",
+        instructions: $("#hInstructions").value.trim() || "Voir les consignes en classe.",
+        correction: { published: false, text: $("#hCorrection").value.trim() }
+      };
+      const c = Store.content();
+      c.homeworks.push(h);
+      persistContent(c);
+    });
+    $$('[data-del-vocab]').forEach((b) =>
+      b.addEventListener("click", () => { if (confirm("Supprimer ce mot ?")) removeContentItem("vocabulary", b.dataset.delVocab); }));
+    $$('[data-del-session]').forEach((b) =>
+      b.addEventListener("click", () => { if (confirm("Supprimer cette séance ?")) removeContentItem("sessions", b.dataset.delSession); }));
+    $$('[data-del-hw]').forEach((b) =>
+      b.addEventListener("click", () => { if (confirm("Supprimer ce devoir ?")) removeContentItem("homeworks", b.dataset.delHw); }));
+    $$('[data-corr]').forEach((b) =>
+      b.addEventListener("click", () => {
+        const id = b.dataset.corr;
+        const h = D.homeworks.find((x) => x.id === id);
+        const current = h && h.correction ? h.correction.text : "";
+        const text = prompt("Rédigez la correction (elle sera publiée pour les apprenants) :", current);
+        if (text === null) return;
+        const c = Store.content();
+        c.corrections[id] = { published: true, text };
+        persistContent(c);
+      }));
+    $("#exportContent").addEventListener("click", () => {
+      const blob = new Blob([JSON.stringify(Store.content(), null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "contenu-pular-ajami.json";
+      a.click();
+    });
+    $("#importContent").addEventListener("click", () => {
+      try {
+        const data = JSON.parse($("#importArea").value);
+        if (typeof data !== "object" || data === null) throw new Error();
+        persistContent(Object.assign(Store.content(), data));
+      } catch {
+        alert("JSON invalide.");
+      }
+    });
+    $("#clearContentBtn").addEventListener("click", () => {
+      if (!confirm("Effacer tous les contenus ajoutés (vocabulaire, séances, devoirs, corrections) ?")) return;
+      persistContent({
+        vocabulary: [], sessions: [], homeworks: [], corrections: {},
+        deletedVocab: [], deletedSessions: [], deletedHomeworks: []
+      });
     });
   };
 

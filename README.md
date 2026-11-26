@@ -53,12 +53,22 @@ tools/make_docs.py  Régénère les documents : python3 tools/make_docs.py
 
 ## Enrichir le contenu
 
-Tout le contenu pédagogique est dans `js/data.js` : alphabet, voyelles,
-vocabulaire, séances, devoirs + corrections, formateurs. Les formateurs
-peuvent le modifier directement (fork ou pull request) sans toucher au code.
+**Panneau d'administration** : menu **🔐 Administration** de l'application.
+Au premier accès, activez le **mode formateur** (bouton fourni), puis :
 
-- **Mode formateur** : Paramètres → Activer le mode formateur (répond aux
-  questions, corrige les devoirs, publie les corrections — sur l'appareil local).
+- ajouter/supprimer des **mots de vocabulaire** (ajami, transcription,
+  traduction, catégorie) — ils apparaissent aussitôt dans Lire, Écrire,
+  Parler et les quiz ;
+- ajouter/supprimer des **séances de la salle de cours** (niveau, durée,
+  objectifs, leçon, quiz associé) ;
+- ajouter des **devoirs** et **rédiger/publier les corrections** ;
+- **exporter/importer** les contenus personnalisés en JSON (sauvegarde,
+  partage entre appareils).
+
+Les contenus administrés sont stockés sur l'appareil (localStorage) et
+fusionnés avec la base intégrée. Pour une modification permanente du contenu
+de référence, éditez `js/data.js` (alphabet, voyelles, vocabulaire, séances,
+devoirs + corrections, formateurs).
 - Les questions/devoirs sont stockés sur l'appareil (localStorage). Pour une
   **classe connectée** (synchronisation multi-appareils), brancher `js/storage.js`
   sur un petit backend (par exemple Firebase Realtime Database, Supabase ou un
