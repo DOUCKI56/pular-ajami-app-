@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0e7c66">
+  <meta name="description" content="Apprendre le pular (fulfulde) en écriture ajami harmonisée : lire, écrire, parler, réviser, salle de cours, devoirs et corrections.">
+  <title>Pular Ajami — Apprendre le pular en caractères harmonisés</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Ouvrir le menu">☰</button>
+      <div class="brand">
+        <span class="brand-ajami" lang="ar">جَمْ</span>
+        <span class="brand-name">Pular Ajami</span>
+      </div>
+      <button class="install-btn" id="installBtn" hidden>Installer</button>
+    </header>
+
+    <nav class="sidebar" id="sidebar" aria-label="Navigation principale">
+      <ul>
+        <li><a href="#/accueil" data-nav="accueil">🏠 <span>Accueil</span></a></li>
+        <li><a href="#/lire" data-nav="lire">📖 <span>Lire — l'alphabet</span></a></li>
+        <li><a href="#/ecrire" data-nav="ecrire">✍️ <span>Écrire — atelier</span></a></li>
+        <li><a href="#/parler" data-nav="parler">🗣️ <span>Parler — prononciation</span></a></li>
+        <li><a href="#/reviser" data-nav="reviser">🎯 <span>Réviser — quiz</span></a></li>
+        <li><a href="#/cours" data-nav="cours">🏫 <span>Salle de cours</span></a></li>
+        <li><a href="#/formateurs" data-nav="formateurs">💬 <span>Poser une question</span></a></li>
+        <li><a href="#/devoirs" data-nav="devoirs">📤 <span>Déposer un devoir</span></a></li>
+        <li><a href="#/documents" data-nav="documents">📥 <span>Documents (PDF)</span></a></li>
+        <li><a href="#/parametres" data-nav="parametres">⚙️ <span>Paramètres</span></a></li>
+      </ul>
+      <div class="sidebar-foot">v1 — orthographe ajami harmonisée (JCMWA 1998)</div>
+    </nav>
+    <div class="backdrop" id="backdrop" hidden></div>
+
+    <main class="content" id="main" tabindex="-1"></main>
+
+    <nav class="tabbar" aria-label="Navigation rapide">
+      <a href="#/accueil" data-nav="accueil">🏠<span>Accueil</span></a>
+      <a href="#/lire" data-nav="lire">📖<span>Lire</span></a>
+      <a href="#/ecrire" data-nav="ecrire">✍️<span>Écrire</span></a>
+      <a href="#/reviser" data-nav="reviser">🎯<span>Quiz</span></a>
+      <a href="#/cours" data-nav="cours">🏫<span>Cours</span></a>
+    </nav>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

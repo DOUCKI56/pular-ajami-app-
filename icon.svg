@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#0e7c66"/>
+  <rect x="24" y="24" width="464" height="464" rx="76" fill="none" stroke="#f4c95d" stroke-width="12"/>
+  <text x="256" y="235" text-anchor="middle" font-family="'Noto Naskh Arabic','Amiri','Scheherazade New',serif" font-size="170" fill="#faf7f0" direction="rtl">جَمْ</text>
+  <text x="256" y="380" text-anchor="middle" font-family="Verdana,Geneva,sans-serif" font-size="72" font-weight="bold" fill="#f4c95d">PULAR</text>
+</svg>

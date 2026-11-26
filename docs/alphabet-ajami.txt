@@ -1,0 +1,40 @@
+ALPHABET AJAMI HARMONISE DU PULAR (Unicode)
+Copiez-collez ces caracteres.
+
+a (long)               ا
+b                      ب
+b implosif (ɓ)         Ɓ
+t                      ت
+s (emprunt)            ث
+j                      ج
+h                      ح
+kh (emprunt)           خ
+d                      د
+j (emprunt)            ذ
+r                      ر
+j (emprunt)            ز
+s                      س
+c (tch)                ش
+s (emprunt)            ص
+d (emprunt)            ض
+d implosif (ɗ)         ط
+j (emprunt)            ظ
+' support              ع
+g                      غ
+f                      ڢ
+p                      ݠ
+k/g (emprunt)          ق
+k                      ک
+l                      ل
+m                      م
+n                      ن
+h (emprunt)            ه
+w/oo/uu                و
+ee (long)              ىٰ
+y/ii                   ي
+y mouille (ƴ)          ƴ
+ny                     ɲ
+coupure (emprunt)      ء
+
+Diacritiques : a = ـَ   i = ـِ   u = ـُ   e = ـٕ   o = ـٚ   sukun = ـْ
+Digrammes : mb = مب   nd = ند   nj = نج   ng = نغ

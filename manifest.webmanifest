@@ -1,0 +1,27 @@
+{
+  "name": "Pular Ajami — Apprendre le pular en caractères harmonisés",
+  "short_name": "Pular Ajami",
+  "description": "Application multiplateforme pour apprendre à lire, écrire et parler le pular (fulfulde) écrit en ajami, avec salle de cours, quiz, devoirs et corrections.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#faf7f0",
+  "theme_color": "#0e7c66",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
