@@ -25,7 +25,7 @@ const Store = (() => {
   }
 
   function reset() {
-    ["profile", "progress", "quizStats", "questions", "homeworks", "trainerMode", "content", "role", "auth"].forEach(remove);
+    ["profile", "progress", "quizStats", "questions", "homeworks", "trainerMode", "content", "role", "auth", "sync", "syncState"].forEach(remove);
   }
 
   /* Profil */

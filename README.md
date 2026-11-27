@@ -99,10 +99,43 @@ Les contenus administrés sont stockés sur l'appareil (localStorage) et
 fusionnés avec la base intégrée. Pour une modification permanente du contenu
 de référence, éditez `js/data.js` (alphabet, voyelles, vocabulaire, séances,
 devoirs + corrections, formateurs).
-- Les questions/devoirs sont stockés sur l'appareil (localStorage). Pour une
-  **classe connectée** (synchronisation multi-appareils), brancher `js/storage.js`
-  sur un petit backend (par exemple Firebase Realtime Database, Supabase ou un
-  Google Sheet via Apps Script) — la structure de données est déjà prévue.
+
+## 🏫 Salle de cours connectée (synchronisation multi-appareils)
+
+Sans configuration, tout reste sur l'appareil. En suivant ces étapes, les
+contenus, questions et dépôts de devoirs se partagent entre tous les
+téléphones de la classe — gratuitement, avec un simple compte Google.
+
+**Côté administrateur (une seule fois, ~5 minutes) :**
+
+1. Ouvrez [script.google.com](https://script.google.com) avec votre compte
+   Google → **Nouveau projet**
+2. Copiez dans l'éditeur tout le contenu du fichier
+   [`tools/apps-script-sync.gs`](tools/apps-script-sync.gs)
+3. À la ligne `const CLE = ...`, remplacez `CHANGE-ME-2026` par votre clé de
+   classe (gardez-la secrète)
+4. **Déployer → Nouveau déploiement → Application Web** : « Exécuter en tant
+   que : Moi », « Qui a accès : Tout le monde », puis autorisez l'accès
+5. Copiez l'URL de l'application Web (elle finit par `/exec`)
+6. Dans l'application : **⚙️ Paramètres → 🏫 Salle de cours connectée** —
+   collez l'URL et la clé, puis **💾 Enregistrer**
+7. Menu **🔐 Administration → ☁️ Salle de cours connectée** :
+   **⬆️ Envoyer mes contenus vers la classe**
+
+**Côté apprenants :** dans **⚙️ Paramètres → 🏫 Salle de cours connectée**,
+coller la même URL et la même clé, puis **⬇️ Recevoir les contenus de la
+classe**. Leurs questions et leurs dépôts de devoirs sont envoyés
+automatiquement ; l'enseignant les récupère avec le bouton **⬇️ Recevoir**
+de la section ☁️.
+
+La fusion est tolérante aux conflits : les listes sont réunies par identifiant,
+les suppressions et les corrections publiées priment sur les anciennes
+versions. Le serveur conserve tout dans un fichier JSON sur votre Google Drive
+(`pular-ajami-classe.json`).
+
+⚠️ Toute personne possédant l'URL **et** la clé peut lire/écrire les données
+de la classe : gardez la clé secrète et changez-la si besoin (redéployez le
+script avec une nouvelle clé).
 
 ## Note sur l'orthographe
 

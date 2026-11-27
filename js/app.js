@@ -604,7 +604,7 @@
     }).join("") : '<p class="muted">Aucune question pour le moment. Posez la première !</p>';
     return (
       '<h1>💬 Poser une question aux formateurs</h1>' +
-      '<p class="lead">Vos questions sont enregistrées sur cet appareil. <span class="muted">En mode formateur (voir Paramètres), vous pouvez y répondre localement ; pour une classe connectée, prévoir une synchronisation (voir README).</span></p>' +
+      '<p class="lead">Vos questions partent vers les formateurs : si la salle de cours connectée est configurée (⚙️ Paramètres), elles sont envoyées automatiquement ; sinon elles restent sur cet appareil.</p>' +
       '<div class="card">' +
       '<label for="qName">Votre nom</label><input type="text" id="qName" value="' + esc(Store.profile().name) + '" placeholder="Ex : Mariama D.">' +
       '<label for="qLesson">Séance concernée (facultatif)</label><select id="qLesson"><option value="">— aucune —</option>' +
@@ -623,6 +623,7 @@
       const list = Store.questions();
       list.push({ id: uid(), name, lesson: $("#qLesson").value, text, date: today(), replies: [] });
       Store.saveQuestions(list);
+      syncSilent(["questions", "submissions"]);
       nav();
     });
     $$("[data-reply]").forEach((b) => {
@@ -634,6 +635,7 @@
         const q = list.find((x) => x.id === id);
         q.replies.push({ name: "Formateur", text, date: today() });
         Store.saveQuestions(list);
+        syncSilent(["questions", "submissions"]);
         nav();
       });
     });
@@ -677,6 +679,7 @@
           name: Store.profile().name || "Apprenant", text, date: today(), status: "déposé"
         });
         Store.saveHomeworks(subs);
+        syncSilent(["submissions"]);
         nav();
       });
     });
@@ -689,6 +692,7 @@
         s.status = status;
         s.corrected = today();
         Store.saveHomeworks(subs);
+        syncSilent(["submissions"]);
         nav();
       });
     });
@@ -748,6 +752,7 @@
           '<p class="muted">Les codes sont délivrés par l\'administrateur de l\'application.</p>'
         : '<p><button class="btn danger" id="leaveRole">Revenir en simple apprenant</button></p>') +
       '</div>' +
+      syncCardHtml() +
       '<div class="card"><h3>Réinitialiser</h3>' +
       '<p class="muted">Efface progression, questions et devoirs stockés sur cet appareil.</p>' +
       '<p><button class="btn danger" id="resetAll">Tout réinitialiser</button></p></div>' +
@@ -756,6 +761,37 @@
       "<p class='muted'>Fonctionne hors ligne après la première visite. Installez-la depuis votre navigateur (menu → « Installer » / « Ajouter à l'écran d'accueil ») sur Android, iOS, Windows, macOS ou Linux.</p></div>"
     );
   };
+
+  /* ---------- Salle de cours connectée ---------- */
+
+  function syncStateText() {
+    if (typeof Sync === "undefined") return "";
+    const s = Sync.state();
+    const parts = [];
+    if (s.lastPull) parts.push("reçu le " + esc(s.lastPull));
+    if (s.lastPush) parts.push("envoyé le " + esc(s.lastPush));
+    if (s.lastError) parts.push('dernière erreur : ' + esc(s.lastError));
+    return parts.length ? '<p class="muted">' + parts.join(" · ") + "</p>" : "";
+  }
+
+  function syncCardHtml() {
+    if (typeof Sync === "undefined") return "";
+    const c = Sync.cfg();
+    return '<div class="card"><h3>🏫 Salle de cours connectée</h3>' +
+      '<p class="muted">Collez l\'adresse et la clé de classe données par l\'administrateur pour recevoir les contenus, questions et devoirs de la classe.</p>' +
+      '<label for="syncUrl">Adresse de la classe (URL)</label>' +
+      '<input type="text" id="syncUrl" value="' + esc(c.url) + '" placeholder="https://script.google.com/…/exec">' +
+      '<label for="syncKey">Clé de classe</label>' +
+      '<input type="text" id="syncKey" value="' + esc(c.key) + '" placeholder="Ex : MA-CLASSE-2026">' +
+      '<p style="margin-top:10px"><button class="btn" id="syncSave">💾 Enregistrer la connexion</button> ' +
+      '<button class="btn gold" id="syncPull">⬇️ Recevoir les contenus de la classe</button></p>' +
+      (Sync.ready() ? '' : '<p class="muted">Non connecté : les boutons ⬇️ resteront sans effet tant que l\'adresse et la clé ne sont pas enregistrées.</p>') +
+      syncStateText() + '</div>';
+  }
+
+  function syncSilent(what) {
+    if (typeof Sync !== "undefined" && Sync.ready()) Sync.push(what).catch(() => {});
+  }
 
   binders.parametres = function () {
     $("#saveName").addEventListener("click", () => {
@@ -775,6 +811,34 @@
     } else {
       $("#leaveRole").addEventListener("click", () => { Store.setRole("learner"); nav(); });
     }
+    if ($("#syncSave")) $("#syncSave").addEventListener("click", () => {
+      Sync.save($("#syncUrl").value, $("#syncKey").value);
+      if (!Sync.ready()) { alert("Renseignez l'adresse ET la clé de classe."); return; }
+      alert("Connexion enregistrée. Utilisez « Recevoir » pour récupérer les contenus de la classe.");
+      nav();
+    });
+    if ($("#syncPull")) $("#syncPull").addEventListener("click", async () => {
+      const btn = $("#syncPull");
+      btn.disabled = true;
+      btn.textContent = "⏳ Récupération…";
+      const res = await Sync.pull();
+      if (!res.ok) {
+        alert("Récupération impossible : " + (res.error === "config"
+          ? "enregistrez d'abord l'adresse et la clé de classe."
+          : res.error) + "");
+        nav();
+        return;
+      }
+      const s = res.summary || {};
+      const bits = [];
+      if (s.content) bits.push("contenus de la classe");
+      if (s.questions) bits.push(s.questions + " nouvelle(s) question(s)");
+      if (s.submissions) bits.push(s.submissions + " nouveau(x) dépôt(s)");
+      alert(bits.length ? "Reçu : " + bits.join(", ") + "."
+        : "Vous êtes déjà à jour.");
+      buildData();
+      nav();
+    });
     $("#resetAll").addEventListener("click", () => {
       if (confirm("Tout réinitialiser ? Cette action est définitive.")) {
         Store.reset();
@@ -935,6 +999,11 @@
       '<p style="margin-top:10px"><button class="btn" id="addHomework">Ajouter le devoir</button></p></div>' +
       homeworkList +
 
+      '<h2>☁️ Salle de cours connectée</h2>' +
+      '<div class="card"><p class="muted">Envoyez vos contenus (vocabulaire, séances, cours en fichier, devoirs, corrections, audios) vers le serveur de la classe. Les apprenants les reçoivent avec « Recevoir » dans ⚙️ Paramètres. Leurs questions et leurs dépôts de devoirs arrivent automatiquement sur le serveur ; récupérez-les ici.</p>' +
+      '<p style="margin-top:8px"><button class="btn gold" id="syncPush">⬆️ Envoyer mes contenus vers la classe</button> ' +
+      '<button class="btn" id="syncPullAdmin">⬇️ Recevoir</button></p>' +
+      syncStateText() + '</div>' +
       '<h2>💾 Sauvegarde des contenus</h2>' +
       '<div class="card"><p class="muted">Exportez vos contenus personnalisés en JSON (sauvegarde ou transfert vers un autre appareil), ou importez un fichier exporté.</p>' +
       '<p style="margin-top:8px"><button class="btn small" id="exportContent">⬇️ Exporter les contenus (JSON)</button> ' +
@@ -986,6 +1055,32 @@
           nav();
         }));
     }
+    if ($("#syncPush")) $("#syncPush").addEventListener("click", async () => {
+        const btn = $("#syncPush");
+        btn.disabled = true;
+        btn.textContent = "⏳ Envoi…";
+        const res = await Sync.push(["content", "questions", "submissions"]);
+        if (!res.ok) {
+          alert("Envoi impossible : " + (res.error === "config"
+            ? "enregistrez d'abord l'adresse et la clé de classe dans ⚙️ Paramètres."
+            : res.error));
+          nav();
+          return;
+        }
+        alert("Contenus envoyés vers la classe. Les apprenants les reçoivent avec « Recevoir ».");
+        nav();
+      });
+      if ($("#syncPullAdmin")) $("#syncPullAdmin").addEventListener("click", async () => {
+        const btn = $("#syncPullAdmin");
+        btn.disabled = true;
+        btn.textContent = "⏳…";
+        const res = await Sync.pull();
+        if (!res.ok) { alert("Récupération impossible : " + res.error); nav(); return; }
+        const s = res.summary || {};
+        alert("Reçu : " + (s.questions || 0) + " question(s), " + (s.submissions || 0) + " dépôt(s).");
+        buildData();
+        nav();
+      });
     $("#addVocab").addEventListener("click", () => {
       const w = { id: uid(), aj: $("#vAj").value.trim(), latin: $("#vLatin").value.trim(),
                   fr: $("#vFr").value.trim(), cat: $("#vCat").value };
