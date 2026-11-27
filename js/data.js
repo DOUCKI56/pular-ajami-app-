@@ -256,6 +256,28 @@ DATA.sessions = [
     ],
     content: "✍️ «گَنْندُ تࣹدِّنَيْ گَنْندٝ تࣹدِّنَ گَنْندَلْ كَدِ، گَنْندَلْ فِجِرْتَاكࣹ ، كَلَ مٝ يِيطٝنْ نٝ يَوٝو گَنْندَلْ مَا يَوٝو گَنْندٝ وِي يٝو ࢠࣹيْدِتٝيْ هَرَيْ نٝ بَرْكِطِرِمٝ».\n🎓 أستاذ محمد طيب باه -حفظه الله تعالى-\n💡 Pistes de lecture : le mot گَنْندُ (le savoir) revient plusieurs fois avec ses formes گَنْندٝ، گَنْندَلْ — lisez-les lentement en les distinguant. Repérez le chadda (تࣹدِّنَيْ، تࣹدِّنَ، بَرْكِطِرِمٝ) et les voyelles longues (فِجِرْتَاكࣹ، يٝو). Exercice : lisez la citation trois fois, puis répétez-la de mémoire.",
     quiz: "vocabulaire"
+  },
+  {
+    id: "s13", level: "Avancé", title: "Lecture : Hadith 7 — la création en sept jours (رواه مسلم)",
+    duration: "60 min",
+    objectives: [
+      "Lire un hadith long en arabe et en pular ajami",
+      "Connaître les noms des jours de la semaine en pular ajami",
+      "Suivre une énumération en parallèle arabe / pular"
+    ],
+    content: "🔳 الحديث 7\n✍️ قال رسول اللّٰـهُ ﷺ :\nخلق الله عز وجل التربة يومَ السبت،\nوخلق فيها الجبال يوم الأحد،\nوخلق الشجر يوم الاثنين،\nوخلق المكروهُ يوم الثلاثاء،\nوخلق النور يوم الأربعاءِ،\nوبثَّ فيها الدواب يوم الخميس،\nوخلق آدم (عليه السلام) بعد العصر من يوم الجمعة،\nفي آخر الخلق،\nفي آخر ساعة من ساعات الجمعة،\nفيما بين العصر إلى الليل.\n📚 رواه مسلم\nپُـلَـرْ -\n★ نُلاَطٝ (ﷺ) مَاكِ : «اللّٰـهُ تࣹدُّطٝ مَوْنُطٝ أٝن؛\nأٝ تَگِي لࣹيْدِندِنْ ݧَنْندࣹ أَسࣹوࣹ،\nأٝتَگِ پࣹلّࣹطࣹنْ إࣹ أَلَتْ،\nأٝ تَگِ لࣹطّࣹطࣹنْ إ تࣹنࣹن،\nأٝ تَگِ أَݧَاطِطِنْ إࣹ تَلَاتَ،\nأٝ تَگِ أَنّٝورَاجِطِنْ إࣹ أَلَرْبَ،\nأٝ سَاكِتِ دَابࣹيجِطِنْ إࣹ مَيْرِ ݧَنْندࣹ أَلْكَمِسَ،\nأٝ تَگِ آدم (يٝ كِسَلْ وٝنُ إࣹ دٝوْ مَكّٝ) إࣹ ࢠَاوٝ أَلَنْسَرَا ݧَنْندࣹ جُمَ، كَ سَكِّتٝرْدࣹ تَگٝدِ مَكّٝ،\nكَ سَكِّتٝرْدࣹ سَاعِ إمّٝرْدࣹ إࣹ سَاعِيجِ جُمَ طِنْ،\nهَكُّندࣹ أَلَنْسَرَاؤٝنْ إࣹ كِيكِطࣹ أٝنْ».\n📚 فِلِّكࣹ مسلم\n💡 Pistes de lecture : les jours de la semaine — أَسࣹوࣹ (samedi), أَلَتْ (dimanche), إ تࣹنࣹن (lundi), تَلَاتَ (mardi), أَلَرْبَ (mercredi), أَلْكَمِسَ (jeudi), جُمَ (vendredi). Lisez chaque ligne en arabe puis en pular, en suivant l'ordre de la création.",
+    quiz: "vocabulaire"
+  },
+  {
+    id: "s14", level: "Intermédiaire", title: "Lecture : Hadith 8 — لَقِّنوا موتاكم (رواه مسلم)",
+    duration: "45 min",
+    objectives: [
+      "Lire un hadith très court, arabe et pular",
+      "Mémoriser une phrase courte avec sa traduction",
+      "Observer la formule de la shahada dans les deux écritures"
+    ],
+    content: "🔳 الحديث 8\n♦ قال رسول الله ﷺ: «لَقِّنوا موتاكم ”لا إلَهَ إلاَّ اللَّه“.»\n📚 صحيح مسلم (٩١٧)\n▪︎پُـلَـرْ -\n★ نُلاَطٝ (ﷺ) مَاكِ : «لٝنْنگِنࣹي مَايٝوࢠࣹ مٝنْࢠࣹنْ \"لا إلَٰهَ إلاَّ اللّٰـهُ “ (أَلاَ رࣹوࣹتࣹيطٝ إࣹ گٝونگَ سِوٝنَا اللّٰـهُ).»\n📚 فِلِّكࣹ مسلم (٩١٧)\n💡 Pistes de lecture : ce hadith court contient la shahada — lisez-la en arabe puis en pular. Notez la répétition du chadda dans لَقِّنوا (demandez à quelqu'un de répéter) et la voyelle longue de اللّٰـهُ. Exercice : apprenez les deux phrases par cœur.",
+    quiz: "vocabulaire"
   }
 ];
 
