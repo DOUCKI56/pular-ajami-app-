@@ -234,6 +234,17 @@ DATA.sessions = [
     ],
     content: "♦️ « أَلَا هَيْ هُوندࣹ كٝ وَلِّتٝتٝوئࣹنْ هࣹݖِّنْطِنْگٝلْ \u201cدَعْوَة\u201d أٝنْ إࣹ ندࣹرْ نٝكّࣹيلِ مࣹنْ طِنْ [فُوتَ جَلٝو] ࢠُرِ وِطَگٝلْ بَتّࣹيجِ فࣹڃُّࢠّࣹنْ.\nكٝوَطِنٝنْ ؛ أَوَاوَتَا يࣹيتَادࣹ گٝطّٝ ݖࣹرْنٝ سَنبَ مَاكِي [...]، أٝيࣹيتٝمَا أَ أَدِّي كࣹسُنْ.\nأٝ وِأَدٝو وࣹلَالِمٝ، مَا أٝ وَطَتَا،\nكٝنٝنٝنْ أٝوِأَتَا \u201cأَ أَدِّي كࣹسُنْ\u201d.\nكٝوَنٝنٝنْ ݖࣹرْنٝ سَعْدُ…\n🎓 د. محمد مكه باه — حفظه الله تعالى\n💡 Pistes de lecture : le mot دَعْوَة (da'wa, « l'appel ») est un emprunt arabe. [...] marque un passage non transcrit. Repérez le discours rapporté entre guillemets et les prénasalisées (ندࣹرْ، نٝكّࣹيلِ، كٝوَنٝنٝنْ).",
     quiz: "vocabulaire"
+  },
+  {
+    id: "s11", level: "Avancé", title: "Lecture : Hadiths 14-15 — les conseils de Jibril (عش ما شئت)",
+    duration: "60 min",
+    objectives: [
+      "Lire un hadith court entier en arabe et en pular ajami",
+      "Suivre une énumération numérotée (١ ٢ ٣ ٤ ٥)",
+      "Mémoriser les cinq conseils de Jibril"
+    ],
+    content: "🔳 الحديث 14 (texte identique au الحديث 15)\n♦ عَنْ سهل بن سعد رضي الله عنه قَالَ النَّبِيُّ صلى الله عليه و سلم : أتاني جبريل فقال : يا محمد ! عش ما شئت فإنك ميت، وأحبب ما شئت فإنك مفارقه، واعمل ما شئت فإنك مجزي به، واعلم أن شرف المؤمن قيامه بالليل، وعزه استغناؤه عن الناس.\n📚 رواه الطبراني و حسنه الشيخ الألباني في السلسلة الصحيحة رقم ٨٣١\n▪️ پُلَرْ :\n✍️ ڃࣹتَّامَ إࣹ عن سهل بن سعد رضي الله عنه\n▪️ نُلَاطٝ ﷺ مَاكِ : جبريل أَرِيلَنْ : أٝ وِئِ: كٝ أٝنْ يٝ مُـحَـمَّـد ؛\n١- وُورُ إࣹنْنبࣹرࣹ كٝ فَالَاطَا أَنْندُ كٝ أَ مَايٝووٝ ،\n٢- يِطُ كَلَ كٝ فَالَطَا أَ سࣹرْتَيْطٝ إࣹ مُنْ ،\n٣- گٝلُّ كَلَ كٝ فَالَطَا أَنْندُ كٝ أَ يٝࢠࣹتࣹيطٝ طُنْ ،\n٤- أَنْندُ تࣹدُّنگَلْ گٝنْطِنْطٝ كٝ دَرَگٝلْ مَكّٝ جࣹمَّ جُولَ ،\n٥- دٝولࣹ مَكّٝطࣹنْ كَدِ كٝ يٝنْندِنَگٝلْ مَكّٝ گَا إࣹ يِمْࢠࣹࢠࣹنْ .\n📚 رواه الطبراني و حسنه الشيخ الألباني في السلسلة الصحيحة رقم ٨٣١\n💡 Pistes de lecture : lisez les cinq conseils un par un, en arabe puis en pular. Repérez les nombres (١ ٢ ٣ ٤ ٥), le chadda (تࣹدُّنگَلْ، جࣹمَّ) et les voyelles longues (وُورُ، گَا). Exercice : répétez chaque conseil de mémoire.",
+    quiz: "vocabulaire"
   }
 ];
 
