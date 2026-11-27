@@ -88,16 +88,19 @@ CONSONNES PRENASALISEES (phonemes uniques, toujours avec un Noun ن)
 
 Exemples valides :
   بَابَ Baaba    تَاتِ Taati    دُودُ Duudu    فِلّ Fello
-  ݖُلِّ Colli    نديَمْ ndiyam   نگَارِ ngaari   نبٝلُ mbolu
+  ݖُلِّ Colli    نْبَࣹ Mbahe   نْجَارࣹ Njarè   نْدِيَنْ Ndiyan   نْگَارِ Ngaari
 
 REGLES MAJEURES (voir le manuel HTML complet) :
   Regle 6  : le Chadda double obligatoirement la consonne (فِلّ = Fello).
-  Regle 7  : le Waw و est voyelle longue (oo/uu) apres Damma, Potthal
-             ou Toral ; consonne w apres Fatha, Kasra ou avec Soukoun.
+  Regle 7  : le Waw و est consonne w apres Fatha (ـَ), Kasra (ـِ)
+             ou avec Soukoun (ex. كَوتَلْ kawtal, هَوتُطَا hawtuɗa,
+             مَوْنُگٝلْ mawnugol) ; voyelle longue (oo/uu)
+             uniquement apres Damma ـُ (ex. أٝوطٝو ooɗoo, وُورِ wuuri).
   Regle 8  : le Hamza porte la voyelle initiale selon l'harmonie
              vocalique (au-dessus أ : a, u, o ; en dessous إ : i, e).
-  Regle 9  : pas de Soukoun initial (voyelle d'appui i ou u), sauf
-             prénasalisées écrites directement.
+  Regle 9  : pas de Soukoun initial, y compris pour les prénasalisées
+             (mb, nd, nj, ng) : voyelle d'appui i — إِنْدِيَمْ indiyam,
+             إِنْبَبَّ imbabba, إِسْتٝول istool.
   Regle 10 : les noms propres arabes gardent leur orthographe standard.
 """
 
@@ -119,9 +122,11 @@ VOYELLES LONGUES (prolongation)
 
 REGLES CLEFS
   Regle 6 : le Chadda ( ّ ) double la consonne en latin.
-  Regle 7 : lecture du Waw selon la voyelle precedente.
+  Regle 7 : Waw = consonne w apres Fatha/Kasra/Soukoun ; voyelle
+            longue (oo/uu) uniquement apres Damma (ـُ).
   Regle 8 : siege du Hamza selon l'harmonie vocalique.
-  Regle 9 : pas de Soukoun initial ; prénasalisées directes.
+  Regle 9 : pas de Soukoun initial, y compris prénasalisées :
+            voyelle d'appui i (إِنْدِيَمْ indiyam, إِنْبَبَّ imbabba).
   Regle 10 : noms propres arabes en orthographe standard.
 """
 
@@ -193,8 +198,10 @@ if __name__ == "__main__":
         ("jam wa?", "جَمْ وَ؟", "ça va ?"),
         ("jam tan", "جَمْ تَنْ", "ça va, paix seulement"),
         ("baaba", "بَابَ", "le père"),
-        ("ndiyam", "نديَمْ", "l'eau"),
-        ("ngaari", "نگَارِ", "la vache"),
+        ("hawtuɗa", "هَوتُطَا", "ex. Règle 7 : waw consonne"),
+        ("imbabba", "إِنْبَبَّ", "ex. Règle 9 : mbabba"),
+        ("ndiyam (indiyam)", "إِنْدِيَمْ", "l'eau"),
+        ("ngaari", "نْگَارِ", "la vache"),
         ("colli", "ݖُلِّ", "les oiseaux"),
         ("fello", "فِلّ", "la montagne"),
         ("naamu", "نَامُ", "le riz"),

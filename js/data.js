@@ -102,23 +102,23 @@ DATA.vowels = {
 DATA.rules = [
   { title: "Règle 6 — Le Chadda ( ّ ) : redoublement de consonne",
     text: "Une consonne portant le Chadda est obligatoirement doublée (géminée) en latin. Exemples : فِلّ ➔ Fello (Fello avec ll) ; Ghirritagol ➔ قِرِّتَگُلْ (chadda sur le ر)." },
-  { title: "Règle 7 — Le Waw (و) : consonne ou voyelle ?",
-    text: "La lecture du Waw dépend strictement de la voyelle qui le précède. Waw = voyelle longue (oo / uu) s'il est précédé d'une Damma (ـُ), d'un Potthal (ـٝ) ou d'un Toral (ـࣷ) : وُورِ ➔ wuuri, أٝوطٝو ➔ ooɗoo. Waw = consonne (w) s'il est précédé d'une Fatha (ـَ) ou d'une Kasra (ـِ), ou s'il porte un Soukoun (وْ) : كَوتَلْ ➔ kawtal, مَوْنُگٝلْ ➔ mawnugol." },
+  { title: "Règle 7 — Le Waw (و) : consonne ou voyelle d'allongement ?",
+    text: "La lecture du Waw dépend strictement de la voyelle qui le précède. Waw = consonne (w) s'il est précédé d'une Fatha (ـَ) ou d'une Kasra (ـِ), ou s'il porte un Soukoun (وْ) : كَوتَلْ ➔ kawtal, هَوتُطَا ➔ hawtuɗa, مَوْنُگٝلْ ➔ mawnugol. Waw = voyelle longue (oo / uu) s'il est précédé d'une Damma (ـُ), il allonge la voyelle : أٝوطٝو ➔ ooɗoo, وُورِ ➔ wuuri." },
   { title: "Règle 8 — Le siège du Hamza",
     text: "En début de mot, le Hamza sert de support à la voyelle selon l'harmonie vocalique. Hamza au-dessus أ (voyelles arrière) : a (أَ), u (أُ), o (أٝ). Hamza en dessous إ (voyelles avant) : i (إِ), e (إࣹ ou إٖ), o fermé (إࣷ)." },
-  { title: "Règle 9 — Le Soukoun initial et les prénasalisées",
-    text: "Consonnes simples : interdiction absolue de commencer un mot par un Soukoun — on ajoute une voyelle d'appui i ou u (stool ➔ إِسْتٝول, istool). Consonnes prénasalisées (mb, nd, nj, ng, nɗ) : phonèmes uniques, écrites directement, sans voyelle d'appui et sans Soukoun sur le Noun : ndiyam ➔ نديَمْ, ngaari ➔ نگَارِ, mbolu ➔ نبٝلُ, njoowri ➔ نجٝورِ." },
+  { title: "Règle 9 — Interdiction absolue du Soukoun en début de mot",
+    text: "Aucun mot pulaar ne peut commencer par une syllabe fermée (consonne + Soukoun). Cela vaut y compris pour les prénasalisées (mb, nd, nj, ng). On ajoute une voyelle d'appui (généralement i) en ajami : stool ➔ إِسْتٝول (istool), mbabba ➔ إِنْبَبَّ (imbabba), ndiyam ➔ إِنْدِيَمْ (indiyam)." },
   { title: "Règle 10 — Exception des noms propres arabes",
     text: "Les noms des Prophètes et des Compagnons ne suivent pas les règles phonétiques pulaar : ils conservent leur orthographe arabe standard. Exemples : Muhammadu ➔ مُحَمَّدُ, 'Umaru ➔ عُمَرُ." }
 ];
 
 /* ============ 4. CONSONNES PRÉNASALISÉES (toujours avec Noun) ============ */
 DATA.digraphs = [
-  { aj: "نب", latin: "Mb", ex: { aj: "نبٝلُ", latin: "mbolu" } },
-  { aj: "نط", latin: "Nɗ", ex: { aj: "نطَ", latin: "nɗa" } },
-  { aj: "نج", latin: "Nj", ex: { aj: "نجٝورِ", latin: "njoowri" } },
-  { aj: "ند", latin: "Nd", ex: { aj: "نديَمْ", latin: "ndiyam" } },
-  { aj: "نگ", latin: "Ng", ex: { aj: "نگَارِ", latin: "ngaari" } }
+  { aj: "نب", latin: "Mb", ex: { aj: "نْبَࣹ", latin: "Mbahe" } },
+  { aj: "نط", latin: "Nɗ", ex: { aj: "نْطَ", latin: "Nɗa" } },
+  { aj: "نج", latin: "Nj", ex: { aj: "نْجَارࣹ", latin: "Njarè" } },
+  { aj: "ند", latin: "Nd", ex: { aj: "نْدِيَنْ", latin: "Ndiyan" } },
+  { aj: "نگ", latin: "Ng", ex: { aj: "نْگَارِ", latin: "Ngaari" } }
 ];
 
 /* ============ 5. VOCABULAIRE (graphies validées) ============ */
@@ -127,8 +127,8 @@ DATA.vocabulary = [
   { aj: "جَمْ وَ؟", latin: "jam wa?", fr: "ça va ?", cat: "Salutations" },
   { aj: "جَمْ تَنْ", latin: "jam tan", fr: "ça va, paix seulement", cat: "Salutations" },
   { aj: "بَابَ", latin: "baaba", fr: "le père", cat: "Famille" },
-  { aj: "نديَمْ", latin: "ndiyam", fr: "l'eau", cat: "Nature" },
-  { aj: "نگَارِ", latin: "ngaari", fr: "la vache", cat: "Nature" },
+  { aj: "إِنْدِيَمْ", latin: "ndiyam (indiyam)", fr: "l'eau", cat: "Nature" },
+  { aj: "نْگَارِ", latin: "ngaari", fr: "la vache", cat: "Nature" },
   { aj: "ݖُلِّ", latin: "colli", fr: "les oiseaux", cat: "Nature" },
   { aj: "فِلّ", latin: "fello", fr: "la montagne", cat: "Nature" },
   { aj: "نَامُ", latin: "naamu", fr: "le riz", cat: "Vie quotidienne" },
@@ -193,8 +193,8 @@ DATA.sessions = [
   {
     id: "s6", level: "Intermédiaire", title: "Consonnes prénasalisées : Mb, Nɗ, Nj, Nd, Ng",
     duration: "60 min",
-    objectives: ["Lire les 5 digrammes prénasalisés", "Appliquer la règle du Noun sans Soukoun (Règle 9)"],
-    content: "Les prénasalisées mb, nd, nj, ng, nɗ sont des phonèmes uniques. En Ajami, elles s'écrivent toujours avec un Noun (ن), sans voyelle d'appui et sans Soukoun sur le Noun : نب (Mb), نط (Nɗ), نج (Nj), ند (Nd), نگ (Ng). Exemples validés : نبٝلُ ➔ mbolu, نطَ ➔ nɗa, نجٝورِ ➔ njoowri, نديَمْ ➔ ndiyam, نگَارِ ➔ ngaari. Rappel (Règle 9) : les autres consonnes ne commencent jamais un mot par un Soukoun — on ajoute une voyelle d'appui i ou u (stool ➔ إِسْتٝول).",
+    objectives: ["Lire les 5 digrammes prénasalisés", "Appliquer la voyelle d'appui en début de mot (Règle 9)"],
+    content: "Les prénasalisées mb, nd, nj, ng, nɗ sont des phonèmes uniques. En Ajami, elles s'écrivent toujours avec un Noun (ن) : نب (Mb), نط (Nɗ), نج (Nj), ند (Nd), نگ (Ng). Exemples validés : نْبَࣹ ➔ Mbahe, نْطَ ➔ Nɗa, نْجَارࣹ ➔ Njarè, نْدِيَنْ ➔ Ndiyan, نْگَارِ ➔ Ngaari. Attention (Règle 9) : aucun mot ne commence par une syllabe fermée, y compris avec les prénasalisées — on ajoute une voyelle d'appui i : ndiyam ➔ إِنْدِيَمْ (indiyam), mbabba ➔ إِنْبَبَّ (imbabba).",
     quiz: "vocabulaire"
   },
   {
@@ -230,7 +230,7 @@ DATA.homeworks = [
     instructions: "Avec l'atelier « Parler », enregistrez-vous en lisant : ndiyam, ngaari, colli, fello, ooɗoo. Puis décrivez ici votre auto-évaluation (mots faciles / difficiles).",
     correction: {
       published: true,
-      text: "Attendu : ndiyam = نديَمْ ; ngaari = نگَارِ ; colli = ݖُلِّ ; fello = فِلّ ; ooɗoo = أٝوطٝو. Points de vigilance : le nd de ndiyam s'écrit ند (Noun sans Soukoun, Règle 9) ; le double l de colli vient du Chadda (Règle 6) ; dans ooɗoo, le Waw est voyelle longue après Potthal (Règle 7)."
+      text: "Attendu : ndiyam = إِنْدِيَمْ ; ngaari = نْگَارِ ; colli = ݖُلِّ ; fello = فِلّ ; ooɗoo = أٝوطٝو. Points de vigilance : en début de mot, ndiyam prend le Hamza d'appui إِ avec le Noun suivi du Soukoun (Règle 9) ; le double l de colli vient du Chadda (Règle 6) ; dans ooɗoo, le Waw allonge la voyelle (Règle 7)."
     }
   },
   {
