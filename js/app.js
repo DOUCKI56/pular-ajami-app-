@@ -848,6 +848,95 @@
     if (sh) sh.addEventListener("click", shareApp);
   };
 
+  /* ---------- Clavier ajami (KeymanWeb - CaramBolfubhe) ---------- */
+
+  const KMW_VER = "18.0.249";
+  const KMW_KBD = "Keyboard_carambolfulbhe";
+  const KMW_LANG = "ff-arab";
+  let kmwState = "idle";
+
+  function kmwStatusHtml() {
+    if (kmwState === "loading")
+      return '<p class="muted">\u23f3 Chargement du clavier ajami\u2026 (connexion internet n\u00e9cessaire)</p>';
+    if (kmwState === "active")
+      return '<p>\u2705 <strong>Clavier CaramBolfubhe activ\u00e9 !</strong> Touchez n\'importe quel champ de texte de l\'application (questions, devoirs, administration) : le clavier ajami appara\u00eet.</p>';
+    if (kmwState === "error")
+      return '<p class="muted">\u26a0\ufe0f Impossible de charger le clavier (pas de connexion internet ?). Le clavier web fonctionne en ligne. Pour \u00e9crire hors ligne, installez CaramBolfubhe sur votre appareil : <a href="https://keyman.com/keyboards/carambolfulbhe" target="_blank" rel="noopener">keyman.com/keyboards/carambolfulbhe</a>.</p>';
+    return "";
+  }
+
+  function kmwRefreshStatus() {
+    const st = $("#kmwStatus");
+    if (st) st.innerHTML = kmwStatusHtml();
+  }
+
+  function loadKmwScript(src) {
+    return new Promise((resolve, reject) => {
+      const tag = document.createElement("script");
+      tag.src = src;
+      tag.onload = resolve;
+      tag.onerror = reject;
+      document.head.appendChild(tag);
+    });
+  }
+
+  async function loadKmw() {
+    if (kmwState === "loading" || kmwState === "active") return;
+    kmwState = "loading";
+    kmwRefreshStatus();
+    const base = "https://s.keyman.com/kmw/engine/" + KMW_VER + "/";
+    try {
+      await loadKmwScript(base + "keymanweb.js");
+      try { await loadKmwScript(base + "kmwuitoggle.js"); } catch (e) {}
+      await window.keyman.init({ attachType: "auto" });
+      window.keyman.addKeyboards("carambolfulbhe");
+      let tries = 0;
+      await new Promise((resolve, reject) => {
+        const timer = setInterval(() => {
+          tries++;
+          let found = false;
+          try {
+            const kbs = window.keyman.getKeyboards ? window.keyman.getKeyboards() : [];
+            found = kbs.some((k) => (k.internalName || k.id || "").indexOf("carambolfulbhe") !== -1);
+          } catch (e) { found = false; }
+          if (found) { clearInterval(timer); resolve(); }
+          else if (tries > 40) { clearInterval(timer); reject(new Error("clavier introuvable")); }
+        }, 250);
+      });
+      window.keyman.setActiveKeyboard(KMW_KBD, KMW_LANG);
+      kmwState = "active";
+      kmwRefreshStatus();
+      const demo = $("#kmwDemo");
+      if (demo) demo.focus();
+    } catch (e) {
+      kmwState = "error";
+      kmwRefreshStatus();
+    }
+  }
+
+  routes.clavier = function () {
+    return (
+      '<h1>\u2328\ufe0f Clavier ajami (CaramBolfubhe)</h1>' +
+      '<p class="lead">\u00c9crivez directement en <strong>pular ajami harmonis\u00e9</strong> dans l\'application, m\u00eame sans avoir install\u00e9 le clavier CaramBolfubhe sur votre ordinateur ou votre tablette.</p>' +
+      '<div class="card"><h3>Activer le clavier</h3>' +
+      '<p class="muted">Le clavier se charge une fois par session, depuis le service KeymanWeb (SIL). Une fois activ\u00e9, il fonctionne dans tous les champs de texte de l\'application : questions aux formateurs, devoirs, ajout de cours et de vocabulaire.</p>' +
+      '<p><button class="btn gold" id="kmwActivate">\u2328\ufe0f Activer le clavier ajami</button></p>' +
+      '<div id="kmwStatus">' + kmwStatusHtml() + "</div></div>" +
+      '<div class="card"><h3>Essayer tout de suite</h3>' +
+      '<p class="muted">Touchez le cadre puis \u00e9crivez : essayez ndiyam, mbeewa, ngaari\u2026</p>' +
+      '<textarea id="kmwDemo" rows="4" placeholder="\u00c9crivez ici en ajami\u2026" style="direction:rtl"></textarea></div>' +
+      '<div class="card"><h3>Installer le clavier sur votre appareil</h3>' +
+      '<p>Pour \u00e9crire en ajami <strong>partout</strong> (WhatsApp, documents, hors ligne), installez le clavier CaramBolfubhe :</p>' +
+      '<p><a class="btn small" href="https://keyman.com/keyboards/carambolfulbhe" target="_blank" rel="noopener">\u2b07\ufe0f T\u00e9l\u00e9charger CaramBolfubhe (Keyman)</a></p>' +
+      '<p class="muted">Sur Android et iPhone, installez d\'abord l\'application Keyman, puis ajoutez le clavier CaramBolfubhe. Vous pouvez aussi l\'essayer en ligne : <a href="https://keymanweb.com/#ff-arab,Keyboard_carambolfulbhe" target="_blank" rel="noopener">keymanweb.com</a>.</p></div>'
+    );
+  };
+
+  binders.clavier = function () {
+    const btn = $("#kmwActivate");
+    if (btn) btn.addEventListener("click", loadKmw);
+  };
+
   routes.parametres = function () {
     const p = Store.profile();
     const role = Store.role();
