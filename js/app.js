@@ -615,7 +615,7 @@
       '<p class="meta">⏱ ' + esc(s.duration) + " — " + esc(s.level) + "</p>" +
       '<div class="card"><h3>Objectifs</h3><ul class="objectives">' +
       s.objectives.map((o) => "<li>" + esc(o) + "</li>").join("") + "</ul></div>" +
-      '<div class="card"><h3>Leçon</h3>' + s.content.split("\n").map((p) => "<p>" + esc(p) + "</p>").join("") + "</div>" +
+      '<div class="card lesson-text"><h3>Leçon</h3>' + s.content.split("\n").map((p) => "<p>" + esc(p) + "</p>").join("") + "</div>" +
       '<div class="card"><h3>Entraînement</h3>' +
       '<a class="btn small" href="#/reviser">🎯 Quiz « ' + esc(QUIZ_BANKS[s.quiz].title) + ' »</a> ' +
       '<a class="btn small ghost" href="#/ecrire">✍️ Atelier d\'écriture</a></div>' +
