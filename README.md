@@ -65,6 +65,10 @@ Au premier accès, activez le **mode formateur** (bouton fourni), puis :
   Parler et les quiz ;
 - ajouter/supprimer des **séances de la salle de cours** (niveau, durée,
   objectifs, leçon, quiz associé) ;
+- ajouter des **cours depuis un fichier externe** (PDF, Word .doc/.docx,
+  TXT ou HTML — 3 Mo max) : le fichier est enregistré dans l'application et
+  les apprenants l'ouvrent (PDF) ou le téléchargent (Word) depuis la salle
+  de cours ;
 - ajouter des **devoirs** et **rédiger/publier les corrections** ;
 - **exporter/importer** les contenus personnalisés en JSON (sauvegarde,
   partage entre appareils).

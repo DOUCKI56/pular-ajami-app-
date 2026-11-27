@@ -441,6 +441,29 @@
       b.addEventListener("click", () => startQuiz(b.dataset.bank)));
   };
 
+  /* ---------- Cours en fichiers (PDF / Word) ---------- */
+
+  function dataURLtoBlob(dataURL) {
+    const parts = String(dataURL).split(",");
+    const mime = (parts[0].match(/data:([^;]+)/) || [])[1] || "application/octet-stream";
+    const bin = atob(parts[1] || "");
+    const arr = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+    return new Blob([arr], { type: mime });
+  }
+
+  function openStoredCourse(id, download) {
+    const f = (Store.content().courses || []).find((x) => x.id === id);
+    if (!f) { alert("Fichier introuvable sur cet appareil."); return; }
+    const url = URL.createObjectURL(dataURLtoBlob(f.data));
+    const isPdf = /pdf/.test(f.type || "") || /\.pdf$/i.test(f.fileName || "");
+    const a = document.createElement("a");
+    a.href = url;
+    if (download || !isPdf) { a.download = f.fileName || "cours"; a.click(); }
+    else { window.open(url, "_blank"); }
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+  }
+
   routes.cours = function () {
     const prog = Store.progress();
     const levels = ["Débutant", "Intermédiaire", "Avancé"];
@@ -457,10 +480,24 @@
           '<a class="btn small" href="#/seance-' + s.id + '">Ouvrir la séance</a></div>';
       }).join("");
     }).join("");
+    const files = (Store.content().courses || []).map((f) =>
+      '<div class="card list-item"><strong>' + esc(f.title) + '</strong>' +
+      '<span class="meta"> 📎 ' + esc(f.fileName) + ' · ' + Math.max(1, Math.round(f.size / 1024)) + ' Ko</span>' +
+      '<div style="margin-top:6px">' +
+      (/pdf/.test(f.type || "") || /\.pdf$/i.test(f.fileName || "") ? '<button class="btn small" data-open-course="' + esc(f.id) + '">📖 Ouvrir le PDF</button> ' : "") +
+      '<button class="btn small gold" data-dl-course="' + esc(f.id) + '">⬇️ Télécharger</button></div></div>').join("");
     return (
       '<h1>🏫 Salle de cours</h1>' +
-      '<p class="lead">Votre programme complet : ' + D.sessions.length + ' séances guidées, chacune avec objectifs, leçon, quiz et devoir associé.</p>' + sessions
+      '<p class="lead">Votre programme complet : ' + D.sessions.length + ' séances guidées, chacune avec objectifs, leçon, quiz et devoir associé.</p>' + sessions +
+      (files ? '<h2>📄 Cours en fichiers (PDF / Word)</h2>' + files : "")
     );
+  };
+
+  binders.cours = function () {
+    $$('[data-open-course]').forEach((b) =>
+      b.addEventListener("click", () => openStoredCourse(b.dataset.openCourse)));
+    $$('[data-dl-course]').forEach((b) =>
+      b.addEventListener("click", () => openStoredCourse(b.dataset.dlCourse, true)));
   };
 
   routes["seance"] = function (id) {
@@ -769,6 +806,18 @@
       '<p style="margin-top:10px"><button class="btn" id="addSession">Ajouter la séance</button></p></div>' +
       sessionList +
 
+      '<h2>📄 Cours en fichier (PDF / Word) (' + (c.courses || []).length + ')</h2>' +
+      '<div class="card"><label for="cTitle">Titre du cours</label><input type="text" id="cTitle" placeholder="Leçon 9 — Les consonnes spécifiques">' +
+      '<label for="cFile">Fichier (PDF, Word .doc/.docx, TXT ou HTML — 3 Mo max)</label>' +
+      '<input type="file" id="cFile" accept=".pdf,.doc,.docx,.txt,.html">' +
+      '<p style="margin-top:10px"><button class="btn" id="addCourseFile">📎 Ajouter le fichier comme cours</button></p>' +
+      '<p class="muted">Le fichier est enregistré dans l\'application sur cet appareil. Les apprenants l\'ouvrent depuis la salle de cours (PDF) ou le téléchargent (Word).</p></div>' +
+      ((c.courses || []).map((f) =>
+        '<div class="card list-item"><strong>' + esc(f.title) + '</strong>' +
+        '<span class="meta"> 📎 ' + esc(f.fileName) + ' · ' + Math.max(1, Math.round(f.size / 1024)) + ' Ko · ' + esc(f.date) + '</span>' +
+        '<button class="btn small danger" data-del-course="' + esc(f.id) + '" style="float:right">🗑️</button></div>').join("") ||
+        '<p class="muted">Aucun cours en fichier.</p>') +
+
       '<h2>📤 Devoirs (' + D.homeworks.length + ')</h2>' +
       '<div class="card"><label for="hTitle">Titre du devoir</label><input type="text" id="hTitle" placeholder="Dictée de 10 mots">' +
       '<label for="hSession">Séance associée</label><select id="hSession">' + sessionOptions + '</select>' +
@@ -835,6 +884,28 @@
       c.homeworks.push(h);
       persistContent(c);
     });
+    $("#addCourseFile").addEventListener("click", () => {
+      const input = $("#cFile");
+      const file = input.files && input.files[0];
+      if (!file) { alert("Choisissez d'abord un fichier (PDF ou Word)."); return; }
+      if (file.size > 3 * 1024 * 1024) { alert("Fichier trop lourd (" + (Math.round(file.size / 1024 / 1024 * 10) / 10) + " Mo). Limite : 3 Mo pour tenir dans la mémoire de l'application."); return; }
+      const title = $("#cTitle").value.trim() || file.name.replace(/\.[^.]+$/, "");
+      const reader = new FileReader();
+      reader.onload = () => {
+        const c = Store.content();
+        if (!c.courses) c.courses = [];
+        c.courses.push({ id: uid(), title, fileName: file.name, type: file.type, size: file.size, date: today(), data: reader.result });
+        persistContent(c);
+      };
+      reader.readAsDataURL(file);
+    });
+    $$('[data-del-course]').forEach((b) =>
+      b.addEventListener("click", () => {
+        if (!confirm("Supprimer ce fichier de cours ?")) return;
+        const c = Store.content();
+        c.courses = (c.courses || []).filter((x) => x.id !== b.dataset.delCourse);
+        persistContent(c);
+      }));
     $$('[data-del-vocab]').forEach((b) =>
       b.addEventListener("click", () => { if (confirm("Supprimer ce mot ?")) removeContentItem("vocabulary", b.dataset.delVocab); }));
     $$('[data-del-session]').forEach((b) =>

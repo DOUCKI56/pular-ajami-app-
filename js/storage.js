@@ -68,10 +68,13 @@ const Store = (() => {
      homeworks: [], corrections: {}, deletedVocab: [], deletedSessions: [],
      deletedHomeworks: []} */
   function content() {
-    return get("content", {
-      vocabulary: [], sessions: [], homeworks: [], corrections: {},
+    const defaults = {
+      vocabulary: [], sessions: [], homeworks: [], courses: [], corrections: {},
       deletedVocab: [], deletedSessions: [], deletedHomeworks: []
-    });
+    };
+    const c = get("content", defaults);
+    for (const k of Object.keys(defaults)) if (!(k in c)) c[k] = defaults[k];
+    return c;
   }
   function saveContent(c) { set("content", c); }
 
