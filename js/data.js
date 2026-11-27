@@ -107,18 +107,18 @@ DATA.rules = [
   { title: "Règle 8 — Le siège du Hamza",
     text: "En début de mot, le Hamza sert de support à la voyelle selon l'harmonie vocalique. Hamza au-dessus أ (voyelles arrière) : a (أَ), u (أُ), o (أٝ). Hamza en dessous إ (voyelles avant) : i (إِ), e (إࣹ ou إٖ), o fermé (إࣷ)." },
   { title: "Règle 9 — Interdiction absolue du Soukoun en début de mot",
-    text: "Aucun mot pulaar ne peut commencer par une syllabe fermée (consonne + Soukoun). Cela vaut y compris pour les prénasalisées (mb, nd, nj, ng). On ajoute une voyelle d'appui (généralement i) en ajami : stool ➔ إِسْتٝول (istool), mbabba ➔ إِنْبَبَّ (imbabba), ndiyam ➔ إِنْدِيَمْ (indiyam)." },
+    text: "Aucun mot pulaar ne peut commencer par une syllabe fermée (consonne + Soukoun). Consonnes simples : on ajoute une voyelle d'appui (généralement i) — stool ➔ إِسْتٝول (istool). Consonnes prénasalisées (mb, nd, nj, ng) : elles ne prennent pas de Soukoun en début de mot ; on les écrit directement, sans voyelle d'appui — njaare ➔ نجَارࣹ, mbeewa ➔ نبࣹيوَ, nder ➔ ندࣹرْ, ngaari ➔ نگَارِ." },
   { title: "Règle 10 — Exception des noms propres arabes",
     text: "Les noms des Prophètes et des Compagnons ne suivent pas les règles phonétiques pulaar : ils conservent leur orthographe arabe standard. Exemples : Muhammadu ➔ مُحَمَّدُ, 'Umaru ➔ عُمَرُ." }
 ];
 
 /* ============ 4. CONSONNES PRÉNASALISÉES (toujours avec Noun) ============ */
 DATA.digraphs = [
-  { aj: "نب", latin: "Mb", ex: { aj: "نْبَࣹ", latin: "Mbahe" } },
-  { aj: "نط", latin: "Nɗ", ex: { aj: "نْطَ", latin: "Nɗa" } },
-  { aj: "نج", latin: "Nj", ex: { aj: "نْجَارࣹ", latin: "Njarè" } },
-  { aj: "ند", latin: "Nd", ex: { aj: "نْدِيَنْ", latin: "Ndiyan" } },
-  { aj: "نگ", latin: "Ng", ex: { aj: "نْگَارِ", latin: "Ngaari" } }
+  { aj: "نب", latin: "Mb", ex: { aj: "نبࣹيوَ", latin: "mbeewa" } },
+  { aj: "نط", latin: "Nɗ", ex: { aj: "نطَ", latin: "Nɗa" } },
+  { aj: "نج", latin: "Nj", ex: { aj: "نجَارࣹ", latin: "njaare" } },
+  { aj: "ند", latin: "Nd", ex: { aj: "ندࣹرْ", latin: "nder" } },
+  { aj: "نگ", latin: "Ng", ex: { aj: "نگَارِ", latin: "ngaari" } }
 ];
 
 /* ============ 5. VOCABULAIRE (graphies validées) ============ */
@@ -127,8 +127,9 @@ DATA.vocabulary = [
   { aj: "جَمْ وَ؟", latin: "jam wa?", fr: "ça va ?", cat: "Salutations" },
   { aj: "جَمْ تَنْ", latin: "jam tan", fr: "ça va, paix seulement", cat: "Salutations" },
   { aj: "بَابَ", latin: "baaba", fr: "le père", cat: "Famille" },
-  { aj: "إِنْدِيَمْ", latin: "ndiyam (indiyam)", fr: "l'eau", cat: "Nature" },
-  { aj: "نْگَارِ", latin: "ngaari", fr: "la vache", cat: "Nature" },
+  { aj: "ندِيَمْ", latin: "ndiyam", fr: "l'eau", cat: "Nature" },
+  { aj: "نبࣹيوَ", latin: "mbeewa", fr: "la chèvre", cat: "Nature" },
+  { aj: "نگَارِ", latin: "ngaari", fr: "la vache", cat: "Nature" },
   { aj: "ݖُلِّ", latin: "colli", fr: "les oiseaux", cat: "Nature" },
   { aj: "فِلّ", latin: "fello", fr: "la montagne", cat: "Nature" },
   { aj: "نَامُ", latin: "naamu", fr: "le riz", cat: "Vie quotidienne" },
@@ -193,8 +194,8 @@ DATA.sessions = [
   {
     id: "s6", level: "Intermédiaire", title: "Consonnes prénasalisées : Mb, Nɗ, Nj, Nd, Ng",
     duration: "60 min",
-    objectives: ["Lire les 5 digrammes prénasalisés", "Appliquer la voyelle d'appui en début de mot (Règle 9)"],
-    content: "Les prénasalisées mb, nd, nj, ng, nɗ sont des phonèmes uniques. En Ajami, elles s'écrivent toujours avec un Noun (ن) : نب (Mb), نط (Nɗ), نج (Nj), ند (Nd), نگ (Ng). Exemples validés : نْبَࣹ ➔ Mbahe, نْطَ ➔ Nɗa, نْجَارࣹ ➔ Njarè, نْدِيَنْ ➔ Ndiyan, نْگَارِ ➔ Ngaari. Attention (Règle 9) : aucun mot ne commence par une syllabe fermée, y compris avec les prénasalisées — on ajoute une voyelle d'appui i : ndiyam ➔ إِنْدِيَمْ (indiyam), mbabba ➔ إِنْبَبَّ (imbabba).",
+    objectives: ["Lire les 5 digrammes prénasalisés", "Écrire les prénasalisées en début de mot sans Soukoun (Règle 9)"],
+    content: "Les prénasalisées mb, nd, nj, ng, nɗ sont des phonèmes uniques. En Ajami, elles s'écrivent toujours avec un Noun (ن) : نب (Mb), نط (Nɗ), نج (Nj), ند (Nd), نگ (Ng). Exemples validés : نبࣹيوَ ➔ mbeewa, نطَ ➔ Nɗa, نجَارࣹ ➔ njaare, ندࣹرْ ➔ nder, نگَارِ ➔ ngaari. Attention (Règle 9) : en début de mot, les prénasalisées s'écrivent directement, sans Soukoun et sans voyelle d'appui ; seules les consonnes simples prennent une voyelle d'appui (stool ➔ إِسْتٝول istool).",
     quiz: "vocabulaire"
   },
   {
@@ -230,7 +231,7 @@ DATA.homeworks = [
     instructions: "Avec l'atelier « Parler », enregistrez-vous en lisant : ndiyam, ngaari, colli, fello, ooɗoo. Puis décrivez ici votre auto-évaluation (mots faciles / difficiles).",
     correction: {
       published: true,
-      text: "Attendu : ndiyam = إِنْدِيَمْ ; ngaari = نْگَارِ ; colli = ݖُلِّ ; fello = فِلّ ; ooɗoo = أٝوطٝو. Points de vigilance : en début de mot, ndiyam prend le Hamza d'appui إِ avec le Noun suivi du Soukoun (Règle 9) ; le double l de colli vient du Chadda (Règle 6) ; dans ooɗoo, le Waw allonge la voyelle (Règle 7)."
+      text: "Attendu : ndiyam = ندِيَمْ ; ngaari = نگَارِ ; colli = ݖُلِّ ; fello = فِلّ ; ooɗoo = أٝوطٝو. Points de vigilance : en début de mot, les prénasalisées s'écrivent directement, sans Soukoun et sans voyelle d'appui (Règle 9) ; le double l de colli vient du Chadda (Règle 6) ; dans ooɗoo, le Waw allonge la voyelle (Règle 7)."
     }
   },
   {
