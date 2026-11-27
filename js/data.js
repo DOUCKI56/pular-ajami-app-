@@ -406,6 +406,7 @@ DATA.fiches = {
 };
 
 DATA.docs = [
+  { file: "docs/guide-utilisation.html", label: "📘 Guide d'utilisation complet (HTML imprimable)", note: "Installation, configuration, suivi des cours sans rien rater, questions aux formateurs, devoirs et corrections, dépannage." },
   { file: "docs/Regles_Ajami_Pulaar.html", label: "Manuel de transcription complet (HTML)", note: "Toutes les règles, tableaux et exceptions validés — le document de référence." },
   { file: "docs/affiche-alphabet.html", label: "Affiche de l'alphabet harmonisé (HTML imprimable)", note: "22 consonnes + prénasalisées + voyelles sur une page A4 — à imprimer et afficher en classe." },
   { file: "docs/fiche-lecture-syllabes.html", label: "Fiche de lecture — syllabes (HTML imprimable)", note: "Syllabes brèves, longues, fermées et prénasalisées pour lire à voix haute." },

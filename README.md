@@ -59,7 +59,7 @@ js/data.js          Contenu pédagogique modifiable par les formateurs
 js/storage.js       Persistance locale (localStorage)
 js/app.js           Application (vues, quiz, atelier, routeur)
 sw.js               Cache hors ligne
-docs/               Documents téléchargeables (PDF/TXT)
+docs/               Documents téléchargeables (PDF/TXT/HTML) — dont le guide d'utilisation complet (docs/guide-utilisation.html)
 tools/make_docs.py  Régénère les documents : python3 tools/make_docs.py
 ```
 
