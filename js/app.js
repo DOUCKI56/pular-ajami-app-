@@ -10,6 +10,31 @@
   const aj = (s) => '<span class="ajami">' + esc(s) + "</span>";
   const today = () => new Date().toISOString().slice(0, 10);
   const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  const ROLE_LABEL = { learner: "Apprenant", teacher: "Enseignant", admin: "Administrateur" };
+  const genCode = () => {
+    const cs = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+    let out = "";
+    for (let i = 0; i < 6; i++) out += cs[Math.floor(Math.random() * cs.length)];
+    return out;
+  };
+  function applyAccessCode(code) {
+    code = String(code || "").trim().toUpperCase();
+    if (!code) return "empty";
+    const a = Store.auth();
+    if (code === a.adminCode) {
+      const first = a.adminCode === Store.DEFAULT_ADMIN_CODE;
+      Store.setRole("admin");
+      if (first) alert("Bienvenue, administrateur ! Changez le code par défaut dans « Gestion des enseignants et administrateurs ».");
+      return "admin";
+    }
+    const entry = a.codes.find((x) => x.code === code && !x.used);
+    if (!entry) return "bad";
+    entry.used = today();
+    entry.by = Store.profile().name || "enseignant";
+    Store.saveAuth(a);
+    Store.setRole("teacher");
+    return "teacher";
+  }
 
   /* ---------- Données fusionnées (base + contenus de l'administrateur) ---------- */
   let D = {};
@@ -44,6 +69,9 @@
     const view = routes[hash] ? hash : "accueil";
     $$(".sidebar a, .tabbar a").forEach((a) =>
       a.classList.toggle("active", a.dataset.nav === view));
+    $$(".sidebar a[data-nav='admin'], .tabbar a[data-nav='admin']").forEach((a) => {
+      if (a.parentElement) a.parentElement.style.display = Store.role() === "learner" ? "none" : "";
+    });
     main.innerHTML = routes[view]();
     main.focus({ preventScroll: true });
     window.scrollTo(0, 0);
@@ -564,7 +592,7 @@
   };
 
   routes.formateurs = function () {
-    const tMode = Store.trainerMode();
+    const tMode = Store.role() !== "learner";
     const qs = Store.questions().slice().reverse();
     const list = qs.length ? qs.map((q) => {
       const replies = (q.replies || []).map((r) =>
@@ -612,7 +640,7 @@
   };
 
   routes.devoirs = function () {
-    const tMode = Store.trainerMode();
+    const tMode = Store.role() !== "learner";
     const subs = Store.homeworks();
     const cards = D.homeworks.map((h) => {
       const mine = subs.filter((s) => s.homeworkId === h.id);
@@ -703,16 +731,23 @@
 
   routes.parametres = function () {
     const p = Store.profile();
-    const tMode = Store.trainerMode();
+    const role = Store.role();
     return (
       '<h1>⚙️ Paramètres</h1>' +
       '<div class="card">' +
       '<label for="setName">Votre nom d\'apprenant</label>' +
       '<input type="text" id="setName" value="' + esc(p.name) + '" placeholder="Ex : Mamadou B.">' +
       '<p style="margin-top:10px"><button class="btn" id="saveName">Enregistrer</button></p></div>' +
-      '<div class="card"><h3>Mode formateur</h3>' +
-      '<p class="muted">Permet de répondre aux questions et corriger les devoirs sur cet appareil.</p>' +
-      '<p><button class="btn ' + (tMode ? "danger" : "gold") + '" id="toggleTrainer">' + (tMode ? "Désactiver le mode formateur" : "Activer le mode formateur") + "</button></p></div>" +
+      '<div class="card"><h3>Mon rôle</h3>' +
+      '<p>Vous êtes : <strong>' + ROLE_LABEL[role] + '</strong>' +
+      (role !== "learner" ? ' <span class="badge ok">accès formateur</span>' : '') + '</p>' +
+      (role === "learner"
+        ? '<label for="roleCode">Code enseignant ou administrateur</label><input type="text" id="roleCode" placeholder="Ex : ABC123">' +
+          '<p style="margin-top:10px"><button class="btn gold" id="useTeacherCode">👤 Devenir enseignant</button> ' +
+          '<button class="btn" id="useAdminCode">🔐 Devenir administrateur</button></p>' +
+          '<p class="muted">Les codes sont délivrés par l\'administrateur de l\'application.</p>'
+        : '<p><button class="btn danger" id="leaveRole">Revenir en simple apprenant</button></p>') +
+      '</div>' +
       '<div class="card"><h3>Réinitialiser</h3>' +
       '<p class="muted">Efface progression, questions et devoirs stockés sur cet appareil.</p>' +
       '<p><button class="btn danger" id="resetAll">Tout réinitialiser</button></p></div>' +
@@ -727,10 +762,19 @@
       Store.set("profile", { name: $("#setName").value.trim(), joined: Store.profile().joined });
       nav();
     });
-    $("#toggleTrainer").addEventListener("click", () => {
-      Store.setTrainerMode(!Store.trainerMode());
-      nav();
-    });
+    const useTeacher = $("#useTeacherCode");
+    if (useTeacher) {
+      const submitCode = () => {
+        const res = applyAccessCode($("#roleCode").value);
+        if (res === "empty") { alert("Entrez un code."); return; }
+        if (res === "bad") { alert("Code inconnu ou déjà utilisé. Demandez le code à l\'administrateur."); return; }
+        nav();
+      };
+      useTeacher.addEventListener("click", submitCode);
+      $("#useAdminCode").addEventListener("click", submitCode);
+    } else {
+      $("#leaveRole").addEventListener("click", () => { Store.setRole("learner"); nav(); });
+    }
     $("#resetAll").addEventListener("click", () => {
       if (confirm("Tout réinitialiser ? Cette action est définitive.")) {
         Store.reset();
@@ -774,11 +818,17 @@
 
   routes.admin = function () {
     const c = Store.content();
-    if (!Store.trainerMode()) {
+    const a = Store.auth();
+    if (Store.role() === "learner") {
       return '<h1>🔐 Administration</h1>' +
-        '<div class="notice">🛡️ Le mode formateur est désactivé. Activez-le pour administrer les contenus (vocabulaire, séances, devoirs, corrections).</div>' +
-        '<button class="btn" id="adminEnable">Activer le mode formateur</button>';
+        '<div class="notice">🛡️ Accès réservé aux enseignants et administrateurs. Entrez votre code d\'accès.</div>' +
+        '<div class="card"><label for="gateCode">Code enseignant ou administrateur</label>' +
+        '<input type="text" id="gateCode" placeholder="Ex : ABC123">' +
+        '<p style="margin-top:10px"><button class="btn gold" id="gateTeacher">👤 Entrer comme enseignant</button> ' +
+        '<button class="btn" id="gateAdmin">🔐 Entrer comme administrateur</button></p>' +
+        '<p class="muted">Pas de code ? Demandez-le à l\'administrateur de l\'application.</p></div>';
     }
+    const isAdmin = Store.role() === "admin";
     const vocabList = D.vocabulary.map((w) =>
       '<div class="card list-item"><strong>' + aj(w.aj) + '</strong> — ' + esc(w.latin) +
       ' <span class="muted">(' + esc(w.fr) + ' · ' + esc(w.cat) + ')</span>' +
@@ -807,6 +857,26 @@
     return (
       '<h1>🔐 Administration</h1>' +
       '<p class="lead">Ajoutez et gérez les contenus de l\'application : vocabulaire, séances de la salle de cours, devoirs et corrections. <span class="muted">Les contenus sont enregistrés sur cet appareil ; exportez-les pour les sauvegarder ou les partager.</span></p>' +
+      (isAdmin
+        ? '<h2>👥 Gestion des enseignants et administrateurs</h2>' +
+          (a.adminCode === Store.DEFAULT_ADMIN_CODE
+            ? '<div class="notice">⚠️ Le code administrateur est encore celui par défaut. Changez-le ci-dessous, puis ne le partagez qu\'avec les personnes de confiance.</div>'
+            : '') +
+          '<div class="card"><h3>Code administrateur</h3>' +
+          '<label for="newAdminCode">Nouveau code administrateur (à garder secret)</label>' +
+          '<input type="text" id="newAdminCode" placeholder="8 caractères minimum conseillés">' +
+          '<p style="margin-top:10px"><button class="btn" id="saveAdminCode">Enregistrer le code</button></p></div>' +
+          '<div class="card"><h3>Codes enseignants</h3>' +
+          '<p class="muted">Générez un code et donnez-le à un enseignant : il l\'entre dans Paramètres (ou ici) pour être accepté comme formateur. Chaque code ne sert qu\'une fois.</p>' +
+          '<p><button class="btn gold" id="genTeacherCode">➕ Générer un code enseignant</button></p>' +
+          (a.codes.length
+            ? a.codes.slice().reverse().map((e) =>
+                '<div class="card list-item"><strong>' + esc(e.code) + '</strong>' +
+                (e.used ? ' <span class="badge ok">utilisé le ' + esc(e.used) + '</span>' : ' <span class="badge gold">disponible</span>') +
+                '<button class="btn small danger" data-del-code="' + esc(e.code) + '" style="float:right">🗑️</button></div>').join("")
+            : '<p class="muted">Aucun code enseignant généré.</p>') +
+          '</div>'
+        : '') +
 
       '<h2>➕ Vocabulaire (' + D.vocabulary.length + ')</h2>' +
       '<div class="card"><label for="vAj">Mot en ajami (écrit de droite à gauche)</label>' +
@@ -876,13 +946,45 @@
   };
 
   binders.admin = function () {
-    const enable = $("#adminEnable");
-    if (enable) {
-      enable.addEventListener("click", () => {
-        Store.setTrainerMode(true);
+    const gate = $("#gateCode");
+    if (gate) {
+      const submit = () => {
+        const res = applyAccessCode(gate.value);
+        if (res === "empty") { alert("Entrez votre code."); return; }
+        if (res === "bad") { alert("Code inconnu ou déjà utilisé. Demandez le code à l\'administrateur."); return; }
+        nav();
+      };
+      $("#gateTeacher").addEventListener("click", submit);
+      $("#gateAdmin").addEventListener("click", submit);
+      return;
+    }
+    const mgmt = $("#saveAdminCode");
+    if (mgmt) {
+      mgmt.addEventListener("click", () => {
+        const v = $("#newAdminCode").value.trim().toUpperCase();
+        if (v.length < 4) { alert("Choisissez un code d'au moins 4 caractères."); return; }
+        const a = Store.auth();
+        a.adminCode = v;
+        Store.saveAuth(a);
+        alert("Code administrateur mis à jour. Gardez-le secret.");
         nav();
       });
-      return;
+      $("#genTeacherCode").addEventListener("click", () => {
+        const a = Store.auth();
+        const code = genCode();
+        a.codes.push({ code, created: today() });
+        Store.saveAuth(a);
+        prompt("Nouveau code enseignant — copiez-le et donnez-le à l'enseignant :", code);
+        nav();
+      });
+      $$('[data-del-code]').forEach((b) =>
+        b.addEventListener("click", () => {
+          if (!confirm("Révoquer ce code enseignant ?")) return;
+          const a = Store.auth();
+          a.codes = a.codes.filter((x) => x.code !== b.dataset.delCode);
+          Store.saveAuth(a);
+          nav();
+        }));
     }
     $("#addVocab").addEventListener("click", () => {
       const w = { id: uid(), aj: $("#vAj").value.trim(), latin: $("#vLatin").value.trim(),

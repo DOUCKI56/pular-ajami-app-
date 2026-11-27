@@ -57,8 +57,22 @@ tools/make_docs.py  Régénère les documents : python3 tools/make_docs.py
 
 ## Enrichir le contenu
 
-**Panneau d'administration** : menu **🔐 Administration** de l'application.
-Au premier accès, activez le **mode formateur** (bouton fourni), puis :
+**Rôles et accès** : trois rôles — **Apprenant** (par défaut),
+**Enseignant**, **Administrateur**. Pour ajouter du contenu il faut être
+enseignant ou administrateur. Deux façons d'entrer son code : le menu
+**🔐 Administration** (écran « Entrez votre code d'accès ») ou
+**⚙️ Paramètres → Mon rôle**.
+
+- code **administrateur** par défaut : `PULAR1987` — **à changer
+  immédiatement** dans **👥 Gestion des enseignants et administrateurs** ;
+- l'administrateur **génère des codes enseignant** (bouton ➕, 6 caractères,
+  à usage unique) et peut **révoquer** chaque code ;
+- un enseignant peut ajouter tout le contenu mais ne voit pas la gestion des
+  codes ; le menu 🔐 reste caché aux simples apprenants ;
+- on peut revenir en simple apprenant via **Paramètres → Mon rôle**.
+
+**Panneau d'administration** : menu **🔐 Administration**. Une fois accepté
+comme enseignant ou administrateur :
 
 - ajouter/supprimer des **mots de vocabulaire** (ajami, transcription,
   traduction, catégorie) — ils apparaissent aussitôt dans Lire, Écrire,
@@ -75,6 +89,11 @@ Au premier accès, activez le **mode formateur** (bouton fourni), puis :
 - ajouter des **devoirs** et **rédiger/publier les corrections** ;
 - **exporter/importer** les contenus personnalisés en JSON (sauvegarde,
   partage entre appareils).
+
+⚠️ Les rôles et codes sont enregistrés **sur l'appareil** (localStorage) :
+un code saisi sur un nouvel appareil y accorde le rôle, mais la liste des
+codes n'est pas partagée entre appareils. Pour des comptes réels multi-
+appareils, un petit backend sera nécessaire (voir ci-dessous).
 
 Les contenus administrés sont stockés sur l'appareil (localStorage) et
 fusionnés avec la base intégrée. Pour une modification permanente du contenu

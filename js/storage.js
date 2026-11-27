@@ -25,7 +25,7 @@ const Store = (() => {
   }
 
   function reset() {
-    ["profile", "progress", "quizStats", "questions", "homeworks", "trainerMode", "content"].forEach(remove);
+    ["profile", "progress", "quizStats", "questions", "homeworks", "trainerMode", "content", "role", "auth"].forEach(remove);
   }
 
   /* Profil */
@@ -64,6 +64,20 @@ const Store = (() => {
   function trainerMode() { return get("trainerMode", false); }
   function setTrainerMode(v) { set("trainerMode", v); }
 
+  /* Rôles et codes d'accès : learner / teacher / admin.
+     L'administrateur gère le code admin et génère des codes enseignants. */
+  const DEFAULT_ADMIN_CODE = "PULAR1987";
+  function auth() {
+    return get("auth", { adminCode: DEFAULT_ADMIN_CODE, codes: [] });
+  }
+  function saveAuth(a) { set("auth", a); }
+  function role() {
+    const r = get("role", "");
+    if (r) return r;
+    return trainerMode() ? "admin" : "learner";
+  }
+  function setRole(r) { set("role", r); }
+
   /* Contenus ajoutés par l'administrateur : {vocabulary: [], sessions: [],
      homeworks: [], corrections: {}, deletedVocab: [], deletedSessions: [],
      deletedHomeworks: []} */
@@ -80,5 +94,6 @@ const Store = (() => {
 
   return { get, set, remove, reset, profile, progress, setProgress, quizStats,
            addQuizResult, questions, saveQuestions, homeworks, saveHomeworks,
-           trainerMode, setTrainerMode, content, saveContent };
+           trainerMode, setTrainerMode, content, saveContent,
+           DEFAULT_ADMIN_CODE, auth, saveAuth, role, setRole };
 })();
