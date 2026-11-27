@@ -79,6 +79,9 @@ comme enseignant ou administrateur :
   Parler et les quiz ;
 - ajouter/supprimer des **séances de la salle de cours** (niveau, durée,
   objectifs, leçon, quiz associé) ;
+- **modifier** les séances (bouton ✏️, y compris celles fournies avec
+  l'application — le bouton « ↺ Restaurer » rétablit l'original), le
+  vocabulaire et le titre des fichiers de cours ;
 - ajouter des **cours depuis un fichier externe** (PDF, Word .doc/.docx,
   image, TXT ou HTML — 20 Mo max) : les **images sont compressées
   automatiquement** (JPEG, qualité optimisée) ; les fichiers sont stockés en

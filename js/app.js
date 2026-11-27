@@ -51,14 +51,21 @@
       numbers: DATA.numbers,
       docs: DATA.docs,
       trainers: DATA.trainers,
-      vocabulary: DATA.vocabulary.filter((w) => !c.deletedVocab.includes(w.latin)).concat(c.vocabulary),
-      sessions: DATA.sessions.filter((s) => !c.deletedSessions.includes(s.id)).concat(c.sessions),
+      vocabulary: DATA.vocabulary.filter((w) => !c.deletedVocab.includes(w.latin))
+        .map((w) => c.vocabulary.find((x) => x.replaces === w.latin || (x.id || x.latin) === (w.id || w.latin)) || w)
+        .concat(c.vocabulary.filter((x) => !x.replaces)),
+      sessions: DATA.sessions.filter((s) => !c.deletedSessions.includes(s.id))
+        .map((s) => c.sessions.find((x) => x.id === s.id) || s)
+        .concat(c.sessions.filter((x) => !DATA.sessions.some((d) => d.id === x.id))),
       homeworks: DATA.homeworks.filter((h) => !c.deletedHomeworks.includes(h.id))
         .map(applyCorrection)
         .concat(c.homeworks.map(applyCorrection))
     };
   }
   buildData();
+
+  /* États d'édition (boutons ✏️ Modifier de l'administration) */
+  let editSessionId = null, editVocabId = null;
 
   /* ---------- Navigation ---------- */
   const routes = {};
@@ -907,6 +914,7 @@
     } else if (kind === "sessions") {
       if (c.sessions.some((s) => s.id === key)) {
         c.sessions = c.sessions.filter((s) => s.id !== key);
+        if (DATA.sessions.some((s) => s.id === key) && !c.deletedSessions.includes(key)) c.deletedSessions.push(key);
       } else if (!c.deletedSessions.includes(key)) {
         c.deletedSessions.push(key);
       }
@@ -936,12 +944,22 @@
     const vocabList = D.vocabulary.map((w) =>
       '<div class="card list-item"><strong>' + aj(w.aj) + '</strong> — ' + esc(w.latin) +
       ' <span class="muted">(' + esc(w.fr) + ' · ' + esc(w.cat) + ')</span>' +
-      '<button class="btn small danger" data-del-vocab="' + esc(w.id || w.latin) + '" style="float:right">🗑️</button></div>').join("") ||
+      (c.vocabulary.some((x) => x.replaces === w.latin) ? ' <span class="badge gold">✏️ modifié</span>' : '') +
+      '<span style="float:right">' +
+      '<button class="btn small gold" data-edit-vocab="' + esc(w.id || w.latin) + '">✏️</button> ' +
+      '<button class="btn small danger" data-del-vocab="' + esc(w.id || w.latin) + '">🗑️</button></span></div>').join("") ||
       '<p class="muted">Aucun mot.</p>';
-    const sessionList = D.sessions.map((s) =>
-      '<div class="card list-item"><strong>' + esc(s.title) + '</strong> <span class="badge">' + esc(s.level) + '</span>' +
-      '<span class="meta"> ⏱ ' + esc(s.duration) + (c.sessions.some((x) => x.id === s.id) ? ' · <span class="badge gold">ajoutée par vous</span>' : '') + '</span>' +
-      '<button class="btn small danger" data-del-session="' + esc(s.id) + '" style="float:right">🗑️</button></div>').join("");
+    const sessionList = D.sessions.map((s) => {
+      const isCustom = c.sessions.some((x) => x.id === s.id);
+      const isStatic = DATA.sessions.some((d) => d.id === s.id);
+      return '<div class="card list-item"><strong>' + esc(s.title) + '</strong> <span class="badge">' + esc(s.level) + '</span>' +
+        '<span class="meta"> ⏱ ' + esc(s.duration) +
+        (isCustom ? (isStatic ? ' · <span class="badge gold">✏️ modifiée</span>' : ' · <span class="badge gold">ajoutée par vous</span>') : '') + '</span>' +
+        '<span style="float:right">' +
+        (isCustom && isStatic ? '<button class="btn small" data-restore-session="' + esc(s.id) + '">↺ Restaurer</button> ' : '') +
+        '<button class="btn small gold" data-edit-session="' + esc(s.id) + '">✏️</button> ' +
+        '<button class="btn small danger" data-del-session="' + esc(s.id) + '">🗑️</button></span></div>';
+    }).join("");
     const homeworkList = D.homeworks.map((h) => {
       const pub = h.correction && h.correction.published;
       return '<div class="card list-item"><strong>' + esc(h.title) + '</strong>' +
@@ -988,7 +1006,8 @@
       '<label for="vLatin">Transcription latine</label><input type="text" id="vLatin" placeholder="jam">' +
       '<label for="vFr">Traduction française</label><input type="text" id="vFr" placeholder="la paix / ça va">' +
       '<label for="vCat">Catégorie</label><select id="vCat">' + cats + '</select>' +
-      '<p style="margin-top:10px"><button class="btn" id="addVocab">Ajouter au vocabulaire</button></p></div>' +
+      '<p style="margin-top:10px"><button class="btn" id="addVocab">' + (editVocabId ? '💾 Enregistrer les modifications' : 'Ajouter au vocabulaire') + '</button>' +
+      ' <button class="btn small ghost" id="cancelEditVocab"' + (editVocabId ? '' : ' hidden') + '>✖️ Annuler</button></p></div>' +
       vocabList +
 
       '<h2>🎙️ Prononciations audio — votre voix (' + Object.keys(c.audio || {}).length + ')</h2>' +
@@ -1014,7 +1033,8 @@
       '<label for="sObjectives">Objectifs (un par ligne)</label><textarea id="sObjectives" placeholder="Lire des phrases simples\nReconnaître les voyelles longues"></textarea>' +
       '<label for="sContent">Contenu de la leçon</label><textarea id="sContent" placeholder="Texte de la leçon…"></textarea>' +
       '<label for="sQuiz">Quiz associé</label><select id="sQuiz">' + quizOptions + '</select>' +
-      '<p style="margin-top:10px"><button class="btn" id="addSession">Ajouter la séance</button></p></div>' +
+      '<p style="margin-top:10px"><button class="btn" id="addSession">' + (editSessionId ? '💾 Enregistrer les modifications' : 'Ajouter la séance') + '</button>' +
+      ' <button class="btn small ghost" id="cancelEditSession"' + (editSessionId ? '' : ' hidden') + '>✖️ Annuler</button></p></div>' +
       sessionList +
 
       '<h2>📄 Cours en fichier (PDF / Word) (' + (c.courses || []).length + ') · total : ' +
@@ -1027,7 +1047,8 @@
       ((c.courses || []).map((f) =>
         '<div class="card list-item"><strong>' + esc(f.title) + '</strong>' +
         '<span class="meta"> 📎 ' + esc(f.fileName) + ' · ' + Math.max(1, Math.round(f.size / 1024)) + ' Ko · ' + esc(f.date) + '</span>' +
-        '<button class="btn small danger" data-del-course="' + esc(f.id) + '" style="float:right">🗑️</button></div>').join("") ||
+        '<span style="float:right"><button class="btn small gold" data-edit-course="' + esc(f.id) + '">✏️ Renommer</button> ' +
+        '<button class="btn small danger" data-del-course="' + esc(f.id) + '">🗑️</button></span></div>').join("") ||
         '<p class="muted">Aucun cours en fichier.</p>') +
 
       '<h2>📤 Devoirs (' + D.homeworks.length + ')</h2>' +
@@ -1123,29 +1144,92 @@
         nav();
       });
     $("#addVocab").addEventListener("click", () => {
-      const w = { id: uid(), aj: $("#vAj").value.trim(), latin: $("#vLatin").value.trim(),
+      const w = { aj: $("#vAj").value.trim(), latin: $("#vLatin").value.trim(),
                   fr: $("#vFr").value.trim(), cat: $("#vCat").value };
       if (!w.aj || !w.latin || !w.fr) { alert("Renseignez au moins l\'ajami, la transcription et la traduction."); return; }
       const c = Store.content();
-      c.vocabulary.push(w);
+      if (editVocabId) {
+        const idx = c.vocabulary.findIndex((x) => (x.id || x.latin) === editVocabId);
+        if (idx !== -1) c.vocabulary[idx] = Object.assign({}, c.vocabulary[idx], w);
+        else c.vocabulary.push(Object.assign({ id: uid(), replaces: editVocabId }, w));
+        editVocabId = null;
+      } else {
+        c.vocabulary.push(Object.assign({ id: uid() }, w));
+      }
       persistContent(c);
     });
+    const cancelVocab = $("#cancelEditVocab");
+    if (cancelVocab) cancelVocab.addEventListener("click", () => {
+      editVocabId = null;
+      nav();
+    });
+    $$('[data-edit-vocab]').forEach((b) =>
+      b.addEventListener("click", () => {
+        const w = D.vocabulary.find((x) => (x.id || x.latin) === b.dataset.editVocab);
+        if (!w) return;
+        editSessionId = null;
+        editVocabId = w.id || w.latin;
+        $("#vAj").value = w.aj; $("#vLatin").value = w.latin;
+        $("#vFr").value = w.fr; $("#vCat").value = w.cat || "Autre";
+        const btn = $("#addVocab");
+        if (btn) btn.textContent = "💾 Enregistrer les modifications";
+        const cancel = $("#cancelEditVocab");
+        if (cancel) cancel.hidden = false;
+        if ($("#vAj").scrollIntoView) $("#vAj").scrollIntoView();
+      }));
     $("#addSession").addEventListener("click", () => {
       const title = $("#sTitle").value.trim();
       const contentText = $("#sContent").value.trim();
       if (!title || !contentText) { alert("Renseignez au moins le titre et le contenu de la leçon."); return; }
-      const s = {
-        id: uid(), title,
+      const fields = {
+        title,
         level: $("#sLevel").value,
         duration: $("#sDuration").value.trim() || "45 min",
         objectives: $("#sObjectives").value.split("\n").map((x) => x.trim()).filter(Boolean),
         content: contentText,
-        quiz: $("#sQuiz").value
+        quiz: QUIZ_BANKS[$("#sQuiz").value] ? $("#sQuiz").value : "vocabulaire"
       };
       const c = Store.content();
-      c.sessions.push(s);
+      if (editSessionId) {
+        const idx = c.sessions.findIndex((x) => x.id === editSessionId);
+        if (idx !== -1) c.sessions[idx] = Object.assign({}, c.sessions[idx], fields);
+        else c.sessions.push(Object.assign({ id: editSessionId }, fields));
+        editSessionId = null;
+      } else {
+        c.sessions.push(Object.assign({ id: uid() }, fields));
+      }
       persistContent(c);
     });
+    const cancelSession = $("#cancelEditSession");
+    if (cancelSession) cancelSession.addEventListener("click", () => {
+      editSessionId = null;
+      nav();
+    });
+    $$('[data-edit-session]').forEach((b) =>
+      b.addEventListener("click", () => {
+        const s = D.sessions.find((x) => x.id === b.dataset.editSession);
+        if (!s) return;
+        editVocabId = null;
+        editSessionId = s.id;
+        $("#sTitle").value = s.title;
+        $("#sLevel").value = s.level || "Débutant";
+        $("#sDuration").value = s.duration || "45 min";
+        $("#sObjectives").value = (s.objectives || []).join("\n");
+        $("#sContent").value = s.content || "";
+        $("#sQuiz").value = QUIZ_BANKS[s.quiz] ? s.quiz : "vocabulaire";
+        const btn = $("#addSession");
+        if (btn) btn.textContent = "💾 Enregistrer les modifications";
+        const cancel = $("#cancelEditSession");
+        if (cancel) cancel.hidden = false;
+        if ($("#sTitle").scrollIntoView) $("#sTitle").scrollIntoView();
+      }));
+    $$('[data-restore-session]').forEach((b) =>
+      b.addEventListener("click", () => {
+        if (!confirm("Rétablir la séance d'origine (vos modifications seront perdues) ?")) return;
+        const c = Store.content();
+        c.sessions = c.sessions.filter((x) => x.id !== b.dataset.restoreSession);
+        persistContent(c);
+      }));
     $("#addHomework").addEventListener("click", () => {
       const title = $("#hTitle").value.trim();
       if (!title) { alert("Renseignez le titre du devoir."); return; }
@@ -1182,6 +1266,18 @@
         const c = Store.content();
         c.courses = (c.courses || []).filter((x) => x.id !== b.dataset.delCourse);
         if (typeof Files !== "undefined" && Files.del) Files.del(b.dataset.delCourse);
+        persistContent(c);
+      }));
+    $$('[data-edit-course]').forEach((b) =>
+      b.addEventListener("click", () => {
+        const c = Store.content();
+        const f = (c.courses || []).find((x) => x.id === b.dataset.editCourse);
+        if (!f) return;
+        const t = prompt("Nouveau titre du cours :", f.title);
+        if (t === null) return;
+        const nt = t.trim();
+        if (!nt) return;
+        f.title = nt;
         persistContent(c);
       }));
     let recChunks = [], recRec = null, recData = null, recUrl = null;
