@@ -80,9 +80,11 @@ comme enseignant ou administrateur :
 - ajouter/supprimer des **séances de la salle de cours** (niveau, durée,
   objectifs, leçon, quiz associé) ;
 - ajouter des **cours depuis un fichier externe** (PDF, Word .doc/.docx,
-  TXT ou HTML — 3 Mo max) : le fichier est enregistré dans l'application et
-  les apprenants l'ouvrent (PDF) ou le téléchargent (Word) depuis la salle
-  de cours ;
+  image, TXT ou HTML — 20 Mo max) : les **images sont compressées
+  automatiquement** (JPEG, qualité optimisée) ; les fichiers sont stockés en
+  **IndexedDB** (capacité de plusieurs centaines de Mo) et se synchronisent
+  avec la classe connectée ; les apprenants les ouvrent (PDF) ou les
+  téléchargent (Word) depuis la salle de cours ;
 - ajouter des **prononciations audio enregistrées avec votre voix** (micro) :
   sélectionnez un mot ou une lettre, enregistrez 1 à 2 secondes, sauvegardez —
   votre audio remplace la voix de synthèse dans « Lire » et « Parler » ;

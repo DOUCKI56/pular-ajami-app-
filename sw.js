@@ -1,11 +1,12 @@
 /* Service worker — cache hors ligne simple (cache-first, mise à jour en arrière-plan). */
-const CACHE = "pular-ajami-v16";
+const CACHE = "pular-ajami-v17";
 const ASSETS = [
   "./",
   "index.html",
   "css/style.css",
   "js/data.js",
   "js/storage.js",
+  "js/files.js",
   "js/sync.js",
   "js/app.js",
   "manifest.webmanifest",

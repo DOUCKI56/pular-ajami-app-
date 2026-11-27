@@ -85,9 +85,21 @@ const Sync = (function () {
   function applyRemote(d) {
     const summary = { content: 0, questions: 0, submissions: 0 };
     if (d.content) {
+      if (typeof Files !== "undefined" && Files.detach) {
+        return Files.detach(d.content).then((light) => {
+          Store.saveContent(mergeContent(Store.content(), light));
+          summary.content = 1;
+          return restRemote(d, summary);
+        });
+      }
       Store.saveContent(mergeContent(Store.content(), d.content));
       summary.content = 1;
+      return restRemote(d, summary);
     }
+    return Promise.resolve(restRemote(d, summary));
+  }
+
+  function restRemote(d, summary) {
     if (d.questions && d.questions.length) {
       const m = mergeQuestions(Store.questions(), d.questions);
       Store.saveQuestions(m.list);
@@ -112,7 +124,7 @@ const Sync = (function () {
       const r = await fetch(u);
       const d = await r.json();
       if (!d.ok) throw new Error(d.error || "serveur");
-      const summary = applyRemote(d);
+      const summary = await applyRemote(d);
       saveState({ lastPull: now(), lastError: "" });
       return { ok: true, summary: summary, updatedAt: d.updatedAt || "" };
     } catch (e) {
@@ -126,7 +138,11 @@ const Sync = (function () {
     if (!c.url || !c.key) return { ok: false, error: "config" };
     const w = what || ["content", "questions", "submissions"];
     const body = { key: c.key };
-    if (w.indexOf("content") !== -1) body.content = Store.content();
+    if (w.indexOf("content") !== -1) {
+      body.content = (typeof Files !== "undefined" && Files.attach)
+        ? await Files.attach(Store.content())
+        : Store.content();
+    }
     if (w.indexOf("questions") !== -1) body.questions = Store.questions();
     if (w.indexOf("submissions") !== -1) body.submissions = Store.homeworks();
     try {

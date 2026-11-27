@@ -501,10 +501,49 @@
     return new Blob([arr], { type: mime });
   }
 
-  function openStoredCourse(id, download) {
+  const MAX_FILE = 20 * 1024 * 1024;
+
+  function compressImage(file) {
+    return new Promise((resolve) => {
+      if (!/^image\//.test(file.type) || /gif|svg/.test(file.type)) { resolve(file); return; }
+      if (typeof document === "undefined") { resolve(file); return; }
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        const max = 1600;
+        const scale = Math.min(1, max / Math.max(img.width || 1, img.height || 1));
+        if (scale === 1 && file.size < 400 * 1024) { resolve(file); return; }
+        const cv = document.createElement("canvas");
+        cv.width = Math.max(1, Math.round(img.width * scale));
+        cv.height = Math.max(1, Math.round(img.height * scale));
+        cv.getContext("2d").drawImage(img, 0, 0, cv.width, cv.height);
+        cv.toBlob((b) => {
+          if (b && b.size < file.size) {
+            resolve(new File([b], file.name.replace(/\.[^.]+$/, "") + ".jpg", { type: "image/jpeg" }));
+          } else resolve(file);
+        }, "image/jpeg", 0.72);
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); resolve(file); };
+      img.src = url;
+    });
+  }
+
+  function mo(size) {
+    return (Math.round(size / 1024 / 1024 * 10) / 10) + " Mo";
+  }
+
+  async function migrateCourseFiles() {
+    if (typeof Files === "undefined" || !Files.detach) return;
+    try { await Files.detach(Store.content()); Store.saveContent(Store.content()); } catch (e) {}
+  }
+
+  async function openStoredCourse(id, download) {
     const f = (Store.content().courses || []).find((x) => x.id === id);
     if (!f) { alert("Fichier introuvable sur cet appareil."); return; }
-    const url = URL.createObjectURL(dataURLtoBlob(f.data));
+    const data = f.data || (typeof Files !== "undefined" && Files.get ? await Files.get(id) : "");
+    if (!data) { alert("Fichier introuvable sur cet appareil."); return; }
+    const url = URL.createObjectURL(dataURLtoBlob(data));
     const isPdf = /pdf/.test(f.type || "") || /\.pdf$/i.test(f.fileName || "");
     const a = document.createElement("a");
     a.href = url;
@@ -849,7 +888,8 @@
 
   /* ---------- Administration ---------- */
 
-  function persistContent(c) {
+  async function persistContent(c) {
+    if (typeof Files !== "undefined" && Files.detach) await Files.detach(c);
     Store.saveContent(c);
     buildData();
     nav();
@@ -977,12 +1017,13 @@
       '<p style="margin-top:10px"><button class="btn" id="addSession">Ajouter la séance</button></p></div>' +
       sessionList +
 
-      '<h2>📄 Cours en fichier (PDF / Word) (' + (c.courses || []).length + ')</h2>' +
+      '<h2>📄 Cours en fichier (PDF / Word) (' + (c.courses || []).length + ') · total : ' +
+      mo((c.courses || []).reduce((s, f) => s + (f.size || 0), 0)) + '</h2>' +
       '<div class="card"><label for="cTitle">Titre du cours</label><input type="text" id="cTitle" placeholder="Leçon 9 — Les consonnes spécifiques">' +
-      '<label for="cFile">Fichier (PDF, Word .doc/.docx, TXT ou HTML — 3 Mo max)</label>' +
-      '<input type="file" id="cFile" accept=".pdf,.doc,.docx,.txt,.html">' +
+      '<label for="cFile">Fichier (PDF, Word, image, TXT ou HTML — 20 Mo max ; les images sont compressées automatiquement)</label>' +
+      '<input type="file" id="cFile" accept=".pdf,.doc,.docx,.txt,.html,.jpg,.jpeg,.png,.webp">' +
       '<p style="margin-top:10px"><button class="btn" id="addCourseFile">📎 Ajouter le fichier comme cours</button></p>' +
-      '<p class="muted">Le fichier est enregistré dans l\'application sur cet appareil. Les apprenants l\'ouvrent depuis la salle de cours (PDF) ou le téléchargent (Word).</p></div>' +
+      '<p class="muted">Le fichier est enregistré dans l\'application sur cet appareil (grande capacité) et partagé à la classe connectée. Les images sont compressées automatiquement ; PDF et Word sont gardés tels quels.</p></div>' +
       ((c.courses || []).map((f) =>
         '<div class="card list-item"><strong>' + esc(f.title) + '</strong>' +
         '<span class="meta"> 📎 ' + esc(f.fileName) + ' · ' + Math.max(1, Math.round(f.size / 1024)) + ' Ko · ' + esc(f.date) + '</span>' +
@@ -1118,26 +1159,29 @@
       c.homeworks.push(h);
       persistContent(c);
     });
-    $("#addCourseFile").addEventListener("click", () => {
+    $("#addCourseFile").addEventListener("click", async () => {
       const input = $("#cFile");
       const file = input.files && input.files[0];
-      if (!file) { alert("Choisissez d'abord un fichier (PDF ou Word)."); return; }
-      if (file.size > 3 * 1024 * 1024) { alert("Fichier trop lourd (" + (Math.round(file.size / 1024 / 1024 * 10) / 10) + " Mo). Limite : 3 Mo pour tenir dans la mémoire de l'application."); return; }
+      if (!file) { alert("Choisissez d'abord un fichier (PDF, Word ou image)."); return; }
+      if (file.size > MAX_FILE) { alert("Fichier trop lourd (" + mo(file.size) + "). Limite : 20 Mo par fichier."); return; }
       const title = $("#cTitle").value.trim() || file.name.replace(/\.[^.]+$/, "");
+      const src = await compressImage(file);
+      if (src.size > MAX_FILE) { alert("Fichier trop lourd même après compression (" + mo(src.size) + "). Limite : 20 Mo par fichier."); return; }
       const reader = new FileReader();
-      reader.onload = () => {
+      reader.onload = async () => {
         const c = Store.content();
         if (!c.courses) c.courses = [];
-        c.courses.push({ id: uid(), title, fileName: file.name, type: file.type, size: file.size, date: today(), data: reader.result });
-        persistContent(c);
+        c.courses.push({ id: uid(), title, fileName: src.name, type: src.type, size: src.size, date: today(), data: reader.result });
+        await persistContent(c);
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(src);
     });
     $$('[data-del-course]').forEach((b) =>
       b.addEventListener("click", () => {
         if (!confirm("Supprimer ce fichier de cours ?")) return;
         const c = Store.content();
         c.courses = (c.courses || []).filter((x) => x.id !== b.dataset.delCourse);
+        if (typeof Files !== "undefined" && Files.del) Files.del(b.dataset.delCourse);
         persistContent(c);
       }));
     let recChunks = [], recRec = null, recData = null, recUrl = null;
@@ -1204,8 +1248,9 @@
         c.corrections[id] = { published: true, text };
         persistContent(c);
       }));
-    $("#exportContent").addEventListener("click", () => {
-      const blob = new Blob([JSON.stringify(Store.content(), null, 2)], { type: "application/json" });
+    $("#exportContent").addEventListener("click", async () => {
+      const full = (typeof Files !== "undefined" && Files.attach) ? await Files.attach(Store.content()) : Store.content();
+      const blob = new Blob([JSON.stringify(full, null, 2)], { type: "application/json" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
       a.download = "contenu-pular-ajami.json";
@@ -1221,10 +1266,11 @@
       }
     });
     $("#clearContentBtn").addEventListener("click", () => {
-      if (!confirm("Effacer tous les contenus ajoutés (vocabulaire, séances, devoirs, corrections) ?")) return;
+      if (!confirm("Effacer tous les contenus ajoutés (vocabulaire, séances, devoirs, corrections, fichiers) ?")) return;
+      if (typeof Files !== "undefined" && Files.clear) Files.clear();
       persistContent({
-        vocabulary: [], sessions: [], homeworks: [], corrections: {},
-        deletedVocab: [], deletedSessions: [], deletedHomeworks: []
+        vocabulary: [], sessions: [], homeworks: [], courses: [], corrections: {},
+        deletedVocab: [], deletedSessions: [], deletedHomeworks: [], audio: {}
       });
     });
   };
@@ -1269,5 +1315,6 @@
     addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
   }
 
+  migrateCourseFiles();
   route();
 })();
