@@ -66,153 +66,148 @@ def make_pdf(path, title, subtitle, body):
     print("OK %-40s %d octets" % (os.path.basename(path), os.path.getsize(path)))
 
 
-LETTERS = """GUIDE DE L'ALPHABET AJAMI HARMONISE DU PULAR (FULFULDE)
-Norme agreee a la conference JCMWA/MICCAO de Ngaoundere (1998) : 33 lettres.
+LETTERS = """GUIDE DE L'ALPHABET AJAMI PULAAR HARMONISE
+Reference : Manuel de transcription Ajami Pulaar <-> Latin harmonise
+(alphabet harmonise de Bamako, 1987) - document des formateurs.
 
-Translitteration des lettres (les caracteres ajami sont dans le fichier
-alphabet-ajami.txt et dans l'application) :
+CONSONNES STANDARD (15)
+  B = ب   T = ت   J = ج   D = د   R = ر   S = س   F = ف
+  K = ك   G = گ   L = ل   M = م   N = ن   H = ه   W = و   Y = ي
 
-  aliiji (a long)  - A     bee  - B      bee modu - B(b implosif)
-  tee - T          camamlu - S (emprunts)   jiimi - J
-  haa baaluul - H  haa tobou - KH (emprunts) deeli - D
-  jaali - J (emprunts)   arre - R          jayra - J (emprunts)
-  siini - S        ciini - C (tch)          saadi - S (emprunts)
-  daadi - D (emprunts)   daadi peetel - D(d implosif)   jaadi - J (emprunts)
-  ayni - support des voyelles initiales (' )
-  angani - G       fee - F    pee - P (lettre propre au fulfulde)
-  gaafu - K/G (emprunts)   keefu - K         laamu - L
-  miimi - M        nuunu - N                haa peetel - H (emprunts)
-  waawu - W / oo / uu      yah siiin - ee (long)   yah - Y / ii
-  yah modi - Y(y mouille, propre au fulfulde)
-  nya - NY (propre au fulfulde)            hamaja - ' (emprunts)
+CONSONNES SPECIFIQUES DU PULAAR (7)
+  Ɓ (Bha)  = injectif bilabial
+  P (Pa)   = consonne sourde
+  Ɗ (Dha)  = injectif alveolaire
+  C (Tha)  = affriquee (se prononce "tch")
+  Ƴ (Yha)  = glottalisee
+  Ŋ (Nha)  = nasale velare
+  Ñ (Nya)  = nasale palatale ("gn" en francais)
 
-Les 4 lettres propres au fulfulde (n'existent pas en arabe) :
-  B implosif, P, Y mouille, NY.
+CONSONNES PRENASALISEES (phonemes uniques, toujours avec un Noun ن)
+  Mb = نب     Nd = ند    Nj = نج    Ng = نگ    Nd = نط
 
-Regles essentielles :
-1. On ecrit de droite a gauche.
-2. Toutes les voyelles s'ecrivent avec des diacritiques.
-3. Les consonnes sans voyelle portent un sukun.
-4. Un mot pular ne commence jamais par alif : la voyelle initiale
-   s'appuie sur ayni.
-5. Dix lettres servent uniquement aux emprunts arabes.
+Exemples valides :
+  بَابَ Baaba    تَاتِ Taati    دُودُ Duudu    فِلّ Fello
+  ݖُلِّ Colli    نديَمْ ndiyam   نگَارِ ngaari   نبٝلُ mbolu
+
+REGLES MAJEURES (voir le manuel HTML complet) :
+  Regle 6  : le Chadda double obligatoirement la consonne (فِلّ = Fello).
+  Regle 7  : le Waw و est voyelle longue (oo/uu) apres Damma, Potthal
+             ou Toral ; consonne w apres Fatha, Kasra ou avec Soukoun.
+  Regle 8  : le Hamza porte la voyelle initiale selon l'harmonie
+             vocalique (au-dessus أ : a, u, o ; en dessous إ : i, e).
+  Regle 9  : pas de Soukoun initial (voyelle d'appui i ou u), sauf
+             prénasalisées écrites directement.
+  Regle 10 : les noms propres arabes gardent leur orthographe standard.
 """
 
-VOYELLES = """GUIDE DES VOYELLES ET DIACRITIQUES DU PULAR AJAMI
+VOYELLES = """GUIDE DES VOYELLES ET REGLES - PULAAR AJAMI
+Reference : Manuel de transcription Ajami Pulaar <-> Latin harmonise.
 
-L'arabe compte 3 voyelles breves ; le pular en compte 5. Deux points
-supplementaires ont donc ete ajoutes.
+VOYELLES BREVES (diacritiques)
+  a  = fatha     (ـَ)   debut : أَ   (voyelle arriere)
+  i  = kasra     (ـِ)   debut : إِ   (voyelle avant)
+  u  = damma     (ـُ)   debut : أُ   (voyelle arriere)
+  e  = Teral     (ـࣹ)   debut : إࣹ   (voyelle anterieure)
+  e  = variante  (ـٖ)   debut : إٖ   (equivalent du Teral)
+  o  = Toral     (ـࣷ)   debut : إࣷ   (voyelle posterieure)
+  o  = Potthal   (ـٝ)   debut : أٝ   (voyelle posterieure)
 
-Voyelles breves :
-  - fatha              = a
-  - kasra              = i
-  - damma              = u
-  - point souscrit (imala) = e  (voyelle propre au pular)
-  - damma pointee      = o  (voyelle propre au pular)
-  - sukun              = aucune voyelle (consonne fermee)
+VOYELLES LONGUES (prolongation)
+  aa = ا        ii = ئِي (ou ي)      uu = أُو
+  ee = ئࣹي      oo = ئُو (ou و)      ee ouvert = ئٜي
 
-Voyelles en debut de mot (support ayni) :
-  ayni + fatha = a    ayni + point souscrit = e
-  ayni + kasra = i    ayni + damma pointee  = o
-  ayni + damma = u
-
-Voyelles longues (la lettre suivante allonge la voyelle) :
-  fatha + alif            = aa
-  point souscrit + yeh siin = ee
-  kasra + yeh             = ii
-  damma pointee + waawu   = oo
-  damma + waawu           = uu
-
-Regles :
-1. Toutes les voyelles s'ecrivent, contrairement a l'arabe classique.
-2. La premiere lettre d'un digramme prenasalise (mb, nd, nj, ng) ne
-   porte jamais de diacritique.
-3. Le e s'ecrit avec le point souscrit, le o avec la damma pointee.
+REGLES CLEFS
+  Regle 6 : le Chadda ( ّ ) double la consonne en latin.
+  Regle 7 : lecture du Waw selon la voyelle precedente.
+  Regle 8 : siege du Hamza selon l'harmonie vocalique.
+  Regle 9 : pas de Soukoun initial ; prénasalisées directes.
+  Regle 10 : noms propres arabes en orthographe standard.
 """
 
-PHRASES = """CAHIER DE PHRASES ET VOCABULAIRE - PULAR AJAMI
-(Translitteration latine ; les formes ajami sont dans l'application
-et dans vocabulaire-ajami.txt)
+PHRASES = """CAHIER DE PHRASES ET VOCABULAIRE - PULAAR AJAMI
+Vocabulaire valide (transcription latine ; formes ajami dans
+l'application et dans vocabulaire-ajami.txt)
 
 SALUTATIONS
   a jaraama          bonjour / merci
   jam wa?            ca va ?
   jam tan            ca va, paix seulement
 
-MOTS DE BASE
+VOCABULAIRE
+  baaba              le pere
   ndiyam             l'eau
-  hendu              le vent
-  fombina            le sud
-  njaareendi         le sable
-  mbarugo            tuer
-  sendugo            separer
-  wi'a               dire
-  min                moi / nous
-  jawmiraawo         le seigneur / le chef
-  ngarol             la beaute
-  bingel (bingel)    l'enfant
-  ngaynaaka          l'elevage des bovins
+  ngaari             la vache
+  colli              les oiseaux
+  fello              la montagne
+  naamu              le riz
+  duudu              doucement
+  kawtal             le groupe, l'association
+  ñaari              deux
+  mawnugol           grandir
+  wuuri              vivre
+  ooddoo             boire
+  istool             le tabouret (emprunt)
 
 NOMBRES (1 a 10)
-  go'o, didi, tati, nawi, joyi, jeego,
-  jeedidi, jeetati, teedi, sappo
+  go'o, ñaari, tati, nawi, joyi, jeego,
+  jeewi, jeetati, teedi, sappo
 
 EXERCICE
-Traduisez en pular puis ecrivez en ajami :
-1. L'eau et le vent.   2. Paix seulement.   3. L'enfant est beau.
+Traduisez en pulaar puis ecrivez en ajami :
+1. L'eau et la vache.   2. Paix seulement.   3. Le pere boit.
 """
 
 if __name__ == "__main__":
     make_pdf(os.path.join(OUT, "guide-alphabet.pdf"),
              "Pular Ajami - Alphabet harmonise",
-             "Norme JCMWA/MICCAO, Ngaoundere 1998 - 33 lettres", LETTERS)
+             "Manuel de transcription Ajami Pulaar <-> Latin (Bamako, 1987)", LETTERS)
     make_pdf(os.path.join(OUT, "guide-voyelles.pdf"),
-             "Pular Ajami - Voyelles et diacritiques",
-             "Les 5 voyelles, le sukun et l'allongement", VOYELLES)
+             "Pular Ajami - Voyelles et regles",
+             "Voyelles breves et longues, regles 6 a 10", VOYELLES)
     make_pdf(os.path.join(OUT, "cahier-phrases.pdf"),
              "Pular Ajami - Cahier de phrases",
-             "Vocabulaire de base et exercices", PHRASES)
+             "Vocabulaire valide et exercices", PHRASES)
 
+    letters_rows = [
+        ("B", "ب"), ("T", "ت"), ("J", "ج"), ("D", "د"), ("R", "ر"), ("S", "س"),
+        ("F", "ف"), ("K", "ك"), ("G", "گ"), ("L", "ل"), ("M", "م"), ("N", "ن"),
+        ("H", "ه"), ("W", "و"), ("Y", "ي"),
+        ("Ɓ (Bha)", "ࢠ"), ("P (Pa)", "پ"), ("Ɗ (Dha)", "ط"), ("C (Tha)", "ݖ"),
+        ("Ƴ (Yha)", "ڃ"), ("Ŋ (Nha)", "ݝ"), ("Ñ (Nya)", "ݧ"),
+        ("Mb", "نب"), ("Nd", "ند"), ("Nj", "نج"), ("Ng", "نگ"), ("Nɗ", "نط"),
+    ]
     with open(os.path.join(OUT, "alphabet-ajami.txt"), "w", encoding="utf-8") as f:
-        f.write("ALPHABET AJAMI HARMONISE DU PULAR (Unicode)\n"
+        f.write("ALPHABET AJAMI PULAAR HARMONISE (Unicode)\n"
+                "Reference : Manuel de transcription Ajami Pulaar <-> Latin harmonise (Bamako, 1987)\n"
                 "Copiez-collez ces caracteres.\n\n")
-        rows = [
-            ("a (long)", "ا"), ("b", "ب"), ("b implosif (ɓ)", "Ɓ"), ("t", "ت"),
-            ("s (emprunt)", "ث"), ("j", "ج"), ("h", "ح"), ("kh (emprunt)", "خ"),
-            ("d", "د"), ("j (emprunt)", "ذ"), ("r", "ر"), ("j (emprunt)", "ز"),
-            ("s", "س"), ("c (tch)", "ش"), ("s (emprunt)", "ص"), ("d (emprunt)", "ض"),
-            ("d implosif (ɗ)", "ط"), ("j (emprunt)", "ظ"), ("' support", "ع"),
-            ("g", "غ"), ("f", "ڢ"), ("p", "ݠ"), ("k/g (emprunt)", "ق"),
-            ("k", "ک"), ("l", "ل"), ("m", "م"), ("n", "ن"), ("h (emprunt)", "ه"),
-            ("w/oo/uu", "و"), ("ee (long)", "ىٰ"), ("y/ii", "ي"),
-            ("y mouille (ƴ)", "ƴ"), ("ny", "ɲ"), ("coupure (emprunt)", "ء"),
-        ]
-        for latin, a in rows:
-            f.write("%-22s %s\n" % (latin, a))
-        f.write("\nDiacritiques : a = ـَ   i = ـِ   u = ـُ   e = ـٕ   o = ـٚ   sukun = ـْ\n")
-        f.write("Digrammes : mb = مب   nd = ند   nj = نج   ng = نغ\n")
+        for latin, a in letters_rows:
+            f.write("%-12s %s\n" % (latin, a))
+        f.write("\nVoyelles breves : a = ـَ   i = ـِ   u = ـُ   e = ـࣹ (ou ـٖ)   o = ـࣷ (ou ـٝ)\n")
+        f.write("Voyelles longues : aa = ا   ii = ئِي   uu = أُو   ee = ئࣹي   oo = ئُو   èè = ئٜي\n")
+        f.write("Siege du Hamza (debut de mot) : أَ a, أُ u, أٝ o / إِ i, إࣹ e, إٖ e, إࣷ o\n")
     print("OK alphabet-ajami.txt")
 
+    vocab_rows = [
+        ("a jaraama", "أَ جَرَامَ", "bonjour / merci"),
+        ("jam wa?", "جَمْ وَ؟", "ça va ?"),
+        ("jam tan", "جَمْ تَنْ", "ça va, paix seulement"),
+        ("baaba", "بَابَ", "le père"),
+        ("ndiyam", "نديَمْ", "l'eau"),
+        ("ngaari", "نگَارِ", "la vache"),
+        ("colli", "ݖُلِّ", "les oiseaux"),
+        ("fello", "فِلّ", "la montagne"),
+        ("naamu", "نَامُ", "le riz"),
+        ("duudu", "دُودُ", "doucement"),
+        ("kawtal", "كَوتَلْ", "le groupe, l'association"),
+        ("ñaari", "ݧَارِ", "deux"),
+        ("mawnugol", "مَوْنُگٝلْ", "grandir"),
+        ("wuuri", "وُورِ", "vivre"),
+        ("ooɗoo", "أٝوطٝو", "boire"),
+        ("istool", "إِسْتٝول", "le tabouret (emprunt)"),
+    ]
     with open(os.path.join(OUT, "vocabulaire-ajami.txt"), "w", encoding="utf-8") as f:
-        f.write("VOCABULAIRE PULAR AJAMI (Unicode)\n\n")
-        vocab = [
-            ("jam", "جَمْ", "la paix / ça va"),
-            ("a jaraama", "عَ جَرَامَ", "bonjour / merci"),
-            ("jam wa?", "جَمْ وَ؟", "ça va ?"),
-            ("jam tan", "جَمْ تَنْ", "ça va, paix seulement"),
-            ("ndiyam", "نديَمْ", "l'eau"),
-            ("hendu", "حَندُ", "le vent"),
-            ("fombina", "ڢٚمبِنَ", "le sud"),
-            ("njaareendi", "نجَارٕنديْ", "le sable"),
-            ("mbarugo", "مبَرُغْ", "tuer"),
-            ("sendugo", "سَندُغْ", "séparer"),
-            ("wi'a", "وِعَ", "dire"),
-            ("min", "مِنْ", "moi / nous"),
-            ("jawmiraawo", "جَوْمُرَاوْ", "le seigneur / le chef"),
-            ("ngarol", "نغَرْلْ", "la beauté"),
-            ("bingel", "Ɓِنغْغٕلْ", "l'enfant"),
-            ("ngaynaaka", "نغَيْنَاكَ", "l'élevage"),
-        ]
-        for latin, a, fr in vocab:
-            f.write("%-14s %-16s %s\n" % (latin, a, fr))
+        f.write("VOCABULAIRE PULAAR AJAMI (Unicode) - graphies validees\n\n")
+        for latin, a, fr in vocab_rows:
+            f.write("%-12s %-16s %s\n" % (latin, a, fr))
     print("OK vocabulaire-ajami.txt")

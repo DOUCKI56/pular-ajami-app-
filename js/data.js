@@ -1,282 +1,261 @@
-/* Données pédagogiques — Pular (fulfulde) en ajami harmonisé.
- * Orthographe de référence : alphabet ajami harmonisé du fulfulde,
- * agréé à la conférence JCMWA/MICCAO de Ngaoundéré (1998), 33 lettres.
+/* Données pédagogiques — Pulaar en ajami, orthographe VALIDÉE.
+ * Référence : Manuel de transcription Ajami Pulaar ⇄ Latin harmonisé
+ * (alphabet harmonisé de Bamako, 1987) — document des formateurs :
+ * docs/Regles_Ajami_Pulaar.html
  * Les formateurs peuvent modifier ou enrichir ce fichier sans toucher au code.
  */
 
 const DATA = {};
 
-/* ============ 1. ALPHABET AJAMI HARMONISÉ (33 lettres + hamza) ============ */
+DATA.meta = {
+  reference: "Manuel de transcription Ajami Pulaar ⇄ Latin harmonisé (alphabet harmonisé de Bamako, 1987)",
+  rulesDoc: "docs/Regles_Ajami_Pulaar.html"
+};
+
+/* ============ 1. CONSONNES : 15 STANDARD + 7 SPÉCIFIQUES ============ */
 DATA.alphabet = [
-  { aj: "\u0627", latin: "a (long)", name: "alii\u01e7i", ipa: "a\u02d0", type: "base",
-    forms: { iso: "\u0627", fin: "\u0640\u0627" }, joins: false,
-    note: "Allonge la voyelle a. Au début d'un mot pular, on utilise \u2018ayni (\u0639) comme support de la voyelle.",
-    loan: false },
-  { aj: "\u0628", latin: "b", name: "bee", ipa: "b", type: "base",
-    forms: { iso: "\u0628", ini: "\u0628\u0640", med: "\u0640\u0628\u0640", fin: "\u0640\u0628" }, joins: true,
-    example: { word: "bee", fr: "nom de la lettre b" }, loan: false },
-  { aj: "\u08A1", latin: "\u0253", name: "\u0253ee mo\u0257u", ipa: "\u0253", type: "base", unique: true,
-    forms: { iso: "\u08A1", ini: "\u08A1\u0640", med: "\u0640\u08A1\u0640", fin: "\u0640\u08A1" }, joins: true,
-    note: "Lettre propre au fulfulde : \u1d50b implosive, comme dans \u00ab \u0253i\u014bgel \u00bb (enfant).", loan: false },
-  { aj: "\u062A", latin: "t", name: "tee", ipa: "t", type: "base",
-    forms: { iso: "\u062A", ini: "\u062A\u0640", med: "\u0640\u062A\u0640", fin: "\u0640\u062A" }, joins: true, loan: false },
-  { aj: "\u062B", latin: "s", name: "camamlu", ipa: "s", type: "base",
-    forms: { iso: "\u062B", ini: "\u062B\u0640", med: "\u0640\u062B\u0640", fin: "\u0640\u062B" }, joins: true,
-    note: "Lettre d'origine arabe, r\u00e9serv\u00e9e aux emprunts \u00e0 l'arabe.", loan: true },
-  { aj: "\u062C", latin: "j", name: "jiimi", ipa: "d\u0361\u0292", type: "base",
-    forms: { iso: "\u062C", ini: "\u062C\u0640", med: "\u0640\u062C\u0640", fin: "\u0640\u062C" }, joins: true, loan: false },
-  { aj: "\u062D", latin: "h", name: "\u1e25aa baaluul", ipa: "h", type: "base",
-    forms: { iso: "\u062D", ini: "\u062D\u0640", med: "\u0640\u062D\u0640", fin: "\u0640\u062D" }, joins: true,
-    note: "Se prononce h dans les mots pular (contrairement \u00e0 l'arabe).", loan: false },
-  { aj: "\u062E", latin: "kh", name: "\u1e25aa to\u0253\u0253u", ipa: "h", type: "base",
-    forms: { iso: "\u062E", ini: "\u062E\u0640", med: "\u0640\u062E\u0640", fin: "\u0640\u062E" }, joins: true,
-    note: "Emprunts arabes : se prononce h ou kh en pular.", loan: true },
-  { aj: "\u062F", latin: "d", name: "deeli", ipa: "d", type: "base",
-    forms: { iso: "\u062F", fin: "\u0640\u062F" }, joins: false, loan: false },
-  { aj: "\u0630", latin: "j", name: "jaali", ipa: "d\u0361\u0292", type: "base",
-    forms: { iso: "\u0630", fin: "\u0640\u0630" }, joins: false,
-    note: "Emprunts arabes : se prononce j en pular.", loan: true },
-  { aj: "\u0631", latin: "r", name: "arre", ipa: "\u027E", type: "base",
-    forms: { iso: "\u0631", fin: "\u0640\u0631" }, joins: false,
-    note: "R roul\u00e9. Avec chadda (\u0631\u0651), il devient r roul\u00e9 long (rr).", loan: false },
-  { aj: "\u0632", latin: "j", name: "jayra", ipa: "d\u0361\u0292", type: "base",
-    forms: { iso: "\u0632", fin: "\u0640\u0632" }, joins: false,
-    note: "Emprunts arabes : se prononce j en pular.", loan: true },
-  { aj: "\u0633", latin: "s", name: "siini", ipa: "s", type: "base",
-    forms: { iso: "\u0633", ini: "\u0633\u0640", med: "\u0640\u0633\u0640", fin: "\u0640\u0633" }, joins: true, loan: false },
-  { aj: "\u0634", latin: "c", name: "ciini", ipa: "t\u0361\u0283", type: "base",
-    forms: { iso: "\u0634", ini: "\u0634\u0640", med: "\u0640\u0634\u0640", fin: "\u0640\u0634" }, joins: true,
-    note: "Se prononce c (tch) comme dans \u00ab tchao \u00bb.", loan: false },
-  { aj: "\u0635", latin: "s", name: "saadi", ipa: "s", type: "base",
-    forms: { iso: "\u0635", ini: "\u0635\u0640", med: "\u0640\u0635\u0640", fin: "\u0640\u0635" }, joins: true,
-    note: "Emprunts arabes.", loan: true },
-  { aj: "\u0636", latin: "d", name: "\u1e0daadi", ipa: "d", type: "base",
-    forms: { iso: "\u0636", ini: "\u0636\u0640", med: "\u0640\u0636\u0640", fin: "\u0640\u0636" }, joins: true,
-    note: "Emprunts arabes.", loan: true },
-  { aj: "\u0637", latin: "\u0257", name: "\u0257aadi", ipa: "\u0257", type: "base",
-    forms: { iso: "\u0637", ini: "\u0637\u0640", med: "\u0640\u0637\u0640", fin: "\u0640\u0637" }, joins: true,
-    note: "Se prononce \u0257 (d implosive), comme dans \u00ab \u0257iyam \u00bb.", loan: false },
-  { aj: "\u0638", latin: "j", name: "jaadi", ipa: "d\u0361\u0292", type: "base",
-    forms: { iso: "\u0638", fin: "\u0640\u0638" }, joins: false,
-    note: "Emprunts arabes.", loan: true },
-  { aj: "\u0639", latin: "' (support)", name: "ayni", ipa: "\u2205", type: "base",
-    forms: { iso: "\u0639", ini: "\u0639\u0640", med: "\u0640\u0639\u0640", fin: "\u0640\u0639" }, joins: true,
-    note: "Innovation pular : support des voyelles en d\u00e9but de mot et entre voyelles.", loan: false },
-  { aj: "\u063A", latin: "g", name: "a\u014bgani", ipa: "g", type: "base",
-    forms: { iso: "\u063A", ini: "\u063A\u0640", med: "\u0640\u063A\u0640", fin: "\u0640\u063A" }, joins: true,
-    note: "Se prononce g (comme dans \u00ab gare \u00bb).", loan: false },
-  { aj: "\u06A2", latin: "f", name: "fee", ipa: "f", type: "base",
-    forms: { iso: "\u06A2", ini: "\u06A2\u0640", med: "\u0640\u06A2\u0640", fin: "\u0640\u06A2" }, joins: true, loan: false },
-  { aj: "\u0760", latin: "p", name: "pee", ipa: "p", type: "base", unique: true,
-    forms: { iso: "\u0760", ini: "\u0760\u0640", med: "\u0640\u0760\u0640", fin: "\u0640\u0760" }, joins: true,
-    note: "Lettre propre au fulfulde : p, comme dans \u00ab peewru \u00bb (r\u00f4t).", loan: false },
-  { aj: "\u0642", latin: "k / g", name: "gaafu", ipa: "k", type: "base",
-    forms: { iso: "\u0642", ini: "\u0642\u0640", med: "\u0640\u0642\u0640", fin: "\u0640\u0642" }, joins: true,
-    note: "Emprunts arabes : se prononce k ou g en pular.", loan: true },
-  { aj: "\u06A9", latin: "k", name: "keefu", ipa: "k", type: "base",
-    forms: { iso: "\u06A9", ini: "\u06A9\u0640", med: "\u0640\u06A9\u0640", fin: "\u0640\u06A9" }, joins: true, loan: false },
-  { aj: "\u0644", latin: "l", name: "laamu", ipa: "l", type: "base",
-    forms: { iso: "\u0644", ini: "\u0644\u0640", med: "\u0640\u0644\u0640", fin: "\u0640\u0644" }, joins: true, loan: false },
-  { aj: "\u0645", latin: "m", name: "miimi", ipa: "m", type: "base",
-    forms: { iso: "\u0645", ini: "\u0645\u0640", med: "\u0640\u0645\u0640", fin: "\u0640\u0645" }, joins: true,
-    note: "Sans diacritique, elle fait partie d'un digramme pr\u00e9nasalis\u00e9 (mb).", loan: false },
-  { aj: "\u0646", latin: "n", name: "nuunu", ipa: "n", type: "base",
-    forms: { iso: "\u0646", ini: "\u0646\u0640", med: "\u0640\u0646\u0640", fin: "\u0640\u0646" }, joins: true,
-    note: "Sans diacritique, elle fait partie d'un digramme pr\u00e9nasalis\u00e9 (nd, ng, nj).", loan: false },
-  { aj: "\u0647", latin: "h", name: "\u1e25aa peetel", ipa: "h", type: "base",
-    forms: { iso: "\u0647", ini: "\u0647\u0640", med: "\u0640\u0647\u0640", fin: "\u0640\u0647" }, joins: true,
-    note: "Emprunts arabes uniquement ; sinon on emploie \u1e25aa baaluul (\u062D).", loan: true },
-  { aj: "\u0648", latin: "w / oo / uu", name: "waawu", ipa: "w", type: "base",
-    forms: { iso: "\u0648", fin: "\u0640\u0648" }, joins: false,
-    note: "Consonne w, ou allongement des voyelles o et u (preceding letter carries \u065B or \u064F).", loan: false },
-  { aj: "\u0649\u0670", latin: "ee", name: "yah \u1e63iin", ipa: "e\u02d0", type: "base",
-    forms: { iso: "\u0649\u0670", ini: "\u0649\u0670\u0640", med: "\u0640\u0649\u0670\u0640", fin: "\u0640\u0649\u0670" }, joins: true,
-    note: "Allonge la voyelle e : la lettre pr\u00e9c\u00e9dente porte le point souscrit (\u065C).", loan: false },
-  { aj: "\u064A", latin: "y / ii", name: "yah", ipa: "j", type: "base",
-    forms: { iso: "\u064A", ini: "\u064A\u0640", med: "\u0640\u064A\u0640", fin: "\u0640\u064A" }, joins: true,
-    note: "Consonne y, ou allongement de la voyelle i.", loan: false },
-  { aj: "\u08A8", latin: "\u01b4", name: "yah mo\u0257i", ipa: "j\u02e4", type: "base", unique: true,
-    forms: { iso: "\u08A8", ini: "\u08A8\u0640", med: "\u0640\u08A8\u0640", fin: "\u0640\u08A8" }, joins: true,
-    note: "Lettre propre au fulfulde : y mouill\u00e9 (\u01b4), comme dans \u00ab \u01b4ami \u00bb (dire).", loan: false },
-  { aj: "\u08A9", latin: "ny", name: "nya", ipa: "\u0272", type: "base", unique: true,
-    forms: { iso: "\u08A9", ini: "\u08A9\u0640", med: "\u0640\u08A9\u0640", fin: "\u0640\u08A9" }, joins: true,
-    note: "Lettre propre au fulfulde : ny, comme dans \u00ab \u0272aw \u00bb (b\u0153uf).", loan: false },
-  { aj: "\u0621", latin: "' (coupure)", name: "hamaja", ipa: "\u0294", type: "base",
-    forms: { iso: "\u0621" }, joins: false,
-    note: "Emprunts arabes uniquement ; dans les mots pular, on emploie ayni (\u0639).", loan: true }
+  { aj: "ب", latin: "B", name: "B", joins: true,
+    ex: { aj: "بَابَ", latin: "Baaba" } },
+  { aj: "ت", latin: "T", name: "T", joins: true,
+    ex: { aj: "تَاتِ", latin: "Taati" } },
+  { aj: "ج", latin: "J", name: "J", joins: true,
+    ex: { aj: "جَاجَ", latin: "Jaaja" } },
+  { aj: "د", latin: "D", name: "D", joins: false,
+    ex: { aj: "دُودُ", latin: "Duudu" } },
+  { aj: "ر", latin: "R", name: "R", joins: false,
+    ex: { aj: "رࣹيدُ", latin: "Rèèdu" } },
+  { aj: "س", latin: "S", name: "S", joins: true,
+    ex: { aj: "سَسَ", latin: "Sasa" } },
+  { aj: "ف", latin: "F", name: "F", joins: true,
+    ex: { aj: "فِلّ", latin: "Fello" },
+    note: "Avec chadda ( ّ ), la consonne est doublée : فِلّ ➔ Fello (Règle 6)." },
+  { aj: "ك", latin: "K", name: "K", joins: true,
+    ex: { aj: "كُلَ", latin: "Kula" } },
+  { aj: "گ", latin: "G", name: "G", joins: true,
+    ex: { aj: "گَارَ", latin: "Gaara" } },
+  { aj: "ل", latin: "L", name: "L", joins: true,
+    ex: { aj: "لَنْظَنْ", latin: "Landhan" } },
+  { aj: "م", latin: "M", name: "M", joins: true,
+    ex: { aj: "مَارْ", latin: "Maaro" } },
+  { aj: "ن", latin: "N", name: "N", joins: true,
+    ex: { aj: "نَامُ", latin: "Naamu" },
+    note: "Sans diacritique, elle forme les prénasalisées mb, nɗ, nj, nd, ng (Règle 9)." },
+  { aj: "ه", latin: "H", name: "H", joins: true,
+    ex: { aj: "هَوَ", latin: "Hawa" } },
+  { aj: "و", latin: "W / oo / uu", name: "Waw", joins: false,
+    ex: { aj: "وَادُ", latin: "Waado" },
+    note: "Règle 7 : voyelle longue (oo/uu) après Damma, Potthal ou Toral ; consonne w après Fatha, Kasra ou avec Soukoun." },
+  { aj: "ي", latin: "Y", name: "Y", joins: true,
+    ex: { aj: "يَايࣹ", latin: "Yaayè" } },
+
+  { aj: "ࢠ", latin: "Ɓ (Bha)", name: "Bha", unique: true, joins: true,
+    ex: { aj: "ࢠِرَ", latin: "Ɓira" }, desc: "Injectif bilabial" },
+  { aj: "پ", latin: "P (Pa)", name: "Pa", unique: true, joins: true,
+    ex: { aj: "پُتࣹ", latin: "Putèè" }, desc: "Consonne sourde" },
+  { aj: "ط", latin: "Ɗ (Dha)", name: "Dha", unique: true, joins: true,
+    ex: { aj: "طَطِ", latin: "Ɗaɗi" }, desc: "Injectif alvéolaire (ɗ)" },
+  { aj: "ݖ", latin: "C (Tha)", name: "Tha", unique: true, joins: true,
+    ex: { aj: "ݖُلِّ", latin: "Colli" }, desc: "Affriquée — se prononce « tch »" },
+  { aj: "ڃ", latin: "Ƴ (Yha)", name: "Yha", unique: true, joins: true,
+    ex: { aj: "ڃَمَلْ", latin: "Ƴamal" }, desc: "Glottalisée" },
+  { aj: "ݝ", latin: "Ŋ (Nha)", name: "Nha", unique: true, joins: true,
+    ex: { aj: "ݝَرِ", latin: "Ŋari" }, desc: "Nasale vélaire" },
+  { aj: "ݧ", latin: "Ñ (Nya)", name: "Nya", unique: true, joins: true,
+    ex: { aj: "ݧَارِ", latin: "Ñaari" }, desc: "Nasale palatale (« gn » en français)" }
 ];
 
-/* ============ 2. VOYELLES ET DIACRITIQUES ============ */
+/* ============ 2. VOYELLES ============ */
 DATA.vowels = {
-  intro: "Comme l'arabe n'a que 3 voyelles brèves, l'ajami pular en ajoute 2 grâce à des points : e (point souscrit) et o (damma pointée). Toutes les voyelles s'écrivent ; les consonnes sans voyelle portent le sukun.",
+  intro: "Toutes les voyelles s'écrivent. Les voyelles brèves sont des diacritiques ; le pulaar ajoute des signes propres pour e (Tèral) et o (Toral, Potthal). Le choix du siège du Hamza en début de mot suit l'harmonie vocalique (Règle 8).",
   list: [
-    { aj: "\u064E", name: "fat\u1e25a", sound: "a", example: "\u062C\u064E\u0645\u0652 (jam \u2014 paix)" },
-    { aj: "\u0650", name: "kasra", sound: "i", example: "\u0645\u0650\u0646\u0652 (min \u2014 moi/nous)" },
-    { aj: "\u064F", name: "\u1e0damma", sound: "u", example: "\u062D\u064E\u0646\u062F\u064F (hendu \u2014 vent)" },
-    { aj: "\u065C", name: "point souscrit (im\u0101la)", sound: "e", example: "\u0640\u065C\u0649\u0670 (ee long)" },
-    { aj: "\u065B", name: "\u1e0damma point\u00e9e", sound: "o", example: "\u0640\u065B\u0648 (oo long)" },
-    { aj: "\u0652", name: "sukun", sound: "aucune voyelle", example: "\u0645\u0652 (consonne ferm\u00e9e)" }
+    { sound: "a", name: "Fatha", aj: "ـَ", init: "أَ", desc: "voyelle arrière" },
+    { sound: "i", name: "Kasra", aj: "ـِ", init: "إِ", desc: "voyelle avant" },
+    { sound: "u", name: "Damma", aj: "ـُ", init: "أُ", desc: "voyelle arrière" },
+    { sound: "e (Tèral)", name: "Tèral", aj: "ـࣹ", init: "إࣹ", desc: "voyelle antérieure" },
+    { sound: "e (Nèènè)", name: "variante du Tèral", aj: "ـٖ", init: "إٖ", desc: "équivalent du Tèral" },
+    { sound: "o (Toral)", name: "Toral", aj: "ـࣷ", init: "إࣷ", desc: "voyelle postérieure" },
+    { sound: "o (Potthal)", name: "Potthal", aj: "ـٝ", init: "أٝ", desc: "voyelle postérieure" }
   ],
-  initial: {
-    title: "Voyelles en début de mot : le support \u2018ayni (\u0639)",
+  lengthening: {
+    title: "Voyelles longues (prolongation)",
     rows: [
-      { aj: "\u0639\u064E", latin: "a" }, { aj: "\u0639\u065C", latin: "e" },
-      { aj: "\u0639\u0650", latin: "i" }, { aj: "\u0639\u065B", latin: "o" },
-      { aj: "\u0639\u064F", latin: "u" }
+      { aj: "ا", latin: "aa" },
+      { aj: "ئِي (ou ي)", latin: "ii" },
+      { aj: "أُو", latin: "uu" },
+      { aj: "ئࣹي", latin: "ee" },
+      { aj: "ئُو (ou و)", latin: "oo" },
+      { aj: "ئٜي", latin: "èè" }
     ]
   },
-  lengthening: {
-    title: "Voyelles longues (allongement)",
-    rows: [
-      { aj: "\u064E\u0627", latin: "aa" }, { aj: "\u065C\u0649\u0670", latin: "ee" },
-      { aj: "\u0650\u064A", latin: "ii" }, { aj: "\u065B\u0648", latin: "oo" },
-      { aj: "\u064F\u0648", latin: "uu" }
+  initial: {
+    title: "Le siège du Hamza en début de mot (Règle 8)",
+    back: [
+      { aj: "أَ", latin: "a" }, { aj: "أُ", latin: "u" }, { aj: "أٝ", latin: "o" }
+    ],
+    front: [
+      { aj: "إِ", latin: "i" }, { aj: "إࣹ", latin: "e" }, { aj: "إٖ", latin: "e" }, { aj: "إࣷ", latin: "o" }
     ]
   }
 };
 
-/* ============ 3. DIGRAMMES PRÉNASALISÉS ============ */
+/* ============ 3. RÈGLES MAJEURES (Règles 6 à 10) ============ */
+DATA.rules = [
+  { title: "Règle 6 — Le Chadda ( ّ ) : redoublement de consonne",
+    text: "Une consonne portant le Chadda est obligatoirement doublée (géminée) en latin. Exemples : فِلّ ➔ Fello (Fello avec ll) ; Ghirritagol ➔ قِرِّتَگُلْ (chadda sur le ر)." },
+  { title: "Règle 7 — Le Waw (و) : consonne ou voyelle ?",
+    text: "La lecture du Waw dépend strictement de la voyelle qui le précède. Waw = voyelle longue (oo / uu) s'il est précédé d'une Damma (ـُ), d'un Potthal (ـٝ) ou d'un Toral (ـࣷ) : وُورِ ➔ wuuri, أٝوطٝو ➔ ooɗoo. Waw = consonne (w) s'il est précédé d'une Fatha (ـَ) ou d'une Kasra (ـِ), ou s'il porte un Soukoun (وْ) : كَوتَلْ ➔ kawtal, مَوْنُگٝلْ ➔ mawnugol." },
+  { title: "Règle 8 — Le siège du Hamza",
+    text: "En début de mot, le Hamza sert de support à la voyelle selon l'harmonie vocalique. Hamza au-dessus أ (voyelles arrière) : a (أَ), u (أُ), o (أٝ). Hamza en dessous إ (voyelles avant) : i (إِ), e (إࣹ ou إٖ), o fermé (إࣷ)." },
+  { title: "Règle 9 — Le Soukoun initial et les prénasalisées",
+    text: "Consonnes simples : interdiction absolue de commencer un mot par un Soukoun — on ajoute une voyelle d'appui i ou u (stool ➔ إِسْتٝول, istool). Consonnes prénasalisées (mb, nd, nj, ng, nɗ) : phonèmes uniques, écrites directement, sans voyelle d'appui et sans Soukoun sur le Noun : ndiyam ➔ نديَمْ, ngaari ➔ نگَارِ, mbolu ➔ نبٝلُ, njoowri ➔ نجٝورِ." },
+  { title: "Règle 10 — Exception des noms propres arabes",
+    text: "Les noms des Prophètes et des Compagnons ne suivent pas les règles phonétiques pulaar : ils conservent leur orthographe arabe standard. Exemples : Muhammadu ➔ مُحَمَّدُ, 'Umaru ➔ عُمَرُ." }
+];
+
+/* ============ 4. CONSONNES PRÉNASALISÉES (toujours avec Noun) ============ */
 DATA.digraphs = [
-  { aj: "\u0645\u0628", latin: "mb", ipa: "\u1d50b", examples: ["\u0645\u0628\u064E\u0631\u064F\u063A\u0652 (mbarugo \u2014 tuer)", "\u06A2\u065B\u0645\u0628\u0650\u0646\u064E (fombina \u2014 sud)"] },
-  { aj: "\u0646\u062C", latin: "nj", ipa: "\u207fd\u0361\u0292", examples: ["\u0646\u062C\u064E\u0627\u0631\u065C\u0646\u062F\u0650 (njaareendi \u2014 sable)"] },
-  { aj: "\u0646\u062F", latin: "nd", ipa: "\u207fd", examples: ["\u0646\u062F\u0650\u064A\u064E\u0645\u0652 (ndiyam \u2014 eau)", "\u062D\u064E\u0646\u062F\u064F (hendu \u2014 vent)"] },
-  { aj: "\u0646\u063A", latin: "ng / \u014b", ipa: "\u014b", examples: ["\u0646\u063A\u064E\u0631\u0652\u0644 (ngarol \u2014 beaut\u00e9)", "\u08A1\u0650\u0646\u063A\u0652\u063A\u065C\u0644 (bingel \u2014 enfant)"] }
+  { aj: "نب", latin: "Mb", ex: { aj: "نبٝلُ", latin: "mbolu" } },
+  { aj: "نط", latin: "Nɗ", ex: { aj: "نطَ", latin: "nɗa" } },
+  { aj: "نج", latin: "Nj", ex: { aj: "نجٝورِ", latin: "njoowri" } },
+  { aj: "ند", latin: "Nd", ex: { aj: "نديَمْ", latin: "ndiyam" } },
+  { aj: "نگ", latin: "Ng", ex: { aj: "نگَارِ", latin: "ngaari" } }
 ];
 
-/* ============ 4. VOCABULAIRE ============ */
+/* ============ 5. VOCABULAIRE (graphies validées) ============ */
 DATA.vocabulary = [
-  { aj: "\u062C\u064E\u0645\u0652", latin: "jam", fr: "la paix / \u00e7a va", cat: "Salutations" },
-  { aj: "\u0639\u064E \u062C\u064E\u0631\u064E\u0627\u0645\u064E", latin: "a jaraama", fr: "bonjour / merci", cat: "Salutations" },
-  { aj: "\u062C\u064E\u0645\u0652 \u0648\u064E\u061F", latin: "jam wa?", fr: "\u00e7a va ?", cat: "Salutations" },
-  { aj: "\u062C\u064E\u0645\u0652 \u062A\u064E\u0646\u0652", latin: "jam tan", fr: "\u00e7a va, paix seulement", cat: "Salutations" },
-  { aj: "\u0646\u062F\u0650\u064A\u064E\u0645\u0652", latin: "ndiyam", fr: "l'eau", cat: "Nature" },
-  { aj: "\u062D\u064E\u0646\u062F\u064F", latin: "hendu", fr: "le vent", cat: "Nature" },
-  { aj: "\u06A2\u065B\u0645\u0628\u0650\u0646\u064E", latin: "fombina", fr: "le sud", cat: "Nature" },
-  { aj: "\u0646\u062C\u064E\u0627\u0631\u065C\u0646\u062F\u0650", latin: "njaareendi", fr: "le sable", cat: "Nature" },
-  { aj: "\u0645\u0628\u064E\u0631\u064F\u063A\u0652", latin: "mbarugo", fr: "tuer", cat: "Actions" },
-  { aj: "\u0633\u064E\u0646\u062F\u064F\u063A\u0652", latin: "sendugo", fr: "s\u00e9parer", cat: "Actions" },
-  { aj: "\u0648\u065C\u0639\u064E", latin: "wi'a", fr: "dire", cat: "Actions" },
-  { aj: "\u0645\u0650\u0646\u0652", latin: "min", fr: "moi / nous", cat: "Base" },
-  { aj: "\u062C\u064E\u0648\u0652\u0645\u064F\u0631\u064E\u0627\u0648\u065B", latin: "jawmiraawo", fr: "le seigneur / le chef", cat: "Base" },
-  { aj: "\u0646\u063A\u064E\u0631\u0652\u0644", latin: "ngarol", fr: "la beaut\u00e9", cat: "Base" },
-  { aj: "\u08A1\u0650\u0646\u063A\u0652\u063A\u065C\u0644", latin: "bingel (bi\u014bgel)", fr: "l'enfant", cat: "Famille" },
-  { aj: "\u0646\u063A\u064E\u064A\u0652\u0646\u064E\u0627\u06A9\u064E", latin: "ngaynaaka", fr: "l'\u00e9levage (des bovins)", cat: "Vie quotidienne" }
+  { aj: "أَ جَرَامَ", latin: "a jaraama", fr: "bonjour / merci", cat: "Salutations" },
+  { aj: "جَمْ وَ؟", latin: "jam wa?", fr: "ça va ?", cat: "Salutations" },
+  { aj: "جَمْ تَنْ", latin: "jam tan", fr: "ça va, paix seulement", cat: "Salutations" },
+  { aj: "بَابَ", latin: "baaba", fr: "le père", cat: "Famille" },
+  { aj: "نديَمْ", latin: "ndiyam", fr: "l'eau", cat: "Nature" },
+  { aj: "نگَارِ", latin: "ngaari", fr: "la vache", cat: "Nature" },
+  { aj: "ݖُلِّ", latin: "colli", fr: "les oiseaux", cat: "Nature" },
+  { aj: "فِلّ", latin: "fello", fr: "la montagne", cat: "Nature" },
+  { aj: "نَامُ", latin: "naamu", fr: "le riz", cat: "Vie quotidienne" },
+  { aj: "دُودُ", latin: "duudu", fr: "doucement", cat: "Base" },
+  { aj: "كَوتَلْ", latin: "kawtal", fr: "le groupe, l'association", cat: "Base" },
+  { aj: "ݧَارِ", latin: "ñaari", fr: "deux", cat: "Base" },
+  { aj: "مَوْنُگٝلْ", latin: "mawnugol", fr: "grandir", cat: "Actions" },
+  { aj: "وُورِ", latin: "wuuri", fr: "vivre", cat: "Actions" },
+  { aj: "أٝوطٝو", latin: "ooɗoo", fr: "boire", cat: "Actions" },
+  { aj: "إِسْتٝول", latin: "istool", fr: "le tabouret (emprunt)", cat: "Emprunts" }
 ];
 
-/* ============ 5. NOMBRES ============ */
+/* ============ 6. NOMBRES ============ */
 DATA.numbers = [
-  { n: 1, latin: "go\u2019o" }, { n: 2, latin: "\u0257i\u0257i" }, { n: 3, latin: "tati" },
+  { n: 1, latin: "go'o" }, { n: 2, latin: "ñaari" }, { n: 3, latin: "tati" },
   { n: 4, latin: "nawi" }, { n: 5, latin: "joyi" }, { n: 6, latin: "jeego" },
-  { n: 7, latin: "jee\u0257i\u0257i" }, { n: 8, latin: "jeetati" }, { n: 9, latin: "tee\u0257i" },
+  { n: 7, latin: "jeewi" }, { n: 8, latin: "jeetati" }, { n: 9, latin: "teeɗi" },
   { n: 10, latin: "sappo" }
 ];
 
-/* ============ 6. SALLE DE COURS (séances) ============ */
+/* ============ 7. SALLE DE COURS (séances) ============ */
 DATA.sessions = [
   {
-    id: "s1", level: "D\u00e9butant", title: "D\u00e9couverte de l'ajami pular harmonis\u00e9",
+    id: "s1", level: "Débutant", title: "Découverte de l'ajami pulaar harmonisé",
     duration: "45 min",
     objectives: [
-      "Comprendre ce qu'est l'ajami et pourquoi un alphabet harmonis\u00e9",
-      "Reconna\u00eetre la logique de l'\u00e9criture de droite \u00e0 gauche",
-      "D\u00e9couvrir les 5 voyelles du pular"
+      "Comprendre ce qu'est l'ajami pulaar et son alphabet harmonisé",
+      "Reconnaître l'écriture de droite à gauche",
+      "Découvrir les 5 voyelles et l'harmonie vocalique"
     ],
-    content: "L'ajami est l'\u00e9criture du pular avec l'alphabet arabe adapt\u00e9. Depuis la conf\u00e9rence de Ngaound\u00e9r\u00e9 (1998), un alphabet harmonis\u00e9 de 33 lettres est agr\u00e9\u00e9 : 29 lettres issues de l'arabe et 4 lettres propres au fulfulde (\u0253, p, \u01b4, ny). Contrairement \u00e0 l'arabe, on \u00e9crit toutes les voyelles avec des diacritiques. On \u00e9crit de droite \u00e0 gauche.",
+    content: "L'ajami écrit le pulaar avec l'alphabet arabe modifié. Référence : le manuel de transcription Ajami Pulaar ⇄ Latin harmonisé (alphabet harmonisé de Bamako, 1987). Il compte 15 consonnes standard (ب ت ج د ر س ف ك گ ل م ن ه و ي) et 7 consonnes spécifiques propres au pulaar (ࢠ پ ط ݖ ڃ ݝ ݧ). Toutes les voyelles s'écrivent : les brèves avec des diacritiques, les longues avec des lettres d'appui. On écrit de droite à gauche.",
     quiz: "alphabet"
   },
   {
-    id: "s2", level: "D\u00e9butant", title: "Premi\u00e8res lettres : b, t, j, d, r, s",
+    id: "s2", level: "Débutant", title: "Premières lettres : b, t, j, d, r, s",
     duration: "45 min",
-    objectives: ["Lire et \u00e9crire 6 lettres de base", "Prononcer leur son", "Les relier entre elles"],
-    content: "Apprenons : bee (\u0628, b), tee (\u062A, t), jiimi (\u062C, j), deeli (\u062F, d), arre (\u0631, r), siini (\u0633, s). Observez les 4 formes de chaque lettre : isol\u00e9e, initiale, m\u00e9diane, finale. Exemple de mot : ndiyam (eau) utilise d reli\u00e9 \u00e0 i.",
+    objectives: ["Lire et écrire 6 lettres de base", "Lire les exemples : baaba, taati, jaaja, duudu, rèèdu, sasa"],
+    content: "Apprenons : B (ب), T (ت), J (ج), D (د), R (ر), S (س). Exemples validés : بَابَ ➔ Baaba, تَاتِ ➔ Taati, جَاجَ ➔ Jaaja, دُودُ ➔ Duudu, رࣹيدُ ➔ Rèèdu, سَسَ ➔ Sasa. Observez que certaines lettres (د, ر) ne se relient pas à la lettre suivante.",
     quiz: "alphabet"
   },
   {
-    id: "s3", level: "D\u00e9butant", title: "Lettres suivantes : g, f, k, l, m, n et le support \u2018ayni",
+    id: "s3", level: "Débutant", title: "Lettres suivantes : g, f, k, l, m, n, h, w, y",
     duration: "45 min",
-    objectives: ["Lire et \u00e9crire 6 nouvelles lettres", "Comprendre le r\u00f4le de \u2018ayni (\u0639)"],
-    content: "a\u014bgani (\u063A, g), fee (\u06A2, f), keefu (\u06A9, k), laamu (\u0644, l), miimi (\u0645, m), nuunu (\u0646, n). Le pular ne commence jamais un mot par alif : la voyelle initiale s'appuie sur ayni (\u0639), comme dans a jaraama (\u0639\u064E \u062C\u064E\u0631\u064E\u0627\u0645\u064E).",
+    objectives: ["Lire et écrire 9 nouvelles lettres", "Comprendre le Waw (Règle 7) et le siège du Hamza (Règle 8)"],
+    content: "گ (G), ف (F), ك (K), ل (L), م (M), ن (N), ه (H), و (W), ي (Y). Deux règles clés : le Waw و est voyelle longue (oo/uu) après Damma, Potthal ou Toral, mais consonne w après Fatha, Kasra ou avec Soukoun (Règle 7). En début de mot, le Hamza porte la voyelle selon l'harmonie vocalique : أ pour a, u, o — إ pour i, e (Règle 8).",
     quiz: "alphabet"
   },
   {
-    id: "s4", level: "D\u00e9butant", title: "Les 4 lettres propres au fulfulde : \u0253, p, \u01b4, ny",
+    id: "s4", level: "Débutant", title: "Les 7 consonnes spécifiques du pulaar : Ɓ P Ɗ C Ƴ Ŋ Ñ",
     duration: "45 min",
-    objectives: ["Ma\u00eetriser les lettres sp\u00e9cifiques du fulfulde", "Distinguer b/\u0253, f/p, y/\u01b4, n/ny"],
-    content: "Quatre lettres ont \u00e9t\u00e9 cr\u00e9\u00e9es pour le fulfulde : \u0253ee mo\u0257u (\u08A1, \u0253), pee (\u0760, p), yah mo\u0257i (\u08A8, \u01b4), nya (\u08A9, ny). Elles n'existent pas en arabe : ce sont les lettres distinctives de l'ajami pular. Exemple : bingel (\u00ab enfant \u00bb) s'\u00e9crit avec \u0253.",
+    objectives: ["Maîtriser les lettres spécifiques", "Distinguer B/Ɓ, D/Ɗ, Y/Ƴ, N/Ŋ, N/Ñ"],
+    content: "Sept lettres sont propres au pulaar : Ɓ (ࢠ, injectif bilabial), P (پ, sourde), Ɗ (ط, injectif alvéolaire), C (ݖ, affriquée « tch »), Ƴ (ڃ, glottalisée), Ŋ (ݝ, nasale vélaire), Ñ (ݧ, nasale palatale « gn »). Exemples validés : ࢠِرَ ➔ Ɓira, پُتࣹ ➔ Putèè, طَطِ ➔ Ɗaɗi, ݖُلِّ ➔ Colli, ڃَمَلْ ➔ Ƴamal, ݝَرِ ➔ Ŋari, ݧَارِ ➔ Ñaari.",
     quiz: "alphabet"
   },
   {
-    id: "s5", level: "Interm\u00e9diaire", title: "Les 5 voyelles, le sukun et l'allongement",
+    id: "s5", level: "Intermédiaire", title: "Les voyelles : brèves, variantes e et o, longues",
     duration: "60 min",
-    objectives: ["Placer les 6 diacritiques correctement", "\u00c9crire les voyelles longues aa, ee, ii, oo, uu"],
-    content: "Les voyelles br\u00e8ves : a (fat\u1e25a), i (kasra), u (\u1e0damma) ; les voyelles sp\u00e9cifiques : e (point souscrit) et o (\u1e0damma point\u00e9e). Les consonnes sans voyelle portent le sukun. L'allongement se marque avec la lettre suivante : aa (\u064E\u0627), ee (\u065C\u0649\u0670), ii (\u0650\u064A), oo (\u065B\u0648), uu (\u064F\u0648).",
+    objectives: ["Placer les diacritiques a, i, u et les variantes e, o", "Écrire les voyelles longues aa, ii, uu, ee, oo, èè"],
+    content: "Voyelles brèves : a (ـَ Fatha), i (ـِ Kasra), u (ـُ Damma), e (ـࣹ Tèral, ou variante ـٖ), o (ـࣷ Toral, ou ـٝ Potthal). Voyelles longues : aa (ا), ii (ئِي ou ي), uu (أُو), ee (ئࣹي), oo (ئُو ou و), èè (ئٜي). Le siège du Hamza en début de mot suit l'harmonie vocalique (Règle 8).",
     quiz: "voyelles"
   },
   {
-    id: "s6", level: "Interm\u00e9diaire", title: "Consonnes pr\u00e9nasalis\u00e9es : mb, nd, nj, ng",
+    id: "s6", level: "Intermédiaire", title: "Consonnes prénasalisées : Mb, Nɗ, Nj, Nd, Ng",
     duration: "60 min",
-    objectives: ["Lire les 4 digrammes", "Comprendre la r\u00e8gle : premi\u00e8re lettre sans diacritique"],
-    content: "Le pular poss\u00e8de 4 consonnes pr\u00e9nasalis\u00e9es \u00e9crites avec 2 lettres : mb (\u0645\u0628), nd (\u0646\u062F), nj (\u0646\u062C), ng (\u0646\u063A). R\u00e8gle cl\u00e9 : la premi\u00e8re lettre du digramme (m ou n) ne porte jamais de diacritique. Exemple : mbarugo (tuer) s'\u00e9crit \u0645\u0628\u064E\u0631\u064F\u063A\u0652.",
+    objectives: ["Lire les 5 digrammes prénasalisés", "Appliquer la règle du Noun sans Soukoun (Règle 9)"],
+    content: "Les prénasalisées mb, nd, nj, ng, nɗ sont des phonèmes uniques. En Ajami, elles s'écrivent toujours avec un Noun (ن), sans voyelle d'appui et sans Soukoun sur le Noun : نب (Mb), نط (Nɗ), نج (Nj), ند (Nd), نگ (Ng). Exemples validés : نبٝلُ ➔ mbolu, نطَ ➔ nɗa, نجٝورِ ➔ njoowri, نديَمْ ➔ ndiyam, نگَارِ ➔ ngaari. Rappel (Règle 9) : les autres consonnes ne commencent jamais un mot par un Soukoun — on ajoute une voyelle d'appui i ou u (stool ➔ إِسْتٝول).",
     quiz: "vocabulaire"
   },
   {
-    id: "s7", level: "Interm\u00e9diaire", title: "Lecture de mots et de phrases",
+    id: "s7", level: "Intermédiaire", title: "Lecture de mots et de phrases",
     duration: "60 min",
-    objectives: ["Lire \u00e0 voix haute les mots du vocabulaire", "Lire des phrases compl\u00e8tes"],
-    content: "Entra\u00eenement de lecture : jam (\u062C\u064E\u0645\u0652), ndiyam (\u0646\u062F\u0650\u064A\u064E\u0645\u0652), hendu (\u062D\u064E\u0646\u062F\u064F), njaareendi (\u0646\u062C\u064E\u0627\u0631\u065C\u0646\u062F\u0650), fombina (\u06A2\u065B\u0645\u0628\u0650\u0646\u064E). Puis les phrases : Jam wa? (va-t-il bien ?), Jam tan (paix seulement), A jaraama (bonjour/merci).",
+    objectives: ["Lire à voix haute les mots du vocabulaire", "Appliquer les règles 6, 7 et 8 en lecture"],
+    content: "Entraînement de lecture : baaba (بَابَ), ndiyam (نديَمْ), ngaari (نگَارِ), colli (ݖُلِّ), fello (فِلّ), ooɗoo (أٝوطٝو), kawtal (كَوتَلْ), mawnugol (مَوْنُگٝلْ). Attention : le Chadda double la consonne (فِلّ ➔ Fello) et le Waw se lit selon la voyelle qui précède (وُورِ ➔ wuuri mais كَوتَلْ ➔ kawtal).",
     quiz: "vocabulaire"
   },
   {
-    id: "s8", level: "Avanc\u00e9", title: "\u00c9criture dict\u00e9e et r\u00e9vision g\u00e9n\u00e9rale",
+    id: "s8", level: "Avancé", title: "Écriture dictée et révision générale",
     duration: "60 min",
-    objectives: ["\u00c9crire sous dict\u00e9e 10 mots", "R\u00e9viser tout l'alphabet et les voyelles"],
-    content: "Votre formateur dicte 10 mots du vocabulaire ; vous les \u00e9crivez dans l'atelier d'\u00e9criture. Ensuite, refaites les 3 quiz de r\u00e9vision jusqu'\u00e0 obtenir au moins 80 % partout. Terminez par le devoir final.",
+    objectives: ["Écrire sous dictée 10 mots", "Réviser consonnes, voyelles et règles 6 à 10"],
+    content: "Votre formateur dicte 10 mots du vocabulaire ; vous les écrivez dans l'atelier d'écriture. Vérifiez notamment : le Chadda (Règle 6), le Waw (Règle 7), le siège du Hamza (Règle 8), l'absence de Soukoun initial (Règle 9) et les noms propres arabes (Règle 10 : مُحَمَّدُ, عُمَرُ). Ensuite, refaites les quiz de révision jusqu'à obtenir au moins 80 % partout.",
     quiz: "mots"
   }
 ];
 
-/* ============ 7. DEVOIRS ET CORRECTIONS ============ */
+/* ============ 8. DEVOIRS ET CORRECTIONS ============ */
 DATA.homeworks = [
   {
-    id: "d1", session: "s4", title: "Recopier l'alphabet harmonis\u00e9",
-    due: "Apr\u00e8s la s\u00e9ance 4",
-    instructions: "Recopiez les 33 lettres de l'alphabet harmonis\u00e9 (formes isol\u00e9e, initiale, m\u00e9diane, finale) dans votre cahier ou dans l'atelier d'\u00e9criture, puis collez votre travail ici (description ou dict\u00e9e des lettres).",
+    id: "d1", session: "s4", title: "Recopier l'alphabet harmonisé",
+    due: "Après la séance 4",
+    instructions: "Recopiez les 22 consonnes (15 standard + 7 spécifiques) dans votre cahier ou dans l'atelier d'écriture, puis collez votre travail ici (description ou dictée des lettres).",
     correction: {
       published: true,
-      text: "Correction type : l'alphabet comporte 33 lettres. V\u00e9rifiez surtout les 4 lettres propres au fulfulde : \u0253 (\u08A1), p (\u0760), \u01b4 (\u08A8), ny (\u08A9), et les lettres qui ne se relient pas \u00e0 gauche : \u0627 \u062F \u0630 \u0631 \u0632 \u0648. Chaque lettre doit porter une voyelle (fat\u1e25a, kasra, \u1e0damma) ou un sukun."
+      text: "Correction type : 15 consonnes standard (ب ت ج د ر س ف ك گ ل م ن ه و ي) et 7 consonnes spécifiques (ࢠ Ɓ, پ P, ط Ɗ, ݖ C, ڃ Ƴ, ݝ Ŋ, ݧ Ñ). Vérifiez les lettres qui ne se relient pas à la suivante (د, ر, و) et la règle du Chadda (Règle 6)."
     }
   },
   {
-    id: "d2", session: "s7", title: "Lire \u00e0 voix haute 5 mots",
-    due: "Apr\u00e8s la s\u00e9ance 7",
-    instructions: "Avec l'atelier \u00ab Parler \u00bb, enregistrez-vous en lisant : jam, ndiyam, hendu, njaareendi, fombina. Puis d\u00e9crivez ici votre auto-\u00e9valuation (mots faciles / difficiles).",
+    id: "d2", session: "s7", title: "Lire à voix haute 5 mots",
+    due: "Après la séance 7",
+    instructions: "Avec l'atelier « Parler », enregistrez-vous en lisant : ndiyam, ngaari, colli, fello, ooɗoo. Puis décrivez ici votre auto-évaluation (mots faciles / difficiles).",
     correction: {
       published: true,
-      text: "Attendu : jam = \u062C\u064E\u0645\u0652 (j-a-m) ; ndiyam = \u0646\u062F\u0650\u064A\u064E\u0645\u0652 (n-i-y-a-m) ; hendu = \u062D\u064E\u0646\u062F\u064F (h-e-n-d-u) ; njaareendi = \u0646\u062C\u064E\u0627\u0631\u065C\u0646\u062F\u0650 ; fombina = \u06A2\u065B\u0645\u0628\u0650\u0646\u064E. Points de vigilance : le nd de ndiyam/hendu est un digramme (n sans diacritique) et le e de hendu s'\u00e9crit avec le point souscrit."
+      text: "Attendu : ndiyam = نديَمْ ; ngaari = نگَارِ ; colli = ݖُلِّ ; fello = فِلّ ; ooɗoo = أٝوطٝو. Points de vigilance : le nd de ndiyam s'écrit ند (Noun sans Soukoun, Règle 9) ; le double l de colli vient du Chadda (Règle 6) ; dans ooɗoo, le Waw est voyelle longue après Potthal (Règle 7)."
     }
   },
   {
-    id: "d3", session: "s8", title: "\u00c9crire 3 phrases simples",
-    due: "Apr\u00e8s la s\u00e9ance 8",
-    instructions: "\u00c9crivez en ajami : 1) Jam wa?  2) Jam tan.  3) A jaraama. Utilisez l'atelier d'\u00e9criture pour vous entra\u00eener, puis recopiez vos phrases ici.",
+    id: "d3", session: "s8", title: "Écrire 3 phrases simples",
+    due: "Après la séance 8",
+    instructions: "Écrivez en ajami : 1) Jam wa?  2) Jam tan.  3) A jaraama. Utilisez l'atelier d'écriture pour vous entraîner, puis recopiez vos phrases ici.",
     correction: {
       published: true,
-      text: "1) \u062C\u064E\u0645\u0652 \u0648\u064E\u061F  2) \u062C\u064E\u0645\u0652 \u062A\u064E\u0646\u0652  3) \u0639\u064E \u062C\u064E\u0631\u064E\u0627\u0645\u064E. Attention au d\u00e9but de \u00ab a jaraama \u00bb : la voyelle initiale s'\u00e9crit sur ayni (\u0639\u064E), jamais sur alif."
+      text: "1) جَمْ وَ؟  2) جَمْ تَنْ  3) أَ جَرَامَ. Attention au début de « a jaraama » : le a initial s'écrit avec le Hamza au-dessus أَ (harmonie vocalique, Règle 8)."
     }
   }
 ];
 
-/* ============ 8. FORMATEURS ============ */
+/* ============ 9. FORMATEURS ============ */
 DATA.trainers = [
-  { id: "t1", name: "Formateur principal", subject: "Alphabet et lecture", contact: "\u00c0 compl\u00e9ter dans js/data.js" },
-  { id: "t2", name: "Formateur assistant", subject: "\u00c9criture et devoirs", contact: "\u00c0 compl\u00e9ter dans js/data.js" }
+  { id: "t1", name: "Formateur principal", subject: "Alphabet et lecture", contact: "À compléter dans js/data.js" },
+  { id: "t2", name: "Formateur assistant", subject: "Écriture et devoirs", contact: "À compléter dans js/data.js" }
 ];
 
-/* ============ 9. DOCUMENTS TÉLÉCHARGEABLES ============ */
+/* ============ 10. DOCUMENTS TÉLÉCHARGEABLES ============ */
 DATA.docs = [
-  { file: "docs/guide-alphabet.pdf", label: "Guide de l'alphabet harmonis\u00e9 (PDF)", note: "Les 33 lettres, noms, sons et \u00e9quivalents latins." },
-  { file: "docs/guide-voyelles.pdf", label: "Guide des voyelles et diacritiques (PDF)", note: "Les 5 voyelles, le sukun, les voyelles longues." },
-  { file: "docs/cahier-phrases.pdf", label: "Cahier de phrases et vocabulaire (PDF)", note: "Vocabulaire de base avec prononciation." },
-  { file: "docs/alphabet-ajami.txt", label: "Alphabet ajami en texte Unicode (TXT)", note: "Pour copier-coller les caract\u00e8res ajami." },
-  { file: "docs/vocabulaire-ajami.txt", label: "Vocabulaire ajami en texte Unicode (TXT)", note: "Mots et phrases en \u00e9criture ajami." }
+  { file: "docs/Regles_Ajami_Pulaar.html", label: "Manuel de transcription complet (HTML)", note: "Toutes les règles, tableaux et exceptions validés — le document de référence." },
+  { file: "docs/guide-alphabet.pdf", label: "Guide de l'alphabet harmonisé (PDF)", note: "Consonnes standard et spécifiques, avec exemples validés." },
+  { file: "docs/guide-voyelles.pdf", label: "Guide des voyelles et règles (PDF)", note: "Voyelles brèves et longues, siège du Hamza, règles 6 à 10." },
+  { file: "docs/cahier-phrases.pdf", label: "Cahier de phrases et vocabulaire (PDF)", note: "Vocabulaire validé avec prononciation." },
+  { file: "docs/alphabet-ajami.txt", label: "Alphabet ajami en texte Unicode (TXT)", note: "Pour copier-coller les caractères ajami." },
+  { file: "docs/vocabulaire-ajami.txt", label: "Vocabulaire ajami en texte Unicode (TXT)", note: "Mots et phrases en écriture ajami." }
 ];

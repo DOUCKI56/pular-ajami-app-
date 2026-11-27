@@ -21,6 +21,8 @@
       alphabet: DATA.alphabet,
       vowels: DATA.vowels,
       digraphs: DATA.digraphs,
+      rules: DATA.rules,
+      meta: DATA.meta,
       numbers: DATA.numbers,
       docs: DATA.docs,
       trainers: DATA.trainers,
@@ -170,17 +172,17 @@
     voyelles: {
       title: "Quiz — Voyelles et diacritiques",
       make() {
-        const qs = DATA.vowels.list.map((v) => ({
-          q: "Quelle voyelle ou marque représente ce diacritique ?",
+        const qs = D.vowels.list.map((v) => ({
+          q: "Quelle voyelle représente ce diacritique ?",
           display: esc(v.aj), isAjami: true, answer: v.sound,
-          opts: shuffle(["a", "i", "u", "e", "o", "aucune voyelle"]).filter((o) => o !== v.sound).slice(0, 3).concat([v.sound]),
+          opts: shuffle(["a", "i", "u", "e (Tèral)", "e (Nèènè)", "o (Toral)", "o (Potthal)"]).filter((o) => o !== v.sound).slice(0, 3).concat([v.sound]),
           explain: v.name + " = " + v.sound
         }));
-        DATA.vowels.lengthening.rows.concat(DATA.vowels.initial.rows).forEach((r) => {
+        D.vowels.lengthening.rows.forEach((r) => {
           qs.push({
-            q: "Quelle voyelle longue ou initiale représente ce signe ?",
+            q: "Quelle voyelle longue représente ce signe ?",
             display: esc(r.aj), isAjami: true, answer: r.latin,
-            opts: shuffle(["aa", "ee", "ii", "oo", "uu"]).filter((o) => o !== r.latin).slice(0, 3).concat([r.latin]),
+            opts: shuffle(["aa", "ee", "ii", "oo", "uu", "èè"]).filter((o) => o !== r.latin).slice(0, 3).concat([r.latin]),
             explain: esc(r.aj) + " = " + r.latin
           });
         });
@@ -309,57 +311,57 @@
   };
 
   routes.lire = function () {
-    const cards = DATA.alphabet.map((L, i) =>
+    const cards = D.alphabet.map((L, i) =>
       '<div class="card letter-card" data-i="' + i + '">' +
       '<span class="aj">' + esc(L.aj) + "</span>" +
       '<div class="lt">' + esc(L.latin) + "</div>" +
-      '<div class="nm">' + esc(L.name) + "</div>" +
       '<div class="tag">' +
-      (L.unique ? '<span class="badge gold">spécifique fulfulde</span>' : L.loan ? '<span class="badge warn">emprunt arabe</span>' : '<span class="badge">base</span>') +
+      (L.unique ? '<span class="badge gold">sp\u00e9cifique pulaar</span>' : '<span class="badge">standard</span>') +
       "</div></div>").join("");
-    const digraphs = DATA.digraphs.map((d) =>
-      '<div class="card"><h3>' + aj(d.aj) + " = " + esc(d.latin) + " <span class=\"muted\">(" + esc(d.ipa) + ")</span></h3>" +
-      d.examples.map((e) => "<p>" + aj(e.split(" (")[0]) + " — " + esc(e.split(" (")[1].replace(")", "")) + "</p>").join("") +
-      "</div>").join("");
-    const vowels = DATA.vowels.list.map((v) =>
-      '<tr><td>' + aj(v.aj) + "</td><td>" + esc(v.name) + "</td><td><strong>" + esc(v.sound) + "</strong></td><td>" + aj(v.example) + "</td></tr>").join("");
+    const digraphs = D.digraphs.map((d) =>
+      '<div class="card"><h3>' + aj(d.aj) + " = " + esc(d.latin) + "</h3>" +
+      '<p>' + aj(d.ex.aj) + " \u2794 " + esc(d.ex.latin) + "</p></div>").join("");
+    const vowels = D.vowels.list.map((v) =>
+      '<tr><td>' + aj(v.aj) + "</td><td>" + aj(v.init) + "</td><td><strong>" + esc(v.sound) + "</strong></td><td>" + esc(v.name) + " \u2014 " + esc(v.desc) + "</td></tr>").join("");
+    const rules = D.rules.map((r) =>
+      '<div class="card list-item"><h3>' + esc(r.title) + "</h3><p>" + esc(r.text) + "</p></div>").join("");
     return (
-      '<h1>📖 Lire — l\'alphabet ajami harmonisé</h1>' +
-      '<p class="lead">' + DATA.alphabet.length + " lettres agréées à la conférence de Ngaoundéré (1998). Touchez une lettre pour l'écouter et voir ses 4 formes.</p>" +
+      '<h1>\ud83d\udcd6 Lire \u2014 l\'alphabet ajami pulaar harmonis\u00e9</h1>' +
+      '<p class="lead">15 consonnes standard et 7 consonnes sp\u00e9cifiques, avec les voyelles et les r\u00e8gles valid\u00e9es. <span class="muted">R\u00e9f\u00e9rence : ' + esc(DATA.meta.reference) + '.</span> Touchez une lettre pour l\'\u00e9couter et voir son exemple.</p>' +
       '<div class="grid cols3">' + cards + "</div>" +
       '<div id="letterDetail" class="section"></div>' +
-      '<h2>Voyelles et diacritiques</h2>' +
-      '<p class="muted">' + esc(DATA.vowels.intro) + "</p>" +
-      '<div class="card"><table class="simple"><tr><th>Signe</th><th>Nom</th><th>Voyelle</th><th>Exemple</th></tr>' + vowels + "</table></div>" +
+      '<h2>Les voyelles</h2>' +
+      '<p class="muted">' + esc(D.vowels.intro) + "</p>" +
+      '<div class="card"><table class="simple"><tr><th>Signe</th><th>Sur Hamza (d\u00e9but)</th><th>Son</th><th>Nom</th></tr>' + vowels + "</table></div>" +
       '<div class="grid cols2">' +
-      '<div class="card"><h3>' + esc(DATA.vowels.initial.title) + "</h3>" +
-      '<p>' + DATA.vowels.initial.rows.map((r) => aj(r.aj) + " = " + esc(r.latin)).join(" · ") + "</p></div>" +
-      '<div class="card"><h3>' + esc(DATA.vowels.lengthening.title) + "</h3>" +
-      '<p>' + DATA.vowels.lengthening.rows.map((r) => aj(r.aj) + " = " + esc(r.latin)).join(" · ") + "</p></div>" +
+      '<div class="card"><h3>' + esc(D.vowels.initial.title) + "</h3>" +
+      '<p>Voyelles arri\u00e8re (hamza au-dessus \u0623) : ' + D.vowels.initial.back.map((r) => aj(r.aj) + " = " + esc(r.latin)).join(" \u00b7 ") + "</p>" +
+      '<p>Voyelles avant (hamza en dessous \u0625) : ' + D.vowels.initial.front.map((r) => aj(r.aj) + " = " + esc(r.latin)).join(" \u00b7 ") + "</p></div>" +
+      '<div class="card"><h3>' + esc(D.vowels.lengthening.title) + "</h3>" +
+      '<p>' + D.vowels.lengthening.rows.map((r) => aj(r.aj) + " = " + esc(r.latin)).join(" \u00b7 ") + "</p></div>" +
       "</div>" +
-      '<h2>Consonnes prénasalisées</h2>' + digraphs
+      '<h2>Consonnes pr\u00e9nasalis\u00e9es (toujours avec Noun)</h2>' + digraphs +
+      '<h2>R\u00e8gles orthographiques majeures</h2>' + rules +
+      '<p><a class="btn gold" href="' + esc(DATA.meta.rulesDoc) + '">\ud83d\udce5 T\u00e9l\u00e9charger le manuel complet</a></p>'
     );
   };
 
   binders.lire = function () {
     function showDetail(L) {
-      const forms = ["iso", "ini", "med", "fin"];
-      const labels = { iso: "isolée", ini: "initiale", med: "médiane", fin: "finale" };
       $("#letterDetail").innerHTML =
         '<div class="card letter-detail">' +
         '<div class="big ajami">' + esc(L.aj) + "</div>" +
-        '<h3 style="text-align:center">' + esc(L.name) + " — « " + esc(L.latin) + " » [" + esc(L.ipa) + "]</h3>" +
-        '<div class="forms">' + forms.filter((f) => L.forms[f]).map((f) =>
-          '<div class="form-box"><span class="faj ajami">' + esc(L.forms[f]) + '</span><span class="flbl">' + labels[f] + "</span></div>").join("") +
-        "</div>" +
+        '<h3 style="text-align:center">' + esc(L.name) + " \u2014 \u00ab " + esc(L.latin) + " \u00bb</h3>" +
+        (L.desc ? '<p style="text-align:center" class="muted">' + esc(L.desc) + "</p>" : "") +
+        '<div class="forms"><div class="form-box"><span class="faj ajami">' + esc(L.ex.aj) + '</span><span class="flbl">' + esc(L.ex.latin) + "</span></div></div>" +
         (L.note ? '<p class="muted">' + esc(L.note) + "</p>" : "") +
         '<div style="text-align:center;margin-top:10px">' +
-        '<button class="btn small" id="hearLetter">🔊 Écouter « ' + esc(L.latin) + ' »</button></div></div>';
-      $("#hearLetter").addEventListener("click", () => speak("Lettre " + L.latin + ", " + L.name));
+        '<button class="btn small" id="hearLetter">\ud83d\udd0a \u00c9couter \u00ab ' + esc(L.ex.latin) + ' \u00bb</button></div></div>';
+      $("#hearLetter").addEventListener("click", () => speak("Lettre " + L.latin + ", exemple : " + L.ex.latin));
       $("#letterDetail").scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
     $$(".letter-card").forEach((card) =>
-      card.addEventListener("click", () => showDetail(DATA.alphabet[+card.dataset.i])));
+      card.addEventListener("click", () => showDetail(D.alphabet[+card.dataset.i])));
   };
 
   routes.ecrire = function () {

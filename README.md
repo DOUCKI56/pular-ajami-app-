@@ -1,16 +1,20 @@
 # Pular Ajami — Apprendre le pular en caractères harmonisés
 
 Application **multiplateforme** (PWA installable) pour apprendre le **pular**
-(fulfulde du Fouta Djallon) écrit en **ajami**, avec l'alphabet **harmonisé**
-agréé à la conférence JCMWA/MICCAO de Ngaoundéré (1998) : 33 lettres, dont
-4 propres au fulfulde (ɓ, p, ƴ, ny).
+(pulaar) écrit en **ajami**, selon l'orthographe **validée** des formateurs :
+manuel de transcription Ajami Pulaar ⇄ Latin harmonisé (alphabet harmonisé de
+Bamako, 1987) — 15 consonnes standard + 7 consonnes spécifiques
+(Ɓ, P, Ɗ, C, Ƴ, Ŋ, Ñ), 5 voyelles avec leurs variantes, et les règles 6 à 10
+(chadda, waw, siège du hamza, soukoun initial, noms propres arabes).
+Le document de référence est fourni dans l'application :
+`docs/Regles_Ajami_Pulaar.html`.
 
 ## Fonctionnalités
 
 | Module | Contenu |
 |---|---|
 | 🏠 Accueil | Progression, statistiques, accès rapide |
-| 📖 Lire | Les 33 lettres harmonisées (4 formes, son, exemples), voyelles, diacritiques, digrammes prénasalisés (mb, nd, nj, ng) |
+| 📖 Lire | Les 22 consonnes (15 standard + 7 spécifiques) avec exemples validés, les 5 voyelles et leurs variantes, les voyelles longues, les 5 prénasalisées (mb, nɗ, nj, nd, ng) et les règles majeures 6 à 10 |
 | ✍️ Écrire | Atelier d'écriture tactile/souris avec modèle ajami, export PNG |
 | 🗣️ Parler | Écoute de la prononciation + enregistrement et réécoute de sa voix |
 | 🎯 Réviser | Quiz aléatoires : alphabet, voyelles, vocabulaire, révision générale, meilleur score suivi |
@@ -76,14 +80,13 @@ devoirs + corrections, formateurs).
 
 ## Note sur l'orthographe
 
-Les lettres, diacritiques et exemples suivent la convention ajami harmonisée
-du fulfulde (JCMWA 1998) et l'orthographe pular du Fouta Djallon. Certains
-caractères spécifiques (Ɓ ݠ ƴ ɲ) nécessitent une police arabe récente
-(Noto Naskh Arabic recommandé). L'orthographe exacte de certains mots peut
-varier selon les écoles calligraphiques : les formateurs peuvent l'ajuster
-dans `js/data.js`.
+Les lettres, voyelles et exemples suivent le **manuel de transcription validé**
+par les formateurs (`docs/Regles_Ajami_Pulaar.html`, référence : alphabet
+harmonisé de Bamako, 1987). Certains caractères spécifiques (ࢠ, ݖ, ڃ, ݝ, ݧ)
+nécessitent une police arabe récente (Noto Naskh Arabic recommandé).
+Toute évolution de l'orthographe se fait dans `js/data.js`.
 
 ## Sources
 
-- [Adamawa Fulfulde — alphabet ajami (Wikipedia, norme JCMWA 1998)](https://en.wikipedia.org/wiki/Adamawa_Fulfulde)
-- [Pular language — alphabet ajami (Wikipedia)](https://en.wikipedia.org/wiki/Pular_language)
+- Manuel de transcription Ajami Pulaar ⇄ Latin harmonisé (fourni par les formateurs)
+- [Pular language — écriture ajami (Wikipedia)](https://en.wikipedia.org/wiki/Pular_language)
