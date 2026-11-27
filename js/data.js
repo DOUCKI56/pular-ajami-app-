@@ -44,7 +44,7 @@ DATA.alphabet = [
     ex: { aj: "هَوَ", latin: "Hawa" } },
   { aj: "و", latin: "W / oo / uu", name: "Waw", joins: false,
     ex: { aj: "وَادُ", latin: "Waado" },
-    note: "Règle 7 : voyelle longue (oo/uu) après Damma, Potthal ou Toral ; consonne w après Fatha, Kasra ou avec Soukoun." },
+    note: "Règle 7 : voyelle longue (oo/uu) après Tural (Damma) ou Toral (o) ; consonne w après Pocal (Fatha), Pical (Kasra) ou avec Soukoun." },
   { aj: "ي", latin: "Y", name: "Y", joins: true,
     ex: { aj: "يَايࣹ", latin: "Yaayè" } },
 
@@ -66,15 +66,15 @@ DATA.alphabet = [
 
 /* ============ 2. VOYELLES ============ */
 DATA.vowels = {
-  intro: "Toutes les voyelles s'écrivent. Les voyelles brèves sont des diacritiques ; le pulaar ajoute des signes propres pour e (Tèral) et o (Toral, Potthal). Le choix du siège du Hamza en début de mot suit l'harmonie vocalique (Règle 8).",
+  intro: "Toutes les voyelles s'écrivent. Les voyelles brèves sont des diacritiques ; le pulaar ajoute des signes propres pour e (Teral : ࣹ ou ٖ) et o (Toral : ࣷ ou ٝ). Le choix du siège du Hamza en début de mot suit l'harmonie vocalique (Règle 8).",
   list: [
-    { sound: "a", name: "Fatha", aj: "ـَ", init: "أَ", desc: "voyelle arrière" },
-    { sound: "i", name: "Kasra", aj: "ـِ", init: "إِ", desc: "voyelle avant" },
-    { sound: "u", name: "Damma", aj: "ـُ", init: "أُ", desc: "voyelle arrière" },
-    { sound: "e (Tèral)", name: "Tèral", aj: "ـࣹ", init: "إࣹ", desc: "voyelle antérieure" },
-    { sound: "e (Nèènè)", name: "variante du Tèral", aj: "ـٖ", init: "إٖ", desc: "équivalent du Tèral" },
+    { sound: "a", name: "Pocal (Fatha)", aj: "ـَ", init: "أَ", desc: "voyelle arrière" },
+    { sound: "i", name: "Pical (Kasra)", aj: "ـِ", init: "إِ", desc: "voyelle avant" },
+    { sound: "u", name: "Tural (Damma)", aj: "ـُ", init: "أُ", desc: "voyelle arrière" },
+    { sound: "e (Teral)", name: "Teral", aj: "ـࣹ", init: "إࣹ", desc: "voyelle antérieure — Hamza en dessous إࣹ, jamais أࣹ" },
+    { sound: "e (Nèènè)", name: "variante du Teral", aj: "ـٖ", init: "إٖ", desc: "équivalent du Teral" },
     { sound: "o (Toral)", name: "Toral", aj: "ـࣷ", init: "إࣷ", desc: "voyelle postérieure" },
-    { sound: "o (Potthal)", name: "Potthal", aj: "ـٝ", init: "أٝ", desc: "voyelle postérieure" }
+    { sound: "o (Toral ٝ)", name: "Toral (variante ٝ)", aj: "ـٝ", init: "أٝ", desc: "voyelle postérieure — variante du Toral" }
   ],
   lengthening: {
     title: "Voyelles longues (prolongation)",
@@ -103,9 +103,9 @@ DATA.rules = [
   { title: "Règle 6 — Le Chadda ( ّ ) : redoublement de consonne",
     text: "Une consonne portant le Chadda est obligatoirement doublée (géminée) en latin. Exemples : فِلّ ➔ Fello (Fello avec ll) ; Ghirritagol ➔ قِرِّتَگُلْ (chadda sur le ر)." },
   { title: "Règle 7 — Le Waw (و) : consonne ou voyelle d'allongement ?",
-    text: "La lecture du Waw dépend strictement de la voyelle qui le précède. Waw = consonne (w) s'il est précédé d'une Fatha (ـَ) ou d'une Kasra (ـِ), ou s'il porte un Soukoun (وْ) : كَوتَلْ ➔ kawtal, هَوتُطَا ➔ hawtuɗa, مَوْنُگٝلْ ➔ mawnugol. Waw = voyelle longue (oo / uu) s'il est précédé d'une Damma (ـُ), il allonge la voyelle : أٝوطٝو ➔ ooɗoo, وُورِ ➔ wuuri." },
+    text: "La lecture du Waw dépend strictement de la voyelle qui le précède. Waw = consonne (w) s'il est précédé d'une Pocal (Fatha ـَ) ou d'une Pical (Kasra ـِ), ou s'il porte un Soukoun (وْ) : كَوتَلْ ➔ kawtal, هَوتُطَا ➔ hawtuɗa, مَوْنُگٝلْ ➔ mawnugol. Waw = voyelle longue (oo / uu) s'il est précédé d'une Tural (Damma ـُ), il allonge la voyelle : أٝوطٝو ➔ ooɗoo, وُورِ ➔ wuuri." },
   { title: "Règle 8 — Le siège du Hamza",
-    text: "En début de mot, le Hamza sert de support à la voyelle selon l'harmonie vocalique. Hamza au-dessus أ (voyelles arrière) : a (أَ), u (أُ), o (أٝ). Hamza en dessous إ (voyelles avant) : i (إِ), e (إࣹ ou إٖ), o fermé (إࣷ)." },
+    text: "En début de mot, le Hamza sert de support à la voyelle selon l'harmonie vocalique. Hamza au-dessus أ (voyelles arrière) : a (أَ), u (أُ), o (أٝ). Hamza en dessous إ (voyelles avant) : i (إِ), e (إࣹ ou إٖ), o fermé (إࣷ). Attention : le e (Teral) prend toujours le Hamza en dessous إࣹ — jamais أࣹ." },
   { title: "Règle 9 — Interdiction absolue du Soukoun en début de mot",
     text: "Aucun mot pulaar ne peut commencer par une syllabe fermée (consonne + Soukoun). Cela vaut y compris pour les prénasalisées (mb, nd, nj, ng)." },
   { title: "Règle 10 — Exception des noms propres arabes",
@@ -174,7 +174,7 @@ DATA.sessions = [
     id: "s3", level: "Débutant", title: "Lettres suivantes : g, f, k, l, m, n, h, w, y",
     duration: "45 min",
     objectives: ["Lire et écrire 9 nouvelles lettres", "Comprendre le Waw (Règle 7) et le siège du Hamza (Règle 8)"],
-    content: "گ (G), ف (F), ك (K), ل (L), م (M), ن (N), ه (H), و (W), ي (Y). Deux règles clés : le Waw و est voyelle longue (oo/uu) après Damma, Potthal ou Toral, mais consonne w après Fatha, Kasra ou avec Soukoun (Règle 7). En début de mot, le Hamza porte la voyelle selon l'harmonie vocalique : أ pour a, u, o — إ pour i, e (Règle 8).",
+    content: "گ (G), ف (F), ك (K), ل (L), م (M), ن (N), ه (H), و (W), ي (Y). Deux règles clés : le Waw و est voyelle longue (oo/uu) après Tural (Damma), ٝ ou Toral, mais consonne w après Pocal (Fatha), Pical (Kasra) ou avec Soukoun (Règle 7). En début de mot, le Hamza porte la voyelle selon l'harmonie vocalique : أ pour a, u, o — إ pour i, e (Règle 8).",
     quiz: "alphabet"
   },
   {
@@ -188,7 +188,7 @@ DATA.sessions = [
     id: "s5", level: "Intermédiaire", title: "Les voyelles : brèves, variantes e et o, longues",
     duration: "60 min",
     objectives: ["Placer les diacritiques a, i, u et les variantes e, o", "Écrire les voyelles longues aa, ii, uu, ee, oo, èè"],
-    content: "Voyelles brèves : a (ـَ Fatha), i (ـِ Kasra), u (ـُ Damma), e (ـࣹ Tèral, ou variante ـٖ), o (ـࣷ Toral, ou ـٝ Potthal). Voyelles longues : aa (ا), ii (ئِي ou ي), uu (أُو), ee (ئࣹي), oo (ئُو ou و), èè (ئٜي). Le siège du Hamza en début de mot suit l'harmonie vocalique (Règle 8).",
+    content: "Voyelles brèves : a (ـَ Pocal), i (ـِ Pical), u (ـُ Tural), e (ـࣹ Teral, ou variante ـٖ), o (ـࣷ Toral, ou variante ـٝ). Voyelles longues : aa (ا), ii (ئِي ou ي), uu (أُو), ee (ئࣹي), oo (ئُو ou و), èè (ئٜي). Le siège du Hamza en début de mot suit l'harmonie vocalique (Règle 8).",
     quiz: "voyelles"
   },
   {
@@ -370,24 +370,24 @@ DATA.fiches = {
       { aj: "ء", latin: "’" },
       { aj: "ند", latin: "nd" }, { aj: "نب", latin: "mb" }, { aj: "نگ", latin: "ng" }, { aj: "نج", latin: "ŋj" }
     ] },
-    { n: 7, title: "Lecture syllabique · a bref (Poccal) et aa long", lead: "Lis chaque syllabe à voix haute : la prononciation est écrite sous chaque lettre.", items: [
-      { latin: "a bref — Poccal", aj: "بِتَّلْ" },
+    { n: 7, title: "Lecture syllabique · a bref (Pocal) et aa long", lead: "Lis chaque syllabe à voix haute : la prononciation est écrite sous chaque lettre.", items: [
+      { latin: "a bref — Pocal", aj: "بِتَّلْ" },
       { latin: "aa long — آ", aj: "بَا · فَا · سَا…" }
     ] },
-    { n: 8, title: "Lecture syllabique · i bref (Piccal) et ii long", items: [
-      { latin: "i bref — Piccal", aj: "بَتَلْ" },
+    { n: 8, title: "Lecture syllabique · i bref (Pical) et ii long", items: [
+      { latin: "i bref — Pical", aj: "بَتَلْ" },
       { latin: "ii long — إِ", aj: "لِي · سِي…" }
     ] },
-    { n: 9, title: "Lecture syllabique · o bref (Torel) et oo long", items: [
-      { latin: "o bref — Torel", aj: "تَرُلْ" },
+    { n: 9, title: "Lecture syllabique · o bref (Toral) et oo long", items: [
+      { latin: "o bref — Toral", aj: "تَرُلْ" },
       { latin: "oo long — أُو", aj: "تُو · كُو…" }
     ] },
-    { n: 10, title: "Lecture syllabique · u bref (Turel) et uu long", items: [
-      { latin: "u bref — Turel", aj: "تَرُلْ" },
+    { n: 10, title: "Lecture syllabique · u bref (Tural) et uu long", items: [
+      { latin: "u bref — Tural", aj: "تَرُلْ" },
       { latin: "uu long — أُو", aj: "ءو…" }
     ] },
-    { n: 11, title: "Lecture syllabique · e bref (Terel) et ee long", items: [
-      { latin: "e bref — Terel", aj: "تِرَلْ" },
+    { n: 11, title: "Lecture syllabique · e bref (Teral) et ee long", items: [
+      { latin: "e bref — Teral", aj: "تِرَلْ" },
       { latin: "ee long — إࣹي", aj: "پࣹي · سࣹي…" }
     ] },
     { n: 12, title: "Sukun et shadda · Kowal · Ciddal", items: [

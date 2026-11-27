@@ -210,7 +210,7 @@
         const qs = D.vowels.list.map((v) => ({
           q: "Quelle voyelle représente ce diacritique ?",
           display: esc(v.aj), isAjami: true, answer: v.sound,
-          opts: shuffle(["a", "i", "u", "e (Tèral)", "e (Nèènè)", "o (Toral)", "o (Potthal)"]).filter((o) => o !== v.sound).slice(0, 3).concat([v.sound]),
+          opts: shuffle(["a", "i", "u", "e (Teral)", "e (Nèènè)", "o (Toral)", "o (Toral ٝ)"]).filter((o) => o !== v.sound).slice(0, 3).concat([v.sound]),
           explain: v.name + " = " + v.sound
         }));
         D.vowels.lengthening.rows.forEach((r) => {
