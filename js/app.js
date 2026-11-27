@@ -340,9 +340,16 @@
       '<div class="card"><h3>💬 Formateurs</h3><p class="muted">' + (nbQ ? nbQ + " question(s) posée(s)." : "Posez vos questions aux formateurs.") + '</p><a class="btn small" href="#/formateurs">Poser une question</a></div>' +
       '<div class="card"><h3>📤 Devoirs</h3><p class="muted">Déposez vos devoirs et consultez les corrections.</p><a class="btn small" href="#/devoirs">Ouvrir</a></div>' +
       '<div class="card"><h3>📥 Documents</h3><p class="muted">PDF et fichiers légers à télécharger.</p><a class="btn small" href="#/documents">Télécharger</a></div>' +
+      '<div class="card"><h3>📲 Partager</h3><p class="muted">Faites connaître l\'ajami pulaar : envoyez l\'application à vos contacts.</p><button class="btn gold" id="shareApp">📤 Partager</button></div>' +
+      '<div class="card"><h3>ℹ️ À propos</h3><p class="muted">Histoire de l\'écriture ajami pulaar et mission de cette application.</p><a class="btn small" href="#/apropos">Découvrir</a></div>' +
       "</div>" +
       (!p.name ? '<div class="notice">💡 <a href="#/parametres">Indiquez votre nom</a> dans les paramètres pour personnaliser votre expérience.</div>' : "")
     );
+  };
+
+  binders.accueil = function () {
+    const btn = $("#shareApp");
+    if (btn) btn.addEventListener("click", shareApp);
   };
 
   routes.lire = function () {
@@ -777,6 +784,68 @@
       '<h1>📥 Documents téléchargeables</h1>' +
       '<p class="lead">Fichiers légers (quelques Ko) consultables hors ligne. Les PDF sont aussi imprimables.</p>' + docs
     );
+  };
+
+  /* ---------- Partage et promotion ---------- */
+
+  const APP_URL = "https://doucki56.github.io/pular-ajami-app-/";
+
+  function shareApp() {
+    const text = "Apprenez le pular (fulfulde) en \u00e9criture ajami harmonis\u00e9e \u2014 gratuit et hors ligne : ";
+    if (navigator.share) {
+      navigator.share({ title: "Pular Ajami", text: text, url: APP_URL }).catch(() => {});
+    } else {
+      window.open("https://wa.me/?text=" + encodeURIComponent(text + APP_URL), "_blank");
+    }
+  }
+
+  routes.qrcode = function () {
+    let qr = "";
+    try { qr = (typeof QR !== "undefined") ? QR.svg(APP_URL, 260) : ""; } catch (e) { qr = ""; }
+    return (
+      '<h1>📱 Partager l\'application (QR)</h1>' +
+      '<p class="lead">Imprimez cette affiche et affichez-la \u00e0 l\'\u00e9cole, la mosqu\u00e9e, le march\u00e9 : chaque personne peut scanner le code avec la cam\u00e9ra du t\u00e9l\u00e9phone pour ouvrir l\'application.</p>' +
+      '<div class="poster">' +
+      '<div class="poster-brand"><span class="poster-ajami ajami">\u062c\u064e\u0645\u0652</span><strong>Pular Ajami</strong></div>' +
+      '<p class="poster-title">Apprenez le pular en \u00e9criture ajami harmonis\u00e9e</p>' +
+      (qr ? '<div class="poster-qr">' + qr + "</div>" : '<p class="muted">Code QR indisponible sur cet appareil.</p>') +
+      '<p class="poster-url">' + esc(APP_URL) + "</p>" +
+      '<p class="poster-note">Lire \u00b7 \u00c9crire \u00b7 Parler \u00b7 R\u00e9viser \u2014 gratuit, hors ligne</p>' +
+      "</div>" +
+      '<div class="no-print" style="margin-top:15px">' +
+      '<button class="btn gold" id="printPoster">🖨️ Imprimer l\'affiche</button> ' +
+      '<button class="btn" id="shareFromQr">📤 Partager le lien</button></div>'
+    );
+  };
+
+  binders.qrcode = function () {
+    const pr = $("#printPoster");
+    if (pr) pr.addEventListener("click", () => window.print());
+    const sh = $("#shareFromQr");
+    if (sh) sh.addEventListener("click", shareApp);
+  };
+
+  routes.apropos = function () {
+    return (
+      '<h1>\u2139\ufe0f \u00c0 propos</h1>' +
+      '<div class="card"><h3>📜 Une \u00e9criture ancienne et pleine</h3>' +
+      "<p>Le pular (fulfulde) s\u2019\u00e9crit en <strong>ajami</strong> \u2014 caract\u00e8res arabes adapt\u00e9s \u2014 depuis plusieurs si\u00e8cles. Les manuscrits peuls en ajami sont parmi les plus anciens \u00e9crits de la r\u00e9gion : bien des textes que nous lisons aujourd\u2019hui en latin ou en adlam ont d\u2019abord \u00e9t\u00e9 r\u00e9dig\u00e9s en ajami.</p>" +
+      "<p>L\u2019ajami harmonis\u00e9 peut tout exprimer en pular : r\u00e9cits, sciences, po\u00e9sie, enseignements religieux et vie quotidienne.</p></div>" +
+      '<div class="card"><h3>🤝 L\'harmonisation</h3>' +
+      "<p>Pour que tous \u00e9crivent de la m\u00eame fa\u00e7on, les sp\u00e9cialistes ont harmonis\u00e9 l\'alphabet ajami (r\u00e9f\u00e9rence : <strong>alphabet harmonis\u00e9 de Bamako, 1987</strong>, norme ISESCO / UNESCO). Cette application suit le <strong>Manuel de transcription Ajami Pulaar \u21c4 Latin harmonis\u00e9</strong> et le support p\u00e9dagogique de <strong>Baba Ibrahim Barry (Ayouba Barry)</strong>, concepteur du clavier CaramBolfubhe.</p>" +
+      '<p>Clavier pulaar ajami : <a href="https://keyman.com/keyboards/carambolfulbhe" target="_blank" rel="noopener">keyman.com/keyboards/carambolfulbhe</a></p></div>' +
+      '<div class="card"><h3>🎯 La mission de cette application</h3>' +
+      "<p>L\u2019\u00e9criture ajami pulaar est menac\u00e9e de disparition. Cette application aide \u00e0 la <strong>p\u00e9renniser</strong> et \u00e0 la <strong>faire conna\u00eetre</strong> : lire, \u00e9crire, parler, r\u00e9viser, avec une salle de cours connect\u00e9e, des devoirs corrig\u00e9s et des documents imprimables.</p>" +
+      "<p>Elle est <strong>gratuite</strong>, fonctionne <strong>hors ligne</strong> apr\u00e8s la premi\u00e8re visite, et s\u2019installe sur Android, iPhone, Windows, macOS et Linux.</p></div>" +
+      '<div class="card"><h3>💻 Code source ouvert</h3>' +
+      '<p>Le projet est libre et ouvert \u00e0 tous : <a href="https://github.com/DOUCKI56/pular-ajami-app-" target="_blank" rel="noopener">github.com/DOUCKI56/pular-ajami-app-</a></p></div>' +
+      '<p><button class="btn gold" id="shareFromApropos">📤 Partager l\'application</button></p>'
+    );
+  };
+
+  binders.apropos = function () {
+    const sh = $("#shareFromApropos");
+    if (sh) sh.addEventListener("click", shareApp);
   };
 
   routes.parametres = function () {

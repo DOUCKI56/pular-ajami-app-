@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Affiche — Alphabet Pulaar Ajami Harmonisé</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, sans-serif; color: #1d2b27; margin: 0; padding: 18px; background: #f4f7f6; }
+  .page { max-width: 820px; margin: 0 auto; background: #fff; border: 4px solid #0e7c66; border-radius: 16px; padding: 26px 24px; }
+  .head { text-align: center; border-bottom: 3px solid #0e7c66; padding-bottom: 12px; margin-bottom: 18px; }
+  .brand { display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .brand-ajami { font-size: 2.4rem; color: #0e7c66; font-weight: 700; }
+  .brand-name { font-size: 1.5rem; font-weight: 800; color: #0b463b; }
+  h1 { font-size: 1.25rem; margin: 6px 0 2px; color: #0b463b; }
+  .ref { font-size: .85rem; color: #5c6b66; margin: 0; }
+  h2 { font-size: 1rem; color: #0e7c66; border-left: 5px solid #0e7c66; padding-left: 8px; margin: 20px 0 10px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); gap: 8px; }
+  .lt { border: 1.5px solid #d7e3df; border-radius: 10px; padding: 8px 6px; text-align: center; }
+  .lt .aj { display: block; font-size: 1.8rem; color: #0e7c66; font-weight: 700; direction: rtl; }
+  .lt .lt-name { display: block; font-weight: 800; font-size: .95rem; }
+  .lt .ex { display: block; font-size: .72rem; color: #5c6b66; margin-top: 2px; direction: rtl; }
+  .lt .exl { display: block; font-size: .72rem; color: #5c6b66; }
+  .lt.unique { background: #fdf3d7; border-color: #eedc9a; }
+  .prn { display: flex; flex-wrap: wrap; gap: 8px; }
+  .prn .lt { flex: 1 1 130px; }
+  .voy { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .voy span { border: 1.5px solid #d7e3df; border-radius: 10px; padding: 6px 10px; font-size: 1rem; }
+  .foot { margin-top: 20px; text-align: center; font-size: .78rem; color: #5c6b66; border-top: 1px solid #d7e3df; padding-top: 10px; }
+  @media print { body { background: #fff; padding: 0; } .page { border-width: 3px; max-width: none; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="head">
+    <div class="brand"><span class="brand-ajami" lang="ar">جَمْ</span><span class="brand-name">Pular Ajami</span></div>
+    <h1>ALPHABET PULAAR AJAMI HARMONISÉ — 22 consonnes + 5 prénasalisées</h1>
+    <p class="ref">Référence : alphabet harmonisé de Bamako (1987) — manuel Ajami Pulaar ⇄ Latin harmonisé</p>
+  </div>
+
+  <h2>Consonnes standard (15)</h2>
+  <div class="grid">
+    <div class="lt"><span class="aj" lang="ar">ب</span><span class="lt-name">B</span><span class="ex" lang="ar">بَابَ</span><span class="exl">Baaba</span></div>
+    <div class="lt"><span class="aj" lang="ar">ت</span><span class="lt-name">T</span><span class="ex" lang="ar">تَاتِ</span><span class="exl">Taati</span></div>
+    <div class="lt"><span class="aj" lang="ar">ج</span><span class="lt-name">J</span><span class="ex" lang="ar">جَاجَ</span><span class="exl">Jaaja</span></div>
+    <div class="lt"><span class="aj" lang="ar">د</span><span class="lt-name">D</span><span class="ex" lang="ar">دُودُ</span><span class="exl">Duudu</span></div>
+    <div class="lt"><span class="aj" lang="ar">ر</span><span class="lt-name">R</span><span class="ex" lang="ar">رࣹيدُ</span><span class="exl">Rèèdu</span></div>
+    <div class="lt"><span class="aj" lang="ar">س</span><span class="lt-name">S</span><span class="ex" lang="ar">سَسَ</span><span class="exl">Sasa</span></div>
+    <div class="lt"><span class="aj" lang="ar">ف</span><span class="lt-name">F</span><span class="ex" lang="ar">فِلّ</span><span class="exl">Fello</span></div>
+    <div class="lt"><span class="aj" lang="ar">ك</span><span class="lt-name">K</span><span class="ex" lang="ar">كُلَ</span><span class="exl">Kula</span></div>
+    <div class="lt"><span class="aj" lang="ar">گ</span><span class="lt-name">G</span><span class="ex" lang="ar">گَارَ</span><span class="exl">Gaara</span></div>
+    <div class="lt"><span class="aj" lang="ar">ل</span><span class="lt-name">L</span><span class="ex" lang="ar">لَنْظَنْ</span><span class="exl">Landhan</span></div>
+    <div class="lt"><span class="aj" lang="ar">م</span><span class="lt-name">M</span><span class="ex" lang="ar">مَارْ</span><span class="exl">Maaro</span></div>
+    <div class="lt"><span class="aj" lang="ar">ن</span><span class="lt-name">N</span><span class="ex" lang="ar">نَامُ</span><span class="exl">Naamu</span></div>
+    <div class="lt"><span class="aj" lang="ar">ه</span><span class="lt-name">H</span><span class="ex" lang="ar">هَوَ</span><span class="exl">Hawa</span></div>
+    <div class="lt"><span class="aj" lang="ar">و</span><span class="lt-name">W</span><span class="ex" lang="ar">وَادُ</span><span class="exl">Waado</span></div>
+    <div class="lt"><span class="aj" lang="ar">ي</span><span class="lt-name">Y</span><span class="ex" lang="ar">يَايࣹ</span><span class="exl">Yaayè</span></div>
+  </div>
+
+  <h2>Consonnes spécifiques du pulaar (7)</h2>
+  <div class="grid">
+    <div class="lt unique"><span class="aj" lang="ar">ࢠ</span><span class="lt-name">Ɓ (Bha)</span><span class="ex" lang="ar">ࢠِرَ</span><span class="exl">Ɓira</span></div>
+    <div class="lt unique"><span class="aj" lang="ar">پ</span><span class="lt-name">P (Pa)</span><span class="ex" lang="ar">پُتࣹ</span><span class="exl">Putèè</span></div>
+    <div class="lt unique"><span class="aj" lang="ar">ط</span><span class="lt-name">Ɗ (Dha)</span><span class="ex" lang="ar">طَطِ</span><span class="exl">Ɗaɗi</span></div>
+    <div class="lt unique"><span class="aj" lang="ar">ݖ</span><span class="lt-name">C (Tha)</span><span class="ex" lang="ar">ݖُلِّ</span><span class="exl">Colli</span></div>
+    <div class="lt unique"><span class="aj" lang="ar">ڃ</span><span class="lt-name">Ƴ (Yha)</span><span class="ex" lang="ar">ڃَمَلْ</span><span class="exl">Ƴamal</span></div>
+    <div class="lt unique"><span class="aj" lang="ar">ݝ</span><span class="lt-name">Ŋ (Nha)</span><span class="ex" lang="ar">ݝَرِ</span><span class="exl">Ŋari</span></div>
+    <div class="lt unique"><span class="aj" lang="ar">ݧ</span><span class="lt-name">Ñ (Nya)</span><span class="ex" lang="ar">ݧَارِ</span><span class="exl">Ñaari</span></div>
+  </div>
+
+  <h2>Consonnes prénasalisées — toujours avec Noun (ن), jamais de Soukoun au début (Règle 9)</h2>
+  <div class="prn">
+    <div class="lt"><span class="aj" lang="ar">نب</span><span class="lt-name">Mb</span><span class="ex" lang="ar">نبࣹيوَ</span><span class="exl">mbeewa</span></div>
+    <div class="lt"><span class="aj" lang="ar">نط</span><span class="lt-name">Nɗ</span><span class="ex" lang="ar">نطَ</span><span class="exl">Nɗa</span></div>
+    <div class="lt"><span class="aj" lang="ar">نج</span><span class="lt-name">Nj</span><span class="ex" lang="ar">نجَارࣹ</span><span class="exl">njaare</span></div>
+    <div class="lt"><span class="aj" lang="ar">ند</span><span class="lt-name">Nd</span><span class="ex" lang="ar">ندࣹرْ</span><span class="exl">nder</span></div>
+    <div class="lt"><span class="aj" lang="ar">نگ</span><span class="lt-name">Ng</span><span class="ex" lang="ar">نگَارِ</span><span class="exl">ngaari</span></div>
+  </div>
+
+  <h2>Les voyelles</h2>
+  <div class="voy">
+    <span lang="ar">ـَ a (Fatha)</span>
+    <span lang="ar">ـِ i (Kasra)</span>
+    <span lang="ar">ـُ u (Damma)</span>
+    <span lang="ar">ـࣹ e (Tèral)</span>
+    <span lang="ar">ـࣷ o (Toral)</span>
+    <span lang="ar">ـٝ o (Potthal)</span>
+    <span lang="ar">ا aa</span>
+    <span lang="ar">ئِي ii</span>
+    <span lang="ar">أُو uu</span>
+    <span lang="ar">ئࣹي ee</span>
+    <span lang="ar">ئُو oo</span>
+  </div>
+
+  <p class="foot">Apprenez le pular : <strong>doucki56.github.io/pular-ajami-app-</strong> — gratuit, hors ligne · Clavier : keyman.com/keyboards/carambolfulbhe</p>
+</div>
+</body>
+</html>

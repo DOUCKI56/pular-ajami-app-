@@ -208,6 +208,19 @@ table.simple th { background: var(--green-light); }
 
 .notice { background: #fdf3d7; border: 1px solid #eedc9a; border-radius: 10px; padding: 10px 14px; font-size: .88rem; margin: 10px 0; }
 
+/* Affiche QR (page Partager) */
+.poster { background: #fff; border: 3px solid #0e7c66; border-radius: 14px; max-width: 480px; margin: 0 auto; padding: 26px 22px; text-align: center; }
+.poster-brand { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 6px; }
+.poster-ajami { font-size: 2.2rem; color: #0e7c66; }
+.poster-brand strong { font-size: 1.3rem; color: #0b463b; }
+.poster-title { font-size: 1.05rem; font-weight: 700; margin: 8px 0 14px; color: #0b463b; }
+.poster-qr { display: flex; justify-content: center; margin: 10px 0; }
+.poster-qr svg { width: 240px; height: 240px; }
+.poster-url { font-family: Consolas, Menlo, monospace; font-size: .85rem; word-break: break-all; margin: 8px 0 4px; }
+.poster-note { font-size: .82rem; color: #5c6b66; margin: 4px 0 0; }
+
 @media print {
-  .topbar, .sidebar, .tabbar, .menu-btn { display: none !important; }
+  .topbar, .sidebar, .tabbar, .menu-btn, .no-print { display: none !important; }
+  .content { padding: 0; }
+  .poster { border-width: 2px; box-shadow: none; }
 }

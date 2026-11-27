@@ -407,6 +407,9 @@ DATA.fiches = {
 
 DATA.docs = [
   { file: "docs/Regles_Ajami_Pulaar.html", label: "Manuel de transcription complet (HTML)", note: "Toutes les règles, tableaux et exceptions validés — le document de référence." },
+  { file: "docs/affiche-alphabet.html", label: "Affiche de l'alphabet harmonisé (HTML imprimable)", note: "22 consonnes + prénasalisées + voyelles sur une page A4 — à imprimer et afficher en classe." },
+  { file: "docs/fiche-lecture-syllabes.html", label: "Fiche de lecture — syllabes (HTML imprimable)", note: "Syllabes brèves, longues, fermées et prénasalisées pour lire à voix haute." },
+  { file: "docs/fiche-vocabulaire-classe.html", label: "Fiche de vocabulaire pour la classe (HTML imprimable)", note: "17 mots validés avec ajami, latin, français et catégories." },
   { file: "docs/guide-alphabet.pdf", label: "Guide de l'alphabet harmonisé (PDF)", note: "Consonnes standard et spécifiques, avec exemples validés." },
   { file: "docs/guide-voyelles.pdf", label: "Guide des voyelles et règles (PDF)", note: "Voyelles brèves et longues, siège du Hamza, règles 6 à 10." },
   { file: "docs/cahier-phrases.pdf", label: "Cahier de phrases et vocabulaire (PDF)", note: "Vocabulaire validé avec prononciation." },
