@@ -251,6 +251,92 @@ DATA.trainers = [
 ];
 
 /* ============ 10. DOCUMENTS TÉLÉCHARGEABLES ============ */
+/* ============ 9. FICHES PÉDAGOGIQUES (support complémentaire) ============ */
+DATA.fiches = {
+  header: "Présentation du support pédagogique · 15 pages · Norme ISESCO / UNESCO",
+  motto: "وَنُطْنُ جَنَّتَيْنِ يُلْزِفِنَا تَوَا",
+  notice: "Support complémentaire conçu par Baba Ibrahim Barry (Ayouba Barry), concepteur du clavier CaramBolfubhe. Attention : certaines conventions de ce support diffèrent du manuel de référence validé (ex. ت pour « c », پ pour « ɓ », مْب pour « mb », نج lu « ŋj », 5 voyelles au lieu de 7 signes). En cas de divergence, le manuel validé (alphabet harmonisé de Bamako, 1987) fait foi.",
+  list: [
+    { n: 1, title: "Les voyelles · Masiŋe · Harakat", lead: "Cinq voyelles, chacune se pose sur une lettre-support (ici ب) :", items: [
+      { aj: "ـَ", latin: "a — fatha" },
+      { aj: "ـِ", latin: "i — kasra" },
+      { aj: "ـُ", latin: "u — damma" },
+      { aj: "ٝ", latin: "o — waw pulaar" },
+      { aj: "ࣹ", latin: "e — signe e pulaar" }
+    ] },
+    { n: 2, title: "Consonnes spécifiques · Karattoaaji kerfiniidi · implosives", lead: "Les lettres propres au pulaar :", items: [
+      { aj: "ط", latin: "d implosif" },
+      { aj: "پ", latin: "p" },
+      { aj: "ࢠ", latin: "ɓ" },
+      { aj: "ت", latin: "c implosif" },
+      { aj: "ݝ", latin: "ŋ" }
+    ] },
+    { n: 3, title: "Consonnes prénasalisées · Pentude", lead: "Deux lettres, un seul son : on les écrit ensemble.", items: [
+      { aj: "مْب", latin: "MB", note: "ex. mbeewa" },
+      { aj: "ند", latin: "ND", note: "ex. ndiyam" },
+      { aj: "نگ", latin: "NG" },
+      { aj: "نج", latin: "NJ" }
+    ] },
+    { n: 4, title: "Consonnes simples", lead: "Les 17 lettres que l'on retrouve aussi en arabe standard. Elles se lisent comme en latin :", items: [
+      { aj: "ب", latin: "b" }, { aj: "ت", latin: "t" }, { aj: "ج", latin: "j" }, { aj: "د", latin: "d" },
+      { aj: "ر", latin: "r" }, { aj: "و", latin: "w" }, { aj: "ق", latin: "q" }, { aj: "ك", latin: "k" },
+      { aj: "ل", latin: "l" }, { aj: "ه", latin: "h" }, { aj: "گ", latin: "g" }, { aj: "ف", latin: "f" },
+      { aj: "س", latin: "s" }, { aj: "م", latin: "m" }, { aj: "ن", latin: "n" }, { aj: "ي", latin: "y" },
+      { aj: "ع", latin: "ŋ" }
+    ] },
+    { n: 5, title: "Mots repères · Mots exemples d'illustration", lead: "Un mot pour retenir chaque son :", items: [
+      { latin: "🧒 Enfant" },
+      { latin: "👅 Langue", aj: "طࣹنْنگَلْ" },
+      { latin: "🍲 Repas" },
+      { latin: "🐐 Chèvre", aj: "بَيْطِ" },
+      { latin: "💧 Eau", aj: "ندِيَمْ" },
+      { latin: "🗣️ Pulaar" }
+    ] },
+    { n: 6, title: "L'alphabet · Abajada Pulaar · أَبْجَدَ پُلَّر", lead: "25 lettres et 4 consonnes prénasalisées. Lis chaque lettre, son nom latin est écrit dessous.", items: [
+      { aj: "ا", latin: "a" }, { aj: "ج", latin: "y" }, { aj: "پ", latin: "p" }, { aj: "ي", latin: "y" },
+      { aj: "ت", latin: "t" }, { aj: "ر", latin: "r" }, { aj: "و", latin: "w" }, { aj: "ق", latin: "q" },
+      { aj: "ل", latin: "l" }, { aj: "ك", latin: "k" }, { aj: "ج", latin: "y" }, { aj: "ه", latin: "h" },
+      { aj: "گ", latin: "g" }, { aj: "ف", latin: "f" }, { aj: "د", latin: "d" }, { aj: "س", latin: "s" },
+      { aj: "ط", latin: "đ" }, { aj: "ن", latin: "ñ" }, { aj: "م", latin: "m" }, { aj: "ن", latin: "n" },
+      { aj: "ب", latin: "b" }, { aj: "پ", latin: "ɓ" }, { aj: "ت", latin: "c" }, { aj: "ع", latin: "ŋ" },
+      { aj: "ء", latin: "’" },
+      { aj: "ند", latin: "nd" }, { aj: "نب", latin: "mb" }, { aj: "نگ", latin: "ng" }, { aj: "نج", latin: "ŋj" }
+    ] },
+    { n: 7, title: "Lecture syllabique · a bref (Poccal) et aa long", lead: "Lis chaque syllabe à voix haute : la prononciation est écrite sous chaque lettre.", items: [
+      { latin: "a bref — Poccal", aj: "بِتَّلْ" },
+      { latin: "aa long — آ", aj: "بَا · فَا · سَا…" }
+    ] },
+    { n: 8, title: "Lecture syllabique · i bref (Piccal) et ii long", items: [
+      { latin: "i bref — Piccal", aj: "بَتَلْ" },
+      { latin: "ii long — إِ", aj: "لِي · سِي…" }
+    ] },
+    { n: 9, title: "Lecture syllabique · o bref (Torel) et oo long", items: [
+      { latin: "o bref — Torel", aj: "تَرُلْ" },
+      { latin: "oo long — أُو", aj: "تُو · كُو…" }
+    ] },
+    { n: 10, title: "Lecture syllabique · u bref (Turel) et uu long", items: [
+      { latin: "u bref — Turel", aj: "تَرُلْ" },
+      { latin: "uu long — أُو", aj: "ءو…" }
+    ] },
+    { n: 11, title: "Lecture syllabique · e bref (Terel) et ee long", items: [
+      { latin: "e bref — Terel", aj: "تِرَلْ" },
+      { latin: "ee long — إࣹي", aj: "پࣹي · سࣹي…" }
+    ] },
+    { n: 12, title: "Sukun et shadda · Kowal · Ciddal", items: [
+      { aj: "ْ", latin: "Sukun (كُولْ)", note: "ferme la syllabe — consonne sans voyelle" },
+      { aj: "ّ", latin: "Shadda (نَدَّلْ)", note: "double la consonne — ex. cca, yya, ppa" }
+    ] },
+    { n: 13, title: "Le tanwiin · تَنوِين", lead: "Le tanwiin double la voyelle finale d'un mot arabe. Il se pose sur les lettres propres à l'arabe (ث، ح، خ، ذ، ز، ش، ص، ض، ظ، ع، غ) :", items: [
+      { aj: "ً", latin: "Fathatan", note: "an" },
+      { aj: "ٍ", latin: "Kasratan", note: "in" },
+      { aj: "ٌ", latin: "Dammatan", note: "un" }
+    ] },
+    { n: 14, title: "Formes des lettres", lead: "Isolée · début · milieu · fin : une lettre change de forme selon sa place dans le mot.", items: [
+      { latin: "Les lettres ا · د · ر · و ne se lient pas à la suivante." }
+    ] }
+  ]
+};
+
 DATA.docs = [
   { file: "docs/Regles_Ajami_Pulaar.html", label: "Manuel de transcription complet (HTML)", note: "Toutes les règles, tableaux et exceptions validés — le document de référence." },
   { file: "docs/guide-alphabet.pdf", label: "Guide de l'alphabet harmonisé (PDF)", note: "Consonnes standard et spécifiques, avec exemples validés." },

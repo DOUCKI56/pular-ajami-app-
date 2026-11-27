@@ -608,6 +608,31 @@
     });
   };
 
+  routes.fiches = function () {
+    const F = DATA.fiches;
+    const card = (f) =>
+      '<div class="card"><h3>Fiche ' + f.n + " \u2014 " + esc(f.title) + "</h3>" +
+      (f.lead ? "<p class='muted'>" + esc(f.lead) + "</p>" : "") +
+      '<div class="grid cols3">' +
+      f.items.map((it) =>
+        '<div class="letter-card">' +
+        (it.aj ? '<span class="aj ajami">' + esc(it.aj) + "</span>" : "") +
+        '<div class="lt">' + esc(it.latin) + "</div>" +
+        (it.note ? '<div class="nm">' + esc(it.note) + "</div>" : "") +
+        "</div>").join("") +
+      "</div></div>";
+    return (
+      '<h1>\ud83d\udcd7 Fiches p\u00e9dagogiques (support compl\u00e9mentaire)</h1>' +
+      '<div class="notice">' + esc(F.notice) + "</div>" +
+      '<p class="lead">' + esc(F.header) + "</p>" +
+      '<p style="text-align:center;font-size:1.6rem"><span class="ajami">' + esc(F.motto) + "</span></p>" +
+      F.list.map(card).join("") +
+      '<div class="card"><h3>Cr\u00e9dits</h3>' +
+      '<p>Support con\u00e7u par <strong>Baba Ibrahim Barry (Ayouba Barry)</strong> \u2014 concepteur du clavier CaramBolfubhe \u00b7 cr\u00e9ateur du Labo4.</p>' +
+      '<p>Clavier pulaar ajami : <a href="https://keyman.com/keyboards/carambolfulbhe" target="_blank" rel="noopener">keyman.com/keyboards/carambolfulbhe</a></p></div>'
+    );
+  };
+
   routes.documents = function () {
     const docs = DATA.docs.map((d) =>
       '<div class="card list-item"><h3>' + esc(d.label) + "</h3><p class='muted'>" + esc(d.note) + "</p>" +
