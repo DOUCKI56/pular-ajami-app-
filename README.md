@@ -69,6 +69,9 @@ Au premier accès, activez le **mode formateur** (bouton fourni), puis :
   TXT ou HTML — 3 Mo max) : le fichier est enregistré dans l'application et
   les apprenants l'ouvrent (PDF) ou le téléchargent (Word) depuis la salle
   de cours ;
+- ajouter des **prononciations audio enregistrées avec votre voix** (micro) :
+  sélectionnez un mot ou une lettre, enregistrez 1 à 2 secondes, sauvegardez —
+  votre audio remplace la voix de synthèse dans « Lire » et « Parler » ;
 - ajouter des **devoirs** et **rédiger/publier les corrections** ;
 - **exporter/importer** les contenus personnalisés en JSON (sauvegarde,
   partage entre appareils).

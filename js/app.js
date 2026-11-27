@@ -357,7 +357,7 @@
         (L.note ? '<p class="muted">' + esc(L.note) + "</p>" : "") +
         '<div style="text-align:center;margin-top:10px">' +
         '<button class="btn small" id="hearLetter">\ud83d\udd0a \u00c9couter \u00ab ' + esc(L.ex.latin) + ' \u00bb</button></div></div>';
-      $("#hearLetter").addEventListener("click", () => speak("Lettre " + L.latin + ", exemple : " + L.ex.latin));
+      $("#hearLetter").addEventListener("click", () => { if (!playAudioKey("L:" + L.latin)) speak("Lettre " + L.latin + ", exemple : " + L.ex.latin); });
       $("#letterDetail").scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
     $$(".letter-card").forEach((card) =>
@@ -403,7 +403,7 @@
     const phrases = D.vocabulary.filter((w) => w.cat === "Salutations").concat(D.vocabulary.slice(4)).map((w, i) =>
       '<div class="card list-item"><h3>' + aj(w.aj) + '</h3>' +
       '<p><strong>' + esc(w.latin) + '</strong> — ' + esc(w.fr) + '</p>' +
-      '<button class="btn small gold" data-speak="' + esc(w.latin) + '">🔊 Écouter</button></div>').join("");
+      '<button class="btn small gold" data-speak="' + esc(w.latin) + '" data-vkey="V:' + esc(w.id || w.latin) + '">🔊 Écouter</button></div>').join("");
     return (
       '<h1>🗣️ Parler — prononciation</h1>' +
       '<p class="lead">Écoutez la prononciation, puis enregistrez-vous et comparez. <span class="muted">La voix de synthèse lit la transcription latine : elle est une approximation pour s\'entraîner.</span></p>' +
@@ -418,7 +418,7 @@
   binders.parler = function () {
     $("#recordBtn").addEventListener("click", toggleRecord);
     $$("[data-speak]").forEach((b) =>
-      b.addEventListener("click", () => speak(b.dataset.speak)));
+      b.addEventListener("click", () => { if (!playAudioKey(b.dataset.vkey)) speak(b.dataset.speak); }));
   };
 
   routes.reviser = function () {
@@ -440,6 +440,27 @@
     $$("[data-bank]").forEach((b) =>
       b.addEventListener("click", () => startQuiz(b.dataset.bank)));
   };
+
+  /* ---------- Prononciations audio enregistrées (voix du formateur) ---------- */
+
+  function playAudioKey(key) {
+    const a = (Store.content().audio || {})[key];
+    if (!a) return false;
+    try { new Audio(a.data).play(); return true; } catch { return false; }
+  }
+
+  function audioLabel(key) {
+    if (key.startsWith("V:")) {
+      const k = key.slice(2);
+      const w = D.vocabulary.find((x) => (x.id || x.latin) === k);
+      return w ? w.latin + " (" + w.fr + ")" : k;
+    }
+    if (key.startsWith("L:")) {
+      const l = D.alphabet.find((x) => x.latin === key.slice(2));
+      return l ? "lettre " + l.latin + " (" + l.name + ")" : key.slice(2);
+    }
+    return key;
+  }
 
   /* ---------- Cours en fichiers (PDF / Word) ---------- */
 
@@ -796,6 +817,22 @@
       '<p style="margin-top:10px"><button class="btn" id="addVocab">Ajouter au vocabulaire</button></p></div>' +
       vocabList +
 
+      '<h2>🎙️ Prononciations audio — votre voix (' + Object.keys(c.audio || {}).length + ')</h2>' +
+      '<div class="card"><label for="aTarget">Mot ou lettre à prononcer</label><select id="aTarget">' +
+      D.vocabulary.map((w) => '<option value="V:' + esc(w.id || w.latin) + '">mot : ' + esc(w.latin) + ' — ' + esc(w.fr) + '</option>').join("") +
+      D.alphabet.map((L) => '<option value="L:' + esc(L.latin) + '">lettre : ' + esc(L.latin) + ' (' + esc(L.name) + ')</option>').join("") +
+      '</select>' +
+      '<p style="margin-top:10px"><button class="btn" id="recordAudioBtn">🎙️ Enregistrer ma voix</button> ' +
+      '<button class="btn gold" id="saveAudio" disabled>💾 Sauvegarder la prononciation</button></p>' +
+      '<audio id="audioPreview" controls hidden style="width:100%;margin-top:10px"></audio>' +
+      '<p class="muted">Votre voix remplace la voix automatique pour ce mot dans « Lire » et « Parler ». Enregistrez 1 à 2 mots (15 s max). Réenregistrez pour corriger.</p></div>' +
+      (Object.keys(c.audio || {}).map((k) =>
+        '<div class="card list-item"><strong>🔊 ' + esc(audioLabel(k)) + '</strong>' +
+        '<span class="meta"> enregistré le ' + esc((c.audio[k] || {}).date || "") + '</span>' +
+        '<button class="btn small gold" data-play-audio="' + esc(k) + '" style="float:right">▶️</button>' +
+        '<button class="btn small danger" data-del-audio="' + esc(k) + '" style="float:right">🗑️</button></div>').join("") ||
+        '<p class="muted">Aucun audio enregistré. La voix de synthèse est utilisée en attendant.</p>') +
+
       '<h2>🏫 Séances de la salle de cours (' + D.sessions.length + ')</h2>' +
       '<div class="card"><label for="sTitle">Titre de la séance</label><input type="text" id="sTitle" placeholder="Lecture de phrases courtes">' +
       '<label for="sLevel">Niveau</label><select id="sLevel">' + levels + '</select>' +
@@ -905,6 +942,53 @@
         const c = Store.content();
         c.courses = (c.courses || []).filter((x) => x.id !== b.dataset.delCourse);
         persistContent(c);
+      }));
+    let recChunks = [], recRec = null, recData = null, recUrl = null;
+    const rbtn = $("#recordAudioBtn"), sbtn = $("#saveAudio"), prev = $("#audioPreview");
+    rbtn.addEventListener("click", async () => {
+      if (!navigator.mediaDevices || !window.MediaRecorder) { alert("L'enregistrement n'est pas disponible sur cet appareil."); return; }
+      if (recRec && recRec.state === "recording") { recRec.stop(); return; }
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        recChunks = [];
+        recRec = new MediaRecorder(stream);
+        recRec.ondataavailable = (e) => recChunks.push(e.data);
+        recRec.onstop = () => {
+          stream.getTracks().forEach((t) => t.stop());
+          const blob = new Blob(recChunks, { type: "audio/webm" });
+          if (blob.size > 300 * 1024) { alert("Enregistrement trop long (300 Ko max). Enregistrez plus court."); return; }
+          const fr = new FileReader();
+          fr.onload = () => {
+            recData = fr.result;
+            if (recUrl) URL.revokeObjectURL(recUrl);
+            recUrl = URL.createObjectURL(blob);
+            prev.src = recUrl;
+            prev.hidden = false;
+            sbtn.disabled = false;
+            rbtn.textContent = "🎙️ Enregistrer à nouveau";
+            rbtn.classList.remove("recording");
+          };
+          fr.readAsDataURL(blob);
+        };
+        recRec.start();
+        rbtn.textContent = "⏹ Arrêter";
+        rbtn.classList.add("recording");
+      } catch { alert("Impossible d'accéder au micro. Vérifiez les autorisations."); }
+    });
+    sbtn.addEventListener("click", () => {
+      if (!recData) { alert("Enregistrez d'abord votre voix."); return; }
+      const c = Store.content();
+      if (!c.audio) c.audio = {};
+      c.audio[$("#aTarget").value] = { data: recData, date: today() };
+      persistContent(c);
+    });
+    $$('[data-play-audio]').forEach((b) =>
+      b.addEventListener("click", () => playAudioKey(b.dataset.playAudio)));
+    $$('[data-del-audio]').forEach((b) =>
+      b.addEventListener("click", () => {
+        if (!confirm("Supprimer cet audio ?")) return;
+        const c = Store.content();
+        if (c.audio) { delete c.audio[b.dataset.delAudio]; persistContent(c); }
       }));
     $$('[data-del-vocab]').forEach((b) =>
       b.addEventListener("click", () => { if (confirm("Supprimer ce mot ?")) removeContentItem("vocabulary", b.dataset.delVocab); }));

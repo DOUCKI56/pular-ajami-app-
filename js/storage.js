@@ -70,7 +70,7 @@ const Store = (() => {
   function content() {
     const defaults = {
       vocabulary: [], sessions: [], homeworks: [], courses: [], corrections: {},
-      deletedVocab: [], deletedSessions: [], deletedHomeworks: []
+      deletedVocab: [], deletedSessions: [], deletedHomeworks: [], audio: {}
     };
     const c = get("content", defaults);
     for (const k of Object.keys(defaults)) if (!(k in c)) c[k] = defaults[k];
