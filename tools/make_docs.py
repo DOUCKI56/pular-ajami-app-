@@ -98,10 +98,8 @@ REGLES MAJEURES (voir le manuel HTML complet) :
              uniquement apres Damma ـُ (ex. أٝوطٝو ooɗoo, وُورِ wuuri).
   Regle 8  : le Hamza porte la voyelle initiale selon l'harmonie
              vocalique (au-dessus أ : a, u, o ; en dessous إ : i, e).
-  Regle 9  : pas de Soukoun initial. Consonnes simples : voyelle d'appui
-             i (إِسْتٝول istool). Prénasalisées (mb, nd, nj, ng) : écrites
-             directement, sans Soukoun ni voyelle d'appui — نجَارࣹ njaare,
-             نبࣹيوَ mbeewa, ندࣹرْ nder, نگَارِ ngaari.
+  Regle 9  : interdiction absolue du Soukoun en debut de mot ; cela vaut
+             y compris pour les prenasalisees (mb, nd, nj, ng).
   Regle 10 : les noms propres arabes gardent leur orthographe standard.
 """
 
@@ -126,8 +124,8 @@ REGLES CLEFS
   Regle 7 : Waw = consonne w apres Fatha/Kasra/Soukoun ; voyelle
             longue (oo/uu) uniquement apres Damma (ـُ).
   Regle 8 : siege du Hamza selon l'harmonie vocalique.
-  Regle 9 : pas de Soukoun initial. Consonnes simples : voyelle d'appui i.
-            Prénasalisées : écrites directement (ندِيَمْ ndiyam, نگَارِ ngaari).
+  Regle 9 : interdiction absolue du Soukoun en debut de mot, y compris
+            pour les prenasalisees (mb, nd, nj, ng).
   Regle 10 : noms propres arabes en orthographe standard.
 """
 

@@ -107,7 +107,7 @@ DATA.rules = [
   { title: "Règle 8 — Le siège du Hamza",
     text: "En début de mot, le Hamza sert de support à la voyelle selon l'harmonie vocalique. Hamza au-dessus أ (voyelles arrière) : a (أَ), u (أُ), o (أٝ). Hamza en dessous إ (voyelles avant) : i (إِ), e (إࣹ ou إٖ), o fermé (إࣷ)." },
   { title: "Règle 9 — Interdiction absolue du Soukoun en début de mot",
-    text: "Aucun mot pulaar ne peut commencer par une syllabe fermée (consonne + Soukoun). Consonnes simples : on ajoute une voyelle d'appui (généralement i) — stool ➔ إِسْتٝول (istool). Consonnes prénasalisées (mb, nd, nj, ng) : elles ne prennent pas de Soukoun en début de mot ; on les écrit directement, sans voyelle d'appui — njaare ➔ نجَارࣹ, mbeewa ➔ نبࣹيوَ, nder ➔ ندࣹرْ, ngaari ➔ نگَارِ." },
+    text: "Aucun mot pulaar ne peut commencer par une syllabe fermée (consonne + Soukoun). Cela vaut y compris pour les prénasalisées (mb, nd, nj, ng)." },
   { title: "Règle 10 — Exception des noms propres arabes",
     text: "Les noms des Prophètes et des Compagnons ne suivent pas les règles phonétiques pulaar : ils conservent leur orthographe arabe standard. Exemples : Muhammadu ➔ مُحَمَّدُ, 'Umaru ➔ عُمَرُ." }
 ];
