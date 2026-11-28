@@ -1,8 +1,8 @@
 /* i18n — langue d'affichage optionnelle : français (par défaut), العربية, pular ajami.
  * Traduction des textes d'interface (menu, titres, boutons) par remplacement exact.
- * La variante pular est écrite en ajami à caractères harmonisés (alphabet de Bamako, 1987) :
- * règles 8 et 9 respectées (hamza sous إࣹ pour e, jamais de soukoun initial, prénasalisées directes).
- * Les leçons et contenus pédagogiques restent dans leur langue d'origine. */
+ * Deux variantes pular : "ff" en ajami à caractères harmonisés (alphabet de Bamako, 1987 —
+ * règles 8 et 9 respectées : hamza sous إࣹ pour e, jamais de soukoun initial, prénasalisées directes)
+ * et "fl" en fulfulde latin. Les leçons et contenus pédagogiques restent dans leur langue d'origine. */
 const I18N = (function () {
   const DICT = {
     ar: {
@@ -95,6 +95,39 @@ const I18N = (function () {
       "Découvrir": "أَنّدُ",
       "Partager": "يَلْتِندࣹ",
       "Enregistrer": "دَنّدُ"
+    },
+    fl: {
+      "Accueil": "Galle",
+      "Lire — l'alphabet": "Janngude — Alkule",
+      "Fiches pédagogiques": "Janngirɗe",
+      "Écrire — atelier": "Winndude — Gollorde",
+      "Parler — prononciation": "Haalude — Haala",
+      "Réviser — quiz": "Ngartaade — Lanndaaji",
+      "Salle de cours": "Suudu janngirde",
+      "Poser une question": "Irde e jannginoowo",
+      "Déposer un devoir": "Hokkude gollal",
+      "Documents (PDF)": "Binndi (PDF)",
+      "Partager (QR)": "Yaltinde (QR)",
+      "À propos": "Ko fayti e",
+      "Clavier ajami": "Ñoggirde ajami",
+      "Administration": "Njuɓɓudi",
+      "Paramètres": "Teeltugol",
+      "Lire": "Janngude",
+      "Écrire": "Winndude",
+      "Quiz": "Lanndaaji",
+      "Cours": "Janngirɗe",
+      "Installer": "Aafde",
+      "séances terminées": "janngirɗe timmuɗe",
+      "lettres harmonisées": "alkule ajami",
+      "quiz tentés": "lanndaaji gaañiiɗi",
+      "devoirs déposés": "golle neldaaɗe",
+      "Commencer": "Fuɗɗaa",
+      "Ouvrir": "Uddit",
+      "Entrer": "Naat",
+      "Télécharger": "Aaddo",
+      "Découvrir": "Anndu",
+      "Partager": "Yaltinde",
+      "Enregistrer": "Danndu"
     }
   };
 
@@ -106,16 +139,20 @@ const I18N = (function () {
     ff: { accueil: "گَلّࣹ", lire: "جَنْنگُدࣹ", fiches: "جَنْنگِرْطࣹ", ecrire: "وِنّدُدࣹ", parler: "هَالُدࣹ",
           reviser: "نگَرْتَادࣹ", cours: "سُودُ جَنْنگِرْطࣹ", formateurs: "جَنْنگِنٝووَ", devoirs: "گَلّࣹ",
           documents: "بِنّدِ", qrcode: "يَلْتِندࣹ", apropos: "كٝ فَيتِ إࣹ", clavier: "ݧٝگِّرْدࣹ",
-          admin: "نݝُنࢠُّدِ", parametres: "تࣹيْلْتُگٝلْ", seance: "جَنْنگِرْطࣹ" }
+          admin: "نݝُنࢠُّدِ", parametres: "تࣹيْلْتُگٝلْ", seance: "جَنْنگِرْطࣹ" },
+    fl: { accueil: "Galle", lire: "Janngude", fiches: "Janngirɗe", ecrire: "Winndude", parler: "Haalude",
+          reviser: "Ngartaade", cours: "Suudu janngirde", formateurs: "Jannginoowo", devoirs: "Golle",
+          documents: "Binndi", qrcode: "Yaltinde", apropos: "Ko fayti e", clavier: "Ñoggirde",
+          admin: "Njuɓɓudi", parametres: "Teeltugol", seance: "Janngirde" }
   };
 
   function lang() {
     if (typeof Store === "undefined") return "fr";
     const l = Store.get("uiLang", "fr");
-    return (l === "ar" || l === "ff") ? l : "fr";
+    return (l === "ar" || l === "ff" || l === "fl") ? l : "fr";
   }
 
-  function walk(node, dict) {
+  function walk(node, dict, ajami) {
     if (!node || !node.childNodes) return;
     node.childNodes.forEach((child) => {
       if (child.nodeType === 3) {
@@ -123,8 +160,10 @@ const I18N = (function () {
         const key = raw.trim();
         if (key && dict[key] !== undefined) {
           child.nodeValue = raw.replace(key, dict[key]);
-          const p = child.parentElement;
-          if (p && p.classList && typeof p.classList.add === "function") p.classList.add("ajami");
+          if (ajami) {
+            const p = child.parentElement;
+            if (p && p.classList && typeof p.classList.add === "function") p.classList.add("ajami");
+          }
         }
       } else if (child.nodeType === 1) {
         if ((child.tagName === "INPUT" || child.tagName === "TEXTAREA") && child.placeholder && dict[child.placeholder] !== undefined) {
@@ -137,8 +176,9 @@ const I18N = (function () {
   }
 
   function apply(root) {
-    const d = DICT[lang()];
-    if (d) walk(root, d);
+    const l = lang();
+    const d = DICT[l];
+    if (d) walk(root, d, l === "ff");
   }
 
   function applyChrome() {
@@ -157,7 +197,7 @@ const I18N = (function () {
   }
 
   function setLang(l) {
-    if (typeof Store !== "undefined") Store.set("uiLang", (l === "ar" || l === "ff") ? l : "fr");
+    if (typeof Store !== "undefined") Store.set("uiLang", (l === "ar" || l === "ff" || l === "fl") ? l : "fr");
   }
 
   return { lang, apply, applyChrome, viewTitle, setLang };

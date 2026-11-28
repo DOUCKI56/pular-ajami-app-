@@ -965,8 +965,9 @@
       '<p>' +
       '<button class="btn small' + (Store.get("uiLang", "fr") === "fr" ? " gold" : "") + '" data-setlang="fr">Français</button> ' +
       '<button class="btn small' + (Store.get("uiLang", "fr") === "ar" ? " gold" : "") + '" data-setlang="ar">العربية</button> ' +
-      '<button class="btn small' + (Store.get("uiLang", "fr") === "ff" ? " gold" : "") + '" data-setlang="ff">Pular</button></p>' +
-      '<p class="muted">Le menu, les titres et les boutons changent de langue. Les leçons, textes et hadiths restent en arabe et en pular ajami (c\'est le cœur de l\'application).</p></div>' +
+      '<button class="btn small' + (Store.get("uiLang", "fr") === "ff" ? " gold" : "") + '" data-setlang="ff">Pular ajami</button> ' +
+      '<button class="btn small' + (Store.get("uiLang", "fr") === "fl" ? " gold" : "") + '" data-setlang="fl">Pular latin</button></p>' +
+      '<p class="muted">Le menu, les titres et les boutons changent de langue. <strong>Pular ajami</strong> affiche l\'interface en écriture arabe harmonisée (گَلّࣹ, سُودُ جَنْنگِرْطࣹ…), <strong>Pular latin</strong> en lettres latines (Galle, Suudu janngirde…). Les leçons, textes et hadiths restent en arabe et en pular ajami (c\'est le cœur de l\'application).</p></div>' +
       syncCardHtml() +
       '<div class="card"><h3>Réinitialiser</h3>' +
       '<p class="muted">Efface progression, questions et devoirs stockés sur cet appareil.</p>' +
