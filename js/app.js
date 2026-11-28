@@ -84,7 +84,12 @@
     window.scrollTo(0, 0);
     if (innerWidth < 900) closeSidebar();
     if (binders[view]) binders[view]();
-    document.title = "Pular Ajami — " + view.charAt(0).toUpperCase() + view.slice(1);
+    if (typeof I18N !== "undefined") {
+      I18N.apply(main);
+      document.title = "Pular Ajami — " + I18N.viewTitle(view);
+    } else {
+      document.title = "Pular Ajami — " + view.charAt(0).toUpperCase() + view.slice(1);
+    }
   }
 
   function closeSidebar() {
@@ -956,6 +961,12 @@
           '<p class="muted">Les codes sont délivrés par l\'administrateur de l\'application.</p>'
         : '<p><button class="btn danger" id="leaveRole">Revenir en simple apprenant</button></p>') +
       '</div>' +
+      '<div class="card"><h3>🌐 Langue d\'affichage / لغة العرض</h3>' +
+      '<p>' +
+      '<button class="btn small' + (Store.get("uiLang", "fr") === "fr" ? " gold" : "") + '" data-setlang="fr">Français</button> ' +
+      '<button class="btn small' + (Store.get("uiLang", "fr") === "ar" ? " gold" : "") + '" data-setlang="ar">العربية</button> ' +
+      '<button class="btn small' + (Store.get("uiLang", "fr") === "ff" ? " gold" : "") + '" data-setlang="ff">Pular</button></p>' +
+      '<p class="muted">Le menu, les titres et les boutons changent de langue. Les leçons, textes et hadiths restent en arabe et en pular ajami (c\'est le cœur de l\'application).</p></div>' +
       syncCardHtml() +
       '<div class="card"><h3>Réinitialiser</h3>' +
       '<p class="muted">Efface progression, questions et devoirs stockés sur cet appareil.</p>' +
@@ -998,6 +1009,14 @@
   }
 
   binders.parametres = function () {
+    $$("[data-setlang]").forEach((b) =>
+      b.addEventListener("click", () => {
+        if (typeof I18N !== "undefined") {
+          I18N.setLang(b.dataset.setlang);
+          I18N.applyChrome();
+        }
+        nav();
+      }));
     $("#saveName").addEventListener("click", () => {
       Store.set("profile", { name: $("#setName").value.trim(), joined: Store.profile().joined });
       nav();
@@ -1570,5 +1589,6 @@
   }
 
   migrateCourseFiles();
+  if (typeof I18N !== "undefined") I18N.applyChrome();
   route();
 })();

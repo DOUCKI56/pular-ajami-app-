@@ -23,6 +23,7 @@ Le document de référence est fourni dans l'application :
 | 📤 Devoirs | Déposer un travail, consulter la correction publiée, dépôts par devoir |
 | 📥 Documents | PDF et TXT **très légers** (1 à 2 Ko) téléchargeables, consultables hors ligne |
 | 📲 Partager (QR) | Bouton de partage (accueil) + affiche imprimable avec code QR pour faire connaître l'application |
+| 🌍 Langue d'affichage | Interface en français, العربية ou pular (choix dans Paramètres, mémorisé par appareil) |
 | ⌨️ Clavier ajami | Écriture en ajami dans l'application sans installation : clavier web CaramBolfubhe via KeymanWeb (SIL), chargé à la demande |
 | ℹ️ À propos | Histoire de l'écriture ajami pulaar, harmonisation de Bamako (1987), clavier CaramBolfubhe, code source |
 
