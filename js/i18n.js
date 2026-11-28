@@ -108,7 +108,7 @@ const I18N = (function () {
       "Fiches pédagogiques": "Janngirɗe",
       "Écrire — atelier": "Windugol — Gollorde",
       "Parler — prononciation": "Wowlugol",
-      "Réviser — quiz": "Rewtugol — Lanndaaji",
+      "Réviser — quiz": "Rewtagol — Lanndaaji",
       "Salle de cours": "Suudu janngirde",
       "Poser une question": "Nulal",
       "Déposer un devoir": "Hokkude gollal",
@@ -149,7 +149,7 @@ const I18N = (function () {
           documents: "بِنّدِ", qrcode: "يَلْتِندࣹ", apropos: "كٝ فَيتِ إࣹ", clavier: "ݧٝگِّرْدࣹ",
           admin: "نݝُنࢠُّدِ", parametres: "تࣹيْلْتُگٝلْ", seance: "جَنْنگِرْطࣹ" },
     fl: { accueil: "Galle", lire: "Janngugol", fiches: "Janngirɗe", ecrire: "Windugol", parler: "Wowlugol",
-          reviser: "Rewtugol", cours: "Suudu janngirde", formateurs: "Nulal", devoirs: "Golle",
+          reviser: "Rewtagol", cours: "Suudu janngirde", formateurs: "Nulal", devoirs: "Golle",
           documents: "Binndi", qrcode: "Yaltinde", apropos: "Ko fayti e", clavier: "Ñoggirde",
           admin: "Njuɓɓudi", parametres: "Teeltugol", seance: "Janngirde" }
   };
