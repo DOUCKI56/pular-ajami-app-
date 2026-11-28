@@ -1,5 +1,7 @@
-/* i18n — langue d'affichage optionnelle : français (par défaut), العربية, pular.
+/* i18n — langue d'affichage optionnelle : français (par défaut), العربية, pular ajami.
  * Traduction des textes d'interface (menu, titres, boutons) par remplacement exact.
+ * La variante pular est écrite en ajami à caractères harmonisés (alphabet de Bamako, 1987) :
+ * règles 8 et 9 respectées (hamza sous إࣹ pour e, jamais de soukoun initial, prénasalisées directes).
  * Les leçons et contenus pédagogiques restent dans leur langue d'origine. */
 const I18N = (function () {
   const DICT = {
@@ -62,37 +64,37 @@ const I18N = (function () {
       "⌨️ Activer le clavier ajami": "⌨️ تفعيل لوحة المفاتيح الأجَم"
     },
     ff: {
-      "Accueil": "Galle",
-      "Lire — l'alphabet": "Janngude — Alkule",
-      "Fiches pédagogiques": "Janngirɗe",
-      "Écrire — atelier": "Winndude — Gollorde",
-      "Parler — prononciation": "Haalude — Haala",
-      "Réviser — quiz": "Ngartaade — Lanndaaji",
-      "Salle de cours": "Suudu janngirde",
-      "Poser une question": "Irde e jannginoowo",
-      "Déposer un devoir": "Hokkude gollal",
-      "Documents (PDF)": "Binndi (PDF)",
-      "Partager (QR)": "Yaltinde (QR)",
-      "À propos": "Ko fayti e",
-      "Clavier ajami": "Ñoggirde ajami",
-      "Administration": "Njuɓɓudi",
-      "Paramètres": "Teeltugol",
-      "Lire": "Janngude",
-      "Écrire": "Winndude",
-      "Quiz": "Lanndaaji",
-      "Cours": "Janngirɗe",
-      "Installer": "Aafde",
-      "séances terminées": "janngirɗe timmuɗe",
-      "lettres harmonisées": "alkule ajami",
-      "quiz tentés": "lanndaaji gaañiiɗi",
-      "devoirs déposés": "golle neldaaɗe",
-      "Commencer": "Fuɗɗaa",
-      "Ouvrir": "Uddit",
-      "Entrer": "Naat",
-      "Télécharger": "Aaddo",
-      "Découvrir": "Anndu",
-      "Partager": "Yaltinde",
-      "Enregistrer": "Danndu"
+      "Accueil": "گَلّࣹ",
+      "Lire — l'alphabet": "جَنْنگُدࣹ — أَلْكُلࣹ",
+      "Fiches pédagogiques": "جَنْنگِرْطࣹ",
+      "Écrire — atelier": "وِنّدُدࣹ — گٝلّٝورْدࣹ",
+      "Parler — prononciation": "هَالُدࣹ — هَالَ",
+      "Réviser — quiz": "نگَرْتَادࣹ — لَنّدااجِ",
+      "Salle de cours": "سُودُ جَنْنگِرْطࣹ",
+      "Poser une question": "إِرْدࣹ إࣹ جَنْنگِنٝووَ",
+      "Déposer un devoir": "هَكُّدࣹ گَلَّلْ",
+      "Documents (PDF)": "بِنّدِ (PDF)",
+      "Partager (QR)": "يَلْتِندࣹ (QR)",
+      "À propos": "كٝ فَيتِ إࣹ",
+      "Clavier ajami": "ݧٝگِّرْدࣹ أَجَمْ",
+      "Administration": "نݝُنࢠُّدِ",
+      "Paramètres": "تࣹيْلْتُگٝلْ",
+      "Lire": "جَنْنگُدࣹ",
+      "Écrire": "وِنّدُدࣹ",
+      "Quiz": "لَنّدااجِ",
+      "Cours": "جَنْنگِرْطࣹ",
+      "Installer": "أَافْدࣹ",
+      "séances terminées": "جَنْنگِرْطࣹ طِمُّطࣹ",
+      "lettres harmonisées": "أَلْكُلࣹ أَجَمْ",
+      "quiz tentés": "لَنّدااجِ گَاݧِيطِ",
+      "devoirs déposés": "گَلّࣹ نࣹلْدااطࣹ",
+      "Commencer": "فُطَّا",
+      "Ouvrir": "أُدِّتْ",
+      "Entrer": "نَاتْ",
+      "Télécharger": "أَادّٝ",
+      "Découvrir": "أَنّدُ",
+      "Partager": "يَلْتِندࣹ",
+      "Enregistrer": "دَنّدُ"
     }
   };
 
@@ -101,10 +103,10 @@ const I18N = (function () {
           reviser: "المراجعة", cours: "قاعة الدرس", formateurs: "المدرّبون", devoirs: "الواجبات",
           documents: "الوثائق", qrcode: "مشاركة", apropos: "حول", clavier: "لوحة المفاتيح",
           admin: "الإدارة", parametres: "الإعدادات", seance: "درس" },
-    ff: { accueil: "Galle", lire: "Janngude", fiches: "Janngirɗe", ecrire: "Winndude", parler: "Haalude",
-          reviser: "Ngartaade", cours: "Suudu janngirde", formateurs: "Jannginoowo", devoirs: "Golle",
-          documents: "Binndi", qrcode: "Yaltinde", apropos: "Ko fayti e", clavier: "Ñoggirde",
-          admin: "Njuɓɓudi", parametres: "Teeltugol", seance: "Janngirde" }
+    ff: { accueil: "گَلّࣹ", lire: "جَنْنگُدࣹ", fiches: "جَنْنگِرْطࣹ", ecrire: "وِنّدُدࣹ", parler: "هَالُدࣹ",
+          reviser: "نگَرْتَادࣹ", cours: "سُودُ جَنْنگِرْطࣹ", formateurs: "جَنْنگِنٝووَ", devoirs: "گَلّࣹ",
+          documents: "بِنّدِ", qrcode: "يَلْتِندࣹ", apropos: "كٝ فَيتِ إࣹ", clavier: "ݧٝگِّرْدࣹ",
+          admin: "نݝُنࢠُّدِ", parametres: "تࣹيْلْتُگٝلْ", seance: "جَنْنگِرْطࣹ" }
   };
 
   function lang() {
@@ -119,7 +121,11 @@ const I18N = (function () {
       if (child.nodeType === 3) {
         const raw = child.nodeValue;
         const key = raw.trim();
-        if (key && dict[key] !== undefined) child.nodeValue = raw.replace(key, dict[key]);
+        if (key && dict[key] !== undefined) {
+          child.nodeValue = raw.replace(key, dict[key]);
+          const p = child.parentElement;
+          if (p && p.classList && typeof p.classList.add === "function") p.classList.add("ajami");
+        }
       } else if (child.nodeType === 1) {
         if ((child.tagName === "INPUT" || child.tagName === "TEXTAREA") && child.placeholder && dict[child.placeholder] !== undefined) {
           child.placeholder = dict[child.placeholder];
