@@ -65,6 +65,7 @@ const I18N = (function () {
     },
     ff: {
       "Accueil": "گَلّࣹ",
+      "Guide d'utilisation": "هُوتٝرْدࣹ",
       "Lire — l'alphabet": "جَنْنگُدࣹ — أَلْكُلࣹ",
       "Fiches pédagogiques": "جَنْنگِرْطࣹ",
       "Écrire — atelier": "وِنّدُدࣹ — گٝلّٝورْدࣹ",
@@ -98,6 +99,7 @@ const I18N = (function () {
     },
     fl: {
       "Accueil": "Galle",
+      "Guide d'utilisation": "Hootorde",
       "Lire — l'alphabet": "Janngude — Alkule",
       "Fiches pédagogiques": "Janngirɗe",
       "Écrire — atelier": "Winndude — Gollorde",
