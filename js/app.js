@@ -595,7 +595,10 @@
       '<button class="btn small gold" data-dl-course="' + esc(f.id) + '">⬇️ Télécharger</button></div></div>').join("");
     return (
       '<h1>🏫 Salle de cours</h1>' +
-      '<p class="lead">Votre programme complet : ' + D.sessions.length + ' séances guidées, chacune avec objectifs, leçon, quiz et devoir associé.</p>' + sessions +
+      '<p class="lead">Votre programme complet : ' + D.sessions.length + ' séances guidées, chacune avec objectifs, leçon, quiz et devoir associé.</p>' +
+      '<div class="card"><h3>🤝 Plusieurs enseignants, plusieurs salles</h3>' +
+      '<p class="muted">Les enseignants et les apprenants d\'une même classe entrent la <strong>même clé de classe</strong> dans ⚙️ Paramètres → « 🏫 Salle de cours connectée » : cours, devoirs et corrections circulent entre tous. Pour ouvrir une nouvelle salle (autre école, autre ville, autre groupe), créez une <strong>nouvelle clé</strong> côté Google Apps Script et partagez-la uniquement à ce groupe — chaque clé forme une classe indépendante.</p></div>' +
+      sessions +
       (files ? '<h2>📄 Cours en fichiers (PDF / Word)</h2>' + files : "")
     );
   };
@@ -804,6 +807,19 @@
     }
   }
 
+  function socialLinks() {
+    const t = encodeURIComponent("Apprenez le pular (fulfulde) en écriture ajami harmonisée — gratuit et hors ligne : " + APP_URL);
+    const u = encodeURIComponent(APP_URL);
+    return (
+      '<p class="muted" style="margin-top:8px">Ou partager directement :</p>' +
+      '<p>' +
+      '<a class="btn small" href="https://wa.me/?text=' + t + '" target="_blank" rel="noopener">💬 WhatsApp</a> ' +
+      '<a class="btn small" href="https://t.me/share/url?url=' + u + '&text=' + t + '" target="_blank" rel="noopener">✈️ Telegram</a> ' +
+      '<a class="btn small" href="https://www.facebook.com/sharer/sharer.php?u=' + u + '" target="_blank" rel="noopener">📘 Facebook</a> ' +
+      '<a class="btn small" href="https://twitter.com/intent/tweet?url=' + u + '&text=' + t + '" target="_blank" rel="noopener">🐦 X</a></p>'
+    );
+  }
+
   routes.qrcode = function () {
     let qr = "";
     try { qr = (typeof QR !== "undefined") ? QR.svg(APP_URL, 260) : ""; } catch (e) { qr = ""; }
@@ -819,7 +835,8 @@
       "</div>" +
       '<div class="no-print" style="margin-top:15px">' +
       '<button class="btn gold" id="printPoster">🖨️ Imprimer l\'affiche</button> ' +
-      '<button class="btn" id="shareFromQr">📤 Partager le lien</button></div>'
+      '<button class="btn" id="shareFromQr">📤 Partager le lien</button></div>' +
+      '<div class="no-print">' + socialLinks() + "</div>"
     );
   };
 
@@ -844,7 +861,8 @@
       "<p>Elle est <strong>gratuite</strong>, fonctionne <strong>hors ligne</strong> apr\u00e8s la premi\u00e8re visite, et s\u2019installe sur Android, iPhone, Windows, macOS et Linux.</p></div>" +
       '<div class="card"><h3>💻 Code source ouvert</h3>' +
       '<p>Le projet est libre et ouvert \u00e0 tous : <a href="https://github.com/DOUCKI56/pular-ajami-app-" target="_blank" rel="noopener">github.com/DOUCKI56/pular-ajami-app-</a></p></div>' +
-      '<p><button class="btn gold" id="shareFromApropos">📤 Partager l\'application</button></p>'
+      '<p><button class="btn gold" id="shareFromApropos">📤 Partager l\'application</button></p>' +
+      '<div class="no-print">' + socialLinks() + "</div>"
     );
   };
 

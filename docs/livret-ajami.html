@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Livret complet — Apprendre l'ajami pular de A à Z</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, sans-serif; color: #1d2b27; margin: 0; padding: 18px; background: #f4f7f6; line-height: 1.55; }
+  .page { max-width: 820px; margin: 0 auto; background: #fff; border: 3px solid #0e7c66; border-radius: 14px; padding: 26px 24px; }
+  .cover { text-align: center; padding: 40px 20px; }
+  .cover h1 { font-size: 1.7rem; color: #0b463b; margin: 8px 0 4px; }
+  .cover .sub { font-size: 1.02rem; color: #3d5a52; }
+  .cover .ref { font-size: .88rem; color: #5c6b66; margin-top: 6px; }
+  .qrbox { margin: 18px auto 6px; width: 220px; }
+  .qrbox svg { width: 220px; height: 220px; }
+  h2 { color: #0b463b; border-left: 6px solid #0e7c66; padding-left: 10px; margin: 30px 0 10px; font-size: 1.15rem; }
+  h3 { color: #0e7c66; margin: 18px 0 8px; font-size: 1rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; margin: 10px 0 16px; }
+  th, td { border: 1px solid #d7e3df; padding: 7px 10px; text-align: left; }
+  th { background: #e5f2ee; color: #0b463b; }
+  td.aj { direction: rtl; text-align: right; font-size: 1.3rem; color: #0e7c66; font-weight: 700; white-space: nowrap; }
+  td.cat { font-size: .8rem; color: #5c6b66; }
+  .tip { background: #fdf3d7; border: 1px solid #eedc9a; border-radius: 10px; padding: 10px 14px; font-size: .88rem; margin: 12px 0; }
+  .warn { background: #fdeeee; border: 1px solid #e8b9b9; border-radius: 10px; padding: 10px 14px; font-size: .88rem; margin: 12px 0; }
+  .rule { background: #eef7f4; border-left: 5px solid #0e7c66; padding: 10px 14px; border-radius: 6px; margin: 12px 0; font-size: .92rem; }
+  .aj-inline { direction: rtl; unicode-bidi: isolate; font-weight: 700; color: #0e7c66; font-size: 1.2em; }
+  ol.steps { padding-left: 20px; }
+  ol.steps li { margin: 6px 0; }
+  .foot { margin-top: 16px; text-align: center; font-size: .78rem; color: #5c6b66; border-top: 1px solid #d7e3df; padding-top: 8px; }
+  .pagebreak { page-break-before: always; border-top: 2px dashed #d7e3df; margin-top: 26px; padding-top: 6px; font-size: .8rem; color: #8ba39c; text-align: right; }
+  @media print { body { background: #fff; padding: 0; } .page { border-width: 2px; max-width: none; border-radius: 0; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <h1>📖 Livret complet — Apprendre l'ajami pular de A à Z</h1>
+    <p class="sub">Pular (fulfulde) en écriture arabe harmonisée · lire · écrire · parler · réviser</p>
+    <p class="ref">Référence : Alphabet harmonisé de Bamako (1987) · Norme ISESCO / UNESCO<br>
+    Manuel de transcription : Ajami Pulaar ⇄ Latin harmonisé · Support pédagogique : Baba Ibrahim Barry (Ayouba Barry), concepteur du clavier CaramBolfubhe</p>
+    <div class="qrbox"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41" shape-rendering="crispEdges" width="220" height="220" role="img" aria-label="QR code"><rect width="41" height="41" fill="#ffffff"/><path d="M4 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM7 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM10 4h1v1h-1zM14 4h1v1h-1zM15 4h1v1h-1zM16 4h1v1h-1zM17 4h1v1h-1zM20 4h1v1h-1zM21 4h1v1h-1zM23 4h1v1h-1zM24 4h1v1h-1zM27 4h1v1h-1zM30 4h1v1h-1zM31 4h1v1h-1zM32 4h1v1h-1zM33 4h1v1h-1zM34 4h1v1h-1zM35 4h1v1h-1zM36 4h1v1h-1zM4 5h1v1h-1zM10 5h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM18 5h1v1h-1zM19 5h1v1h-1zM20 5h1v1h-1zM21 5h1v1h-1zM26 5h1v1h-1zM30 5h1v1h-1zM36 5h1v1h-1zM4 6h1v1h-1zM6 6h1v1h-1zM7 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM15 6h1v1h-1zM16 6h1v1h-1zM17 6h1v1h-1zM19 6h1v1h-1zM20 6h1v1h-1zM21 6h1v1h-1zM22 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM30 6h1v1h-1zM32 6h1v1h-1zM33 6h1v1h-1zM34 6h1v1h-1zM36 6h1v1h-1zM4 7h1v1h-1zM6 7h1v1h-1zM7 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM12 7h1v1h-1zM13 7h1v1h-1zM14 7h1v1h-1zM16 7h1v1h-1zM18 7h1v1h-1zM19 7h1v1h-1zM20 7h1v1h-1zM23 7h1v1h-1zM24 7h1v1h-1zM25 7h1v1h-1zM26 7h1v1h-1zM27 7h1v1h-1zM28 7h1v1h-1zM30 7h1v1h-1zM32 7h1v1h-1zM33 7h1v1h-1zM34 7h1v1h-1zM36 7h1v1h-1zM4 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1zM10 8h1v1h-1zM12 8h1v1h-1zM13 8h1v1h-1zM17 8h1v1h-1zM19 8h1v1h-1zM22 8h1v1h-1zM28 8h1v1h-1zM30 8h1v1h-1zM32 8h1v1h-1zM33 8h1v1h-1zM34 8h1v1h-1zM36 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM15 9h1v1h-1zM16 9h1v1h-1zM18 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM24 9h1v1h-1zM25 9h1v1h-1zM30 9h1v1h-1zM36 9h1v1h-1zM4 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM7 10h1v1h-1zM8 10h1v1h-1zM9 10h1v1h-1zM10 10h1v1h-1zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM28 10h1v1h-1zM30 10h1v1h-1zM31 10h1v1h-1zM32 10h1v1h-1zM33 10h1v1h-1zM34 10h1v1h-1zM35 10h1v1h-1zM36 10h1v1h-1zM12 11h1v1h-1zM19 11h1v1h-1zM25 11h1v1h-1zM26 11h1v1h-1zM27 11h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM14 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM18 12h1v1h-1zM19 12h1v1h-1zM20 12h1v1h-1zM21 12h1v1h-1zM27 12h1v1h-1zM28 12h1v1h-1zM30 12h1v1h-1zM31 12h1v1h-1zM32 12h1v1h-1zM33 12h1v1h-1zM34 12h1v1h-1zM11 13h1v1h-1zM15 13h1v1h-1zM20 13h1v1h-1zM22 13h1v1h-1zM23 13h1v1h-1zM24 13h1v1h-1zM25 13h1v1h-1zM26 13h1v1h-1zM27 13h1v1h-1zM30 13h1v1h-1zM31 13h1v1h-1zM33 13h1v1h-1zM34 13h1v1h-1zM36 13h1v1h-1zM4 14h1v1h-1zM5 14h1v1h-1zM6 14h1v1h-1zM7 14h1v1h-1zM8 14h1v1h-1zM10 14h1v1h-1zM19 14h1v1h-1zM22 14h1v1h-1zM25 14h1v1h-1zM29 14h1v1h-1zM30 14h1v1h-1zM32 14h1v1h-1zM34 14h1v1h-1zM35 14h1v1h-1zM4 15h1v1h-1zM6 15h1v1h-1zM9 15h1v1h-1zM14 15h1v1h-1zM18 15h1v1h-1zM19 15h1v1h-1zM24 15h1v1h-1zM25 15h1v1h-1zM26 15h1v1h-1zM27 15h1v1h-1zM28 15h1v1h-1zM29 15h1v1h-1zM32 15h1v1h-1zM33 15h1v1h-1zM34 15h1v1h-1zM35 15h1v1h-1zM4 16h1v1h-1zM5 16h1v1h-1zM7 16h1v1h-1zM8 16h1v1h-1zM9 16h1v1h-1zM10 16h1v1h-1zM14 16h1v1h-1zM16 16h1v1h-1zM19 16h1v1h-1zM22 16h1v1h-1zM25 16h1v1h-1zM28 16h1v1h-1zM29 16h1v1h-1zM31 16h1v1h-1zM32 16h1v1h-1zM33 16h1v1h-1zM35 16h1v1h-1zM36 16h1v1h-1zM5 17h1v1h-1zM7 17h1v1h-1zM11 17h1v1h-1zM13 17h1v1h-1zM14 17h1v1h-1zM15 17h1v1h-1zM16 17h1v1h-1zM18 17h1v1h-1zM19 17h1v1h-1zM20 17h1v1h-1zM24 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM27 17h1v1h-1zM28 17h1v1h-1zM30 17h1v1h-1zM31 17h1v1h-1zM34 17h1v1h-1zM35 17h1v1h-1zM36 17h1v1h-1zM6 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM11 18h1v1h-1zM12 18h1v1h-1zM14 18h1v1h-1zM15 18h1v1h-1zM21 18h1v1h-1zM22 18h1v1h-1zM23 18h1v1h-1zM25 18h1v1h-1zM26 18h1v1h-1zM29 18h1v1h-1zM30 18h1v1h-1zM33 18h1v1h-1zM34 18h1v1h-1zM35 18h1v1h-1zM5 19h1v1h-1zM6 19h1v1h-1zM7 19h1v1h-1zM8 19h1v1h-1zM11 19h1v1h-1zM12 19h1v1h-1zM13 19h1v1h-1zM15 19h1v1h-1zM18 19h1v1h-1zM20 19h1v1h-1zM22 19h1v1h-1zM23 19h1v1h-1zM24 19h1v1h-1zM25 19h1v1h-1zM26 19h1v1h-1zM29 19h1v1h-1zM30 19h1v1h-1zM31 19h1v1h-1zM32 19h1v1h-1zM33 19h1v1h-1zM34 19h1v1h-1zM4 20h1v1h-1zM6 20h1v1h-1zM7 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM12 20h1v1h-1zM14 20h1v1h-1zM15 20h1v1h-1zM16 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM22 20h1v1h-1zM23 20h1v1h-1zM24 20h1v1h-1zM27 20h1v1h-1zM28 20h1v1h-1zM29 20h1v1h-1zM31 20h1v1h-1zM32 20h1v1h-1zM36 20h1v1h-1zM4 21h1v1h-1zM7 21h1v1h-1zM12 21h1v1h-1zM14 21h1v1h-1zM16 21h1v1h-1zM20 21h1v1h-1zM21 21h1v1h-1zM22 21h1v1h-1zM23 21h1v1h-1zM24 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM30 21h1v1h-1zM31 21h1v1h-1zM33 21h1v1h-1zM34 21h1v1h-1zM36 21h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM8 22h1v1h-1zM10 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM21 22h1v1h-1zM24 22h1v1h-1zM26 22h1v1h-1zM31 22h1v1h-1zM32 22h1v1h-1zM34 22h1v1h-1zM4 23h1v1h-1zM5 23h1v1h-1zM6 23h1v1h-1zM9 23h1v1h-1zM11 23h1v1h-1zM13 23h1v1h-1zM14 23h1v1h-1zM15 23h1v1h-1zM17 23h1v1h-1zM20 23h1v1h-1zM21 23h1v1h-1zM22 23h1v1h-1zM29 23h1v1h-1zM31 23h1v1h-1zM32 23h1v1h-1zM33 23h1v1h-1zM34 23h1v1h-1zM36 23h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM8 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM14 24h1v1h-1zM15 24h1v1h-1zM16 24h1v1h-1zM18 24h1v1h-1zM20 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM25 24h1v1h-1zM26 24h1v1h-1zM28 24h1v1h-1zM29 24h1v1h-1zM31 24h1v1h-1zM32 24h1v1h-1zM33 24h1v1h-1zM4 25h1v1h-1zM5 25h1v1h-1zM7 25h1v1h-1zM8 25h1v1h-1zM13 25h1v1h-1zM16 25h1v1h-1zM17 25h1v1h-1zM19 25h1v1h-1zM21 25h1v1h-1zM22 25h1v1h-1zM25 25h1v1h-1zM27 25h1v1h-1zM28 25h1v1h-1zM29 25h1v1h-1zM30 25h1v1h-1zM36 25h1v1h-1zM4 26h1v1h-1zM10 26h1v1h-1zM12 26h1v1h-1zM13 26h1v1h-1zM15 26h1v1h-1zM16 26h1v1h-1zM19 26h1v1h-1zM20 26h1v1h-1zM21 26h1v1h-1zM24 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM29 26h1v1h-1zM35 26h1v1h-1zM4 27h1v1h-1zM7 27h1v1h-1zM9 27h1v1h-1zM11 27h1v1h-1zM14 27h1v1h-1zM15 27h1v1h-1zM16 27h1v1h-1zM18 27h1v1h-1zM19 27h1v1h-1zM22 27h1v1h-1zM25 27h1v1h-1zM28 27h1v1h-1zM32 27h1v1h-1zM33 27h1v1h-1zM34 27h1v1h-1zM4 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM9 28h1v1h-1zM10 28h1v1h-1zM11 28h1v1h-1zM13 28h1v1h-1zM17 28h1v1h-1zM19 28h1v1h-1zM21 28h1v1h-1zM28 28h1v1h-1zM29 28h1v1h-1zM30 28h1v1h-1zM31 28h1v1h-1zM32 28h1v1h-1zM35 28h1v1h-1zM36 28h1v1h-1zM12 29h1v1h-1zM14 29h1v1h-1zM22 29h1v1h-1zM23 29h1v1h-1zM24 29h1v1h-1zM25 29h1v1h-1zM27 29h1v1h-1zM28 29h1v1h-1zM32 29h1v1h-1zM34 29h1v1h-1zM35 29h1v1h-1zM36 29h1v1h-1zM4 30h1v1h-1zM5 30h1v1h-1zM6 30h1v1h-1zM7 30h1v1h-1zM8 30h1v1h-1zM9 30h1v1h-1zM10 30h1v1h-1zM14 30h1v1h-1zM15 30h1v1h-1zM19 30h1v1h-1zM20 30h1v1h-1zM22 30h1v1h-1zM24 30h1v1h-1zM25 30h1v1h-1zM27 30h1v1h-1zM28 30h1v1h-1zM30 30h1v1h-1zM32 30h1v1h-1zM34 30h1v1h-1zM35 30h1v1h-1zM4 31h1v1h-1zM10 31h1v1h-1zM12 31h1v1h-1zM13 31h1v1h-1zM14 31h1v1h-1zM16 31h1v1h-1zM17 31h1v1h-1zM20 31h1v1h-1zM23 31h1v1h-1zM24 31h1v1h-1zM25 31h1v1h-1zM26 31h1v1h-1zM27 31h1v1h-1zM28 31h1v1h-1zM32 31h1v1h-1zM33 31h1v1h-1zM34 31h1v1h-1zM35 31h1v1h-1zM4 32h1v1h-1zM6 32h1v1h-1zM7 32h1v1h-1zM8 32h1v1h-1zM10 32h1v1h-1zM12 32h1v1h-1zM14 32h1v1h-1zM16 32h1v1h-1zM18 32h1v1h-1zM22 32h1v1h-1zM25 32h1v1h-1zM28 32h1v1h-1zM29 32h1v1h-1zM30 32h1v1h-1zM31 32h1v1h-1zM32 32h1v1h-1zM33 32h1v1h-1zM4 33h1v1h-1zM6 33h1v1h-1zM7 33h1v1h-1zM8 33h1v1h-1zM10 33h1v1h-1zM12 33h1v1h-1zM16 33h1v1h-1zM19 33h1v1h-1zM20 33h1v1h-1zM21 33h1v1h-1zM24 33h1v1h-1zM26 33h1v1h-1zM27 33h1v1h-1zM29 33h1v1h-1zM32 33h1v1h-1zM34 33h1v1h-1zM36 33h1v1h-1zM4 34h1v1h-1zM6 34h1v1h-1zM7 34h1v1h-1zM8 34h1v1h-1zM10 34h1v1h-1zM12 34h1v1h-1zM17 34h1v1h-1zM22 34h1v1h-1zM23 34h1v1h-1zM26 34h1v1h-1zM27 34h1v1h-1zM30 34h1v1h-1zM31 34h1v1h-1zM33 34h1v1h-1zM34 34h1v1h-1zM4 35h1v1h-1zM10 35h1v1h-1zM13 35h1v1h-1zM14 35h1v1h-1zM15 35h1v1h-1zM16 35h1v1h-1zM20 35h1v1h-1zM23 35h1v1h-1zM24 35h1v1h-1zM25 35h1v1h-1zM27 35h1v1h-1zM32 35h1v1h-1zM33 35h1v1h-1zM34 35h1v1h-1zM4 36h1v1h-1zM5 36h1v1h-1zM6 36h1v1h-1zM7 36h1v1h-1zM8 36h1v1h-1zM9 36h1v1h-1zM10 36h1v1h-1zM12 36h1v1h-1zM13 36h1v1h-1zM16 36h1v1h-1zM17 36h1v1h-1zM18 36h1v1h-1zM21 36h1v1h-1zM23 36h1v1h-1zM26 36h1v1h-1zM27 36h1v1h-1zM28 36h1v1h-1zM31 36h1v1h-1zM35 36h1v1h-1z" fill="#000000"/></svg></div>
+    <p class="ref"><strong>doucki56.github.io/pular-ajami-app-</strong> — application gratuite, hors ligne, multiplateforme</p>
+  </div>
+
+  <div class="pagebreak">— page suivante —</div>
+  <h2>1. Les consonnes standard</h2>
+  <table>
+    <tr><th>Latin</th><th>Ajami</th><th>Exemple</th></tr>
+    <tr><td>B</td><td class="aj" lang="ar">ب</td><td><span class="aj-inline" lang="ar">بَابَ</span> → Baaba</td></tr>
+    <tr><td>T</td><td class="aj" lang="ar">ت</td><td><span class="aj-inline" lang="ar">تَاتِ</span> → Taati</td></tr>
+    <tr><td>J</td><td class="aj" lang="ar">ج</td><td><span class="aj-inline" lang="ar">جَاجَ</span> → Jaaja</td></tr>
+    <tr><td>D</td><td class="aj" lang="ar">د</td><td><span class="aj-inline" lang="ar">دُودُ</span> → Duudu</td></tr>
+    <tr><td>R</td><td class="aj" lang="ar">ر</td><td><span class="aj-inline" lang="ar">رࣹيدُ</span> → Rèèdu</td></tr>
+    <tr><td>S</td><td class="aj" lang="ar">س</td><td><span class="aj-inline" lang="ar">سَسَ</span> → Sasa</td></tr>
+    <tr><td>F</td><td class="aj" lang="ar">ف</td><td><span class="aj-inline" lang="ar">فِلّ</span> → Fello</td></tr>
+    <tr><td>K</td><td class="aj" lang="ar">ك</td><td><span class="aj-inline" lang="ar">كُلَ</span> → Kula</td></tr>
+    <tr><td>G</td><td class="aj" lang="ar">گ</td><td><span class="aj-inline" lang="ar">گَارَ</span> → Gaara</td></tr>
+    <tr><td>L</td><td class="aj" lang="ar">ل</td><td><span class="aj-inline" lang="ar">لَنْظَنْ</span> → Landhan</td></tr>
+    <tr><td>M</td><td class="aj" lang="ar">م</td><td><span class="aj-inline" lang="ar">مَارْ</span> → Maaro</td></tr>
+    <tr><td>N</td><td class="aj" lang="ar">ن</td><td><span class="aj-inline" lang="ar">نَامُ</span> → Naamu</td></tr>
+    <tr><td>H</td><td class="aj" lang="ar">ه</td><td><span class="aj-inline" lang="ar">هَوَ</span> → Hawa</td></tr>
+    <tr><td>W</td><td class="aj" lang="ar">و</td><td><span class="aj-inline" lang="ar">وَادُ</span> → Waado</td></tr>
+    <tr><td>Y</td><td class="aj" lang="ar">ي</td><td><span class="aj-inline" lang="ar">يَايࣹ</span> → Yaayè</td></tr>
+  </table>
+
+  <h2>2. Les consonnes spécifiques du pular</h2>
+  <table>
+    <tr><th>Latin</th><th>Ajami</th><th>Exemple</th><th>Description</th></tr>
+    <tr><td>Ɓ (Bha)</td><td class="aj" lang="ar">ࢠ</td><td><span class="aj-inline" lang="ar">ࢠِرَ</span> → Ɓira</td><td>Injectif bilabial</td></tr>
+    <tr><td>P (Pa)</td><td class="aj" lang="ar">پ</td><td><span class="aj-inline" lang="ar">پُتࣹ</span> → Putèè</td><td>Consonne sourde</td></tr>
+    <tr><td>Ɗ (Dha)</td><td class="aj" lang="ar">ط</td><td><span class="aj-inline" lang="ar">طَطِ</span> → Ɗaɗi</td><td>Injectif alvéolaire (ɗ)</td></tr>
+    <tr><td>C (Tha)</td><td class="aj" lang="ar">ݖ</td><td><span class="aj-inline" lang="ar">ݖُلِّ</span> → Colli</td><td>Affriquée (« tch »)</td></tr>
+    <tr><td>Ƴ (Yha)</td><td class="aj" lang="ar">ڃ</td><td><span class="aj-inline" lang="ar">ڃَمَلْ</span> → Ƴamal</td><td>Glottalisée</td></tr>
+    <tr><td>Ŋ (Nha)</td><td class="aj" lang="ar">ݝ</td><td><span class="aj-inline" lang="ar">ݝَرِ</span> → Ŋari</td><td>Nasale vélaire</td></tr>
+    <tr><td>Ñ (Nya)</td><td class="aj" lang="ar">ݧ</td><td><span class="aj-inline" lang="ar">ݧَارِ</span> → Ñaari</td><td>Nasale palatale (« gn »)</td></tr>
+  </table>
+
+  <h2>3. Les consonnes prénasalisées (toujours avec Noun)</h2>
+  <p>En pular, <strong>mb, nd, nj, ng</strong> sont des phonèmes uniques : ils s'écrivent ensemble avec un Noun (ن), <strong>sans soukoun</strong> sur le Noun.</p>
+  <table>
+    <tr><th>Latin</th><th>Ajami</th><th>Exemples validés</th></tr>
+    <tr><td>Mb</td><td class="aj" lang="ar">نب</td><td><span class="aj-inline" lang="ar">نبࣹيوَ</span> → mbeewa</td></tr>
+    <tr><td>Nɗ</td><td class="aj" lang="ar">نط</td><td><span class="aj-inline" lang="ar">نطَ</span> → nɗa</td></tr>
+    <tr><td>Nj</td><td class="aj" lang="ar">نج</td><td><span class="aj-inline" lang="ar">نجَارࣹ</span> → njaare</td></tr>
+    <tr><td>Nd</td><td class="aj" lang="ar">ند</td><td><span class="aj-inline" lang="ar">ندِيَمْ</span> → ndiyam · <span class="aj-inline" lang="ar">ندࣹرْ</span> → nder</td></tr>
+    <tr><td>Ng</td><td class="aj" lang="ar">نگ</td><td><span class="aj-inline" lang="ar">نگَارِ</span> → ngaari</td></tr>
+  </table>
+
+  <div class="pagebreak">— page suivante —</div>
+  <h2>4. Les voyelles brèves</h2>
+  <table>
+    <tr><th>Son</th><th>Nom pular</th><th>Signe</th><th>Sur Alif (début)</th></tr>
+    <tr><td>a</td><td>Pocal</td><td class="aj" lang="ar">ـَ</td><td class="aj" lang="ar">أَ</td></tr>
+    <tr><td>i</td><td>Pical</td><td class="aj" lang="ar">ـِ</td><td class="aj" lang="ar">إِ</td></tr>
+    <tr><td>u</td><td>Tural</td><td class="aj" lang="ar">ـُ</td><td class="aj" lang="ar">أُ</td></tr>
+    <tr><td>e</td><td>Teral</td><td class="aj" lang="ar">ـࣹ</td><td class="aj" lang="ar">إࣹ</td></tr>
+    <tr><td>e (Nèènè)</td><td>variante du Teral</td><td class="aj" lang="ar">ـٖ</td><td class="aj" lang="ar">إٖ</td></tr>
+    <tr><td>o</td><td>Toral</td><td class="aj" lang="ar">ـࣷ / ٝ</td><td class="aj" lang="ar">إࣷ / أٝ</td></tr>
+  </table>
+  <div class="warn">⚠️ <strong>Attention :</strong> le e (Teral) prend toujours le Hamza <strong>en dessous</strong> <span class="aj-inline" lang="ar">إࣹ</span> — <strong>jamais</strong> <span class="aj-inline" lang="ar">أࣹ</span>.</div>
+
+  <h3>Voyelles longues (prolongation)</h3>
+  <table>
+    <tr><th>Latin</th><th>Ajami</th><th>Exemple</th></tr>
+    <tr><td>aa</td><td class="aj" lang="ar">ا</td><td><span class="aj-inline" lang="ar">بَابَ</span> → Baaba</td></tr>
+    <tr><td>ii</td><td class="aj" lang="ar">ئِي (ou ي)</td><td>—</td></tr>
+    <tr><td>uu</td><td class="aj" lang="ar">أُو</td><td><span class="aj-inline" lang="ar">وُورِ</span> → wuuri</td></tr>
+    <tr><td>ee</td><td class="aj" lang="ar">ئࣹي</td><td>—</td></tr>
+    <tr><td>oo</td><td class="aj" lang="ar">ئُو (ou و)</td><td><span class="aj-inline" lang="ar">أٝوطٝو</span> → ooɗoo</td></tr>
+    <tr><td>èè</td><td class="aj" lang="ar">ئٜي</td><td>—</td></tr>
+  </table>
+
+  <h2>5. Lecture syllabique</h2>
+  <p>Lisez chaque syllabe à voix haute : brève puis longue.</p>
+  <table>
+    <tr><th>Voyelle</th><th>Brève</th><th>Longue</th></tr>
+    <tr><td>a (Pocal)</td><td class="aj" lang="ar">بَ · تَ · سَ</td><td class="aj" lang="ar">بَا · تَا · سَا</td></tr>
+    <tr><td>i (Pical)</td><td class="aj" lang="ar">بِ · تِ · سِ</td><td class="aj" lang="ar">لِي · سِي</td></tr>
+    <tr><td>u (Tural)</td><td class="aj" lang="ar">بُ · تُ · سُ</td><td class="aj" lang="ar">تُو · كُو</td></tr>
+    <tr><td>e (Teral)</td><td class="aj" lang="ar">بࣹ · تࣹ · سࣹ</td><td class="aj" lang="ar">پࣹي · سࣹي</td></tr>
+    <tr><td>o (Toral)</td><td class="aj" lang="ar">بٝ · تٝ · سٝ</td><td class="aj" lang="ar">تُو · كُو</td></tr>
+  </table>
+
+  <h2>6. Sukun, Chadda, Tanwiin et formes des lettres</h2>
+  <ul>
+    <li><strong>Sukun</strong> <span class="aj-inline" lang="ar">كُولْ</span> ( ْ ) : ferme la syllabe — consonne sans voyelle. <strong>Jamais en début de mot</strong> (règle 9).</li>
+    <li><strong>Chadda</strong> <span class="aj-inline" lang="ar">نَدَّلْ</span> ( ّ ) : double la consonne — <span class="aj-inline" lang="ar">فِلّ</span> → Fello (ll).</li>
+    <li><strong>Tanwiin</strong> <span class="aj-inline" lang="ar">تَنوِين</span> : double la voyelle finale — ً (an), ٍ (in), ٌ (un).</li>
+    <li><strong>Formes</strong> : isolée · début · milieu · fin. Les lettres <span class="aj-inline" lang="ar">ا · د · ر · و</span> ne se lient pas à la suivante.</li>
+  </ul>
+
+  <div class="pagebreak">— page suivante —</div>
+  <h2>7. Les règles majeures (6 à 10)</h2>
+  <div class="rule"><strong>Règle 6 — Chadda ( ّ ) :</strong> une consonne portant le Chadda est obligatoirement doublée en latin. <span class="aj-inline" lang="ar">فِلّ</span> → Fe<strong>ll</strong>o · Ghirritagol → <span class="aj-inline" lang="ar">قِرِّتَگُلْ</span>.</div>
+  <div class="rule"><strong>Règle 7 — Le Waw (و) :</strong> consonne (w) après Fatha ou Kasra, ou s'il porte un Soukoun (<span class="aj-inline" lang="ar">كَوتَلْ</span> → kawtal, <span class="aj-inline" lang="ar">مَوْنُگٝلْ</span> → mawnugol) ; voyelle longue (oo/uu) après Tural, Toral ou Potthal (<span class="aj-inline" lang="ar">وُورِ</span> → wuuri, <span class="aj-inline" lang="ar">أٝوطٝو</span> → ooɗoo).</div>
+  <div class="rule"><strong>Règle 8 — Siège du Hamza :</strong> au-dessus أ pour les voyelles arrière : a (أَ), u (أُ), o (أٝ) ; en dessous إ pour les voyelles avant : i (إِ), e (إࣹ ou إٖ), o fermé (إࣷ).</div>
+  <div class="rule"><strong>Règle 9 — Interdiction absolue du Soukoun en début de mot :</strong> Aucun mot pulaar ne peut commencer par une syllabe fermée (consonne + Soukoun). Cela vaut y compris pour les prénasalisées (mb, nd, nj, ng). Exemples : <em>ndiyam</em> → <span class="aj-inline" lang="ar">ندِيَمْ</span> · <em>ngaari</em> → <span class="aj-inline" lang="ar">نگَارِ</span> · <em>stool</em> → <span class="aj-inline" lang="ar">إِسْتٝول</span> (i-stool).</div>
+  <div class="rule"><strong>Règle 10 — Noms propres arabes :</strong> les noms des Prophètes et Compagnons conservent l'orthographe arabe standard : Muhammadu → <span class="aj-inline" lang="ar">مُحَمَّدُ</span> · 'Umaru → <span class="aj-inline" lang="ar">عُمَرُ</span>.</div>
+
+  <h2>8. Vocabulaire de base validé (17 mots)</h2>
+  <table>
+    <tr><th>Ajami</th><th>Latin</th><th>Français</th></tr>
+    <tr><td class="aj" lang="ar">أَ جَرَامَ</td><td>a jaraama</td><td>bonjour / merci</td></tr>
+    <tr><td class="aj" lang="ar">جَمْ وَ؟</td><td>jam wa?</td><td>ça va ?</td></tr>
+    <tr><td class="aj" lang="ar">جَمْ تَنْ</td><td>jam tan</td><td>ça va, paix seulement</td></tr>
+    <tr><td class="aj" lang="ar">بَابَ</td><td>baaba</td><td>le père</td></tr>
+    <tr><td class="aj" lang="ar">ندِيَمْ</td><td>ndiyam</td><td>l'eau</td></tr>
+    <tr><td class="aj" lang="ar">نبࣹيوَ</td><td>mbeewa</td><td>la chèvre</td></tr>
+    <tr><td class="aj" lang="ar">نگَارِ</td><td>ngaari</td><td>la vache</td></tr>
+    <tr><td class="aj" lang="ar">ݖُلِّ</td><td>colli</td><td>les oiseaux</td></tr>
+    <tr><td class="aj" lang="ar">فِلّ</td><td>fello</td><td>la montagne</td></tr>
+    <tr><td class="aj" lang="ar">نَامُ</td><td>naamu</td><td>le riz</td></tr>
+    <tr><td class="aj" lang="ar">دُودُ</td><td>duudu</td><td>doucement</td></tr>
+    <tr><td class="aj" lang="ar">كَوتَلْ</td><td>kawtal</td><td>le groupe, l'association</td></tr>
+    <tr><td class="aj" lang="ar">ݧَارِ</td><td>ñaari</td><td>deux</td></tr>
+    <tr><td class="aj" lang="ar">مَوْنُگٝلْ</td><td>mawnugol</td><td>grandir</td></tr>
+    <tr><td class="aj" lang="ar">وُورِ</td><td>wuuri</td><td>vivre</td></tr>
+    <tr><td class="aj" lang="ar">أٝوطٝو</td><td>ooɗoo</td><td>boire</td></tr>
+    <tr><td class="aj" lang="ar">إِسْتٝول</td><td>istool</td><td>le tabouret (emprunt)</td></tr>
+  </table>
+
+  <h2>9. Les nombres (1 à 10)</h2>
+  <p>go'o (1) · ñaari (2) · tati (3) · nawi (4) · joyi (5) · jeego (6) · jeewi (7) · jeetati (8) · teeɗi (9) · sappo (10)</p>
+
+  <div class="pagebreak">— page suivante —</div>
+  <h2>10. Méthode d'apprentissage (rien rater)</h2>
+  <ol class="steps">
+    <li><strong>Lire</strong> : suivez les séances s1, s2, s3… dans l'ordre — chaque séance a des objectifs, une leçon, un quiz et un devoir.</li>
+    <li><strong>Écrire</strong> : utilisez l'atelier d'écriture et le clavier ajami intégré (⌨️ Clavier ajami) ou le clavier CaramBolfubhe.</li>
+    <li><strong>Parler</strong> : écoutez les enregistrements de l'enseignant dans les fiches, répétez à voix haute.</li>
+    <li><strong>Réviser</strong> : faites les quiz après chaque séance ; refaites-les jusqu'à 100 %.</li>
+    <li><strong>Salle de cours connectée</strong> : entrez la clé de classe dans Paramètres pour recevoir les contenus et devoirs du formateur.</li>
+    <li><strong>Devoirs</strong> : déposez vos devoirs, consultez les corrections de l'enseignant.</li>
+    <li><strong>Questions</strong> : posez vos questions aux formateurs depuis le menu 💬 — les réponses arrivent dans l'application.</li>
+  </ol>
+  <div class="tip">💡 Installez l'application : ouvrez <strong>doucki56.github.io/pular-ajami-app-</strong> puis menu du navigateur → « Installer » / « Ajouter à l'écran d'accueil ». Elle fonctionne ensuite <strong>sans internet</strong>.</div>
+
+  <p class="foot">Livret complet — Ajami pulaar harmonisé · Référence : Bamako (1987) · Norme ISESCO / UNESCO<br>
+  Application : <strong>doucki56.github.io/pular-ajami-app-</strong> · Clavier : keyman.com/keyboards/carambolfulbhe</p>
+</div>
+</body>
+</html>

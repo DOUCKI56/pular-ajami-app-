@@ -1,5 +1,5 @@
 /* Service worker — cache hors ligne simple (cache-first, mise à jour en arrière-plan). */
-const CACHE = "pular-ajami-v26";
+const CACHE = "pular-ajami-v27";
 const ASSETS = [
   "./",
   "index.html",
@@ -15,6 +15,8 @@ const ASSETS = [
   "icon.svg",
   "docs/Regles_Ajami_Pulaar.html",
   "docs/guide-utilisation.html",
+  "docs/livret-ajami.html",
+  "docs/presentation-projet.html",
   "docs/affiche-alphabet.html",
   "docs/fiche-lecture-syllabes.html",
   "docs/fiche-vocabulaire-classe.html",
